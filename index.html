@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fides et Ratio Computatrum: Uma Análise Interativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Gold -->
+    <!-- Application Structure Plan: A single-page application with a fixed sidebar for thematic navigation, allowing non-linear exploration. The core is divided into: 1) Introduction, 2) Foundational Concepts (Dogma, Logic), 3) An interactive Dogma Explorer to browse the 44 dogmas by category, 4) A simulated Prolog "Logic Laboratory" to demonstrate inference on key case studies, and 5) Conclusion. This structure breaks down the dense report into digestible, interactive modules, prioritizing user exploration and understanding over a linear reading. The Logic Lab is designed to be the central "wow" factor, making the abstract concept of theological computation tangible. -->
+    <!-- Visualization & Content Choices: Report Info: 44 Dogmas -> Goal: Organize/Explore -> Method: Interactive Accordion (HTML/JS) -> Interaction: Click to expand/collapse categories -> Justification: More user-friendly and less overwhelming than a static table. Report Info: Prolog Case Studies -> Goal: Demonstrate Inference -> Method: Simulated Prolog Environment (HTML/JS) -> Interaction: Click pre-defined queries to see results and explanations -> Justification: Makes the core thesis tangible and interactive, showing logic in action. No quantitative data is present, so no charts (Chart.js/Plotly) are used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #FDFBF8;
+            color: #402E32;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #F4EFE7;
+            color: #A98158;
+            border-left-color: #A98158;
+        }
+        .nav-link:hover {
+            background-color: #F4EFE7;
+            border-left-color: #D4B491;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .dogma-category {
+            transition: all 0.3s ease;
+            border: 1px solid #EAE0D5;
+        }
+        .dogma-category:hover {
+            border-color: #A98158;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .prolog-code {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .query-btn {
+            background-color: #EAE0D5;
+            transition: all 0.2s ease;
+        }
+        .query-btn:hover {
+            background-color: #A98158;
+            color: #ffffff;
+        }
+        .result-box {
+            background-color: #F4EFE7;
+            border-left: 4px solid #A98158;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 bg-[#F4EFE7] border-r border-[#EAE0D5] flex-shrink-0">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-[#402E32]">Fides et Ratio</h1>
+                <h2 class="text-lg text-[#A98158]">Computatrum</h2>
+            </div>
+            <nav id="navigation" class="mt-4">
+                <a href="#intro" class="nav-link block p-4 text-lg font-semibold active">Introdução</a>
+                <a href="#foundations" class="nav-link block p-4 text-lg font-semibold">Fundamentos</a>
+                <a href="#explorer" class="nav-link block p-4 text-lg font-semibold">Explorador de Dogmas</a>
+                <a href="#lab" class="nav-link block p-4 text-lg font-semibold">Laboratório de Lógica</a>
+                <a href="#conclusion" class="nav-link block p-4 text-lg font-semibold">Conclusão</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10 lg:p-12 overflow-y-auto">
+
+            <!-- Introduction Section -->
+            <section id="intro" class="content-section active">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">A Fé que Procura a Compreensão Computacional</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Bem-vindo a uma exploração interativa do projeto "Fides et Ratio Computatrum". Esta aplicação traduz um relatório académico denso sobre a formalização do dogma católico numa experiência digital. O objetivo é demonstrar como os princípios da lógica formal e da programação, especificamente a linguagem Prolog, podem ser aplicados para modelar e raciocinar sobre as complexas verdades da fé. Navegue pelas secções para compreender os conceitos, explorar os dogmas e interagir com simulações lógicas que unem dois mundos aparentemente distintos: a teologia e a ciência da computação.
+                </p>
+                <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg">
+                    <p class="text-xl italic text-[#402E32]">
+                        "Este trabalho pode ser visto como uma continuação, com as ferramentas do século XXI, da longa tradição de <span class="font-semibold">fides quaerens intellectum</span> ('a fé que procura a compreensão')."
+                    </p>
+                </div>
+            </section>
+
+            <!-- Foundations Section -->
+            <section id="foundations" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-8">Os Pilares do Sistema</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-10">
+                    Para construir um modelo lógico da fé, precisamos primeiro de definir os nossos blocos de construção. Esta secção explora os dois pilares fundamentais do projeto: a natureza precisa de um **dogma católico** e as ferramentas da **lógica formal** usadas para o representar. Compreender estes conceitos é essencial para apreciar a análise que se segue.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-[#EAE0D5]">
+                        <h3 class="text-3xl font-bold mb-4">O Que é um Dogma?</h3>
+                        <p class="mb-4">No catolicismo, um dogma não é uma mera opinião, mas uma verdade de fé revelada por Deus e proposta de forma infalível pela Igreja. Cada dogma possui características essenciais:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><span class="font-semibold">Absoluto e Definitivo:</span> É imutável, pois a sua fonte é Deus.</li>
+                            <li><span class="font-semibold">Infalível:</span> A sua proclamação está protegida do erro pelo Espírito Santo.</li>
+                            <li><span class="font-semibold">Inquestionável:</span> Não pode ser revogado ou negado após a sua proclamação.</li>
+                        </ul>
+                        <p class="mt-4">Esta precisão e certeza tornam os dogmas análogos a axiomas num sistema formal, ideais para a modelação computacional.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-[#EAE0D5]">
+                        <h3 class="text-3xl font-bold mb-4">As Ferramentas da Lógica</h3>
+                        <p class="mb-4">Para traduzir a teologia numa linguagem que um computador possa entender, usamos a Lógica de Predicados e a linguagem Prolog.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><span class="font-semibold">Lógica de Predicados:</span> Permite-nos representar objetos (ex: `jesus`, `maria`), propriedades (ex: `é_divino(X)`) e relações (ex: `é_mãe_de(X, Y)`).</li>
+                            <li><span class="font-semibold">Prolog:</span> Uma linguagem de programação declarativa. Em vez de dizermos ao computador *como* fazer algo, nós declaramos o que é verdade (factos e regras) e ele deduz as respostas (inferência).</li>
+                        </ul>
+                         <p class="mt-4">Esta abordagem espelha o raciocínio teológico, onde conclusões são derivadas de um conjunto de verdades reveladas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dogma Explorer Section -->
+            <section id="explorer" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Explorador de Dogmas</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Os 44 principais dogmas da fé católica são tradicionalmente organizados em oito categorias temáticas. Clique numa categoria abaixo para revelar os dogmas associados a ela. Esta estrutura oferece um mapa do terreno dogmático que serve de base para a nossa base de conhecimento formal.
+                </p>
+                <div id="dogma-container" class="space-y-4"></div>
+            </section>
+
+            <!-- Logic Lab Section -->
+            <section id="lab" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Laboratório de Lógica</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                    Esta é a parte central da nossa análise. Aqui, simulamos como uma base de conhecimento em Prolog pode representar e raciocinar sobre alguns dos dogmas mais complexos. Selecione um estudo de caso, observe os factos e regras que o modelam e, em seguida, faça consultas para ver o motor de inferência em ação.
+                </p>
+                <div class="flex items-center justify-center space-x-4 mb-8">
+                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-[#A98158] text-white" data-case="trinity">A Santíssima Trindade</button>
+                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-gray-200 text-gray-700" data-case="hypostatic">A União Hipostática</button>
+                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-gray-200 text-gray-700" data-case="baptism">Causalidade Sacramental</button>
+                </div>
+
+                <div id="lab-content" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-3xl font-bold mb-4">Base de Conhecimento (Prolog)</h3>
+                        <div id="prolog-code-display" class="prolog-code p-4 rounded-lg text-sm h-96 overflow-y-auto"></div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-bold mb-4">Consultas e Inferências</h3>
+                        <div id="queries-container" class="space-y-3 mb-6"></div>
+                        <h4 class="text-2xl font-bold mb-2">Resultado:</h4>
+                        <div id="result-display" class="result-box p-4 rounded-md min-h-[100px]">
+                            <p class="text-gray-500">Selecione uma consulta para ver o resultado da inferência lógica.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Conclusion Section -->
+            <section id="conclusion" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Novas Vistas para uma Ciência Antiga</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    A aplicação da lógica computacional à teologia não procura substituir a fé pela razão, mas sim usar a razão formal para iluminar a coerência interna da fé. Este projeto demonstrou que é viável modelar verdades teológicas complexas, derivar inferências corretas e, mais importante, usar os limites do formalismo para identificar com precisão os contornos do mistério.
+                </p>
+                <h3 class="text-3xl font-bold mt-8 mb-4">Direções Futuras</h3>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Esta abordagem abre um vasto campo para futuras investigações. As possibilidades incluem a expansão da base de conhecimento para todos os dogmas, o uso de lógicas mais sofisticadas (temporal, deôntica) para modelar outros aspetos da doutrina e a aplicação da mesma metodologia a outros sistemas teológicos, abrindo um novo e rigoroso caminho para o diálogo inter-religioso baseado na análise formal das suas arquiteturas de crença.
+                </p>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navigationLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            // Navigation Logic
+            const navigation = document.getElementById('navigation');
+            navigation.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const targetId = e.target.getAttribute('href').substring(1);
+
+                    navigationLinks.forEach(link => link.classList.remove('active'));
+                    e.target.classList.add('active');
+
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            // Dogma Data
+            const dogmas = {
+                "Sobre Deus": [
+                    "A Existência de Deus (conhecível pela razão)", "A Existência de Deus como Objeto de Fé", "A Unidade de Deus", "Deus é Eterno", "A Santíssima Trindade"
+                ],
+                "Sobre Jesus Cristo": [
+                    "Jesus Cristo é verdadeiro Deus e Filho de Deus por Essência", "Jesus possui duas naturezas (divina e humana) sem confusão", "Cada natureza em Cristo possui uma vontade e operação próprias", "Jesus Cristo é o Filho Natural de Deus", "O sacrifício de Cristo na Cruz foi um verdadeiro sacrifício", "Cristo redimiu e reconciliou a humanidade com Deus", "Cristo ressuscitou dos mortos ao terceiro dia", "Cristo ascendeu em Corpo e Alma aos Céus"
+                ],
+                "Sobre a Criação": [
+                    "Tudo o que existe foi criado por Deus a partir do Nada (ex nihilo)", "O mundo teve um início no tempo", "Deus conserva todas as coisas criadas na existência"
+                ],
+                "Sobre o Ser Humano": [
+                    "O ser humano é composto de corpo material e alma espiritual", "O pecado de Adão propaga-se por geração (Pecado Original)", "O homem caído não pode redimir-se a si mesmo"
+                ],
+                "Dogmas Marianos": [
+                    "A Maternidade Divina de Maria (Theotokos)", "A Virgindade Perpétua de Maria", "A Imaculada Conceição de Maria", "A Assunção de Maria em Corpo e Alma"
+                ],
+                "Sobre o Papa e a Igreja": [
+                    "A Igreja foi fundada por Jesus Cristo", "Cristo conferiu a Pedro o primado de jurisdição sobre toda a Igreja", "O Papa possui poder de jurisdição pleno e supremo sobre a Igreja", "O Papa é infalível quando fala ex cathedra", "A Igreja é infalível ao definir matéria de fé e costumes"
+                ],
+                "Sobre os Sacramentos": [
+                    "O Batismo é um verdadeiro Sacramento instituído por Cristo", "A Confirmação é um verdadeiro Sacramento", "A Igreja tem o poder de perdoar os pecados cometidos após o Batismo", "A Confissão Sacramental é de direito divino e necessária para a salvação", "A Eucaristia é um verdadeiro Sacramento instituído por Cristo", "A Presença Real de Cristo na Eucaristia pela Transubstanciação", "A Unção dos Enfermos é um verdadeiro Sacramento", "A Ordem é um verdadeiro Sacramento", "O Matrimónio é um verdadeiro Sacramento"
+                ],
+                "Sobre as Últimas Coisas": [
+                    "A Morte é consequência do pecado", "O Céu (visão beatífica) é o destino dos justos", "O Inferno existe e é eterno", "O Purgatório existe como estado de purificação", "No fim do mundo, Cristo voltará para julgar", "A Ressurreição dos mortos no Último Dia", "Haverá um Juízo Universal"
+                ]
+            };
+            
+            // Dogma Explorer Logic
+            const dogmaContainer = document.getElementById('dogma-container');
+            Object.keys(dogmas).forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'dogma-category bg-white rounded-lg shadow-sm cursor-pointer';
+                
+                const header = document.createElement('div');
+                header.className = 'p-4 flex justify-between items-center';
+                header.innerHTML = `<h3 class="text-2xl font-bold text-[#402E32]">${category}</h3><span class="text-2xl text-[#A98158] transform transition-transform duration-300">+</span>`;
+                
+                const content = document.createElement('div');
+                content.className = 'p-4 border-t border-[#EAE0D5] hidden';
+                const list = document.createElement('ul');
+                list.className = 'list-disc list-inside space-y-2';
+                dogmas[category].forEach(dogma => {
+                    const item = document.createElement('li');
+                    item.textContent = dogma;
+                    list.appendChild(item);
+                });
+                content.appendChild(list);
+                
+                categoryDiv.appendChild(header);
+                categoryDiv.appendChild(content);
+                
+                header.addEventListener('click', () => {
+                    const isHidden = content.classList.toggle('hidden');
+                    header.querySelector('span').textContent = isHidden ? '+' : '−';
+                    header.querySelector('span').classList.toggle('rotate-180', !isHidden);
+                });
+                
+                dogmaContainer.appendChild(categoryDiv);
+            });
+
+            // Logic Lab Data
+            const labData = {
+                trinity: {
+                    code: `% --- FACTOS (Axiomas) ---\nsubstância(divina).\npessoa(pai).\npessoa(filho).\npessoa(espírito_santo).\n\npossui_substância(pai, divina).\npossui_substância(filho, divina).\npossui_substância(espírito_santo, divina).\n\n% --- REGRAS (Teoremas) ---\né_deus(X) :- pessoa(X), possui_substância(X, divina).\n\nconsubstancial(X, Y) :-\n    pessoa(X),\n    pessoa(Y),\n    possui_substância(X, S),\n    possui_substância(Y, S).\n\ndistinto(X, Y) :- X \\= Y.`,
+                    queries: [
+                        { text: "O Filho é Deus?", query: "?- é_deus(filho).", result: "true.", explanation: "A consulta é bem-sucedida porque a regra `é_deus(X)` é satisfeita: `filho` é um facto `pessoa` e também um facto `possui_substância(filho, divina)`." },
+                        { text: "O Pai e o Filho são distintos?", query: "?- distinto(pai, filho).", result: "true.", explanation: "A consulta é bem-sucedida porque os átomos `pai` e `filho` não são idênticos, satisfazendo o operador `\\=`." },
+                        { text: "O Pai e o Filho são consubstanciais?", query: "?- consubstancial(pai, filho).", result: "true.", explanation: "A consulta é bem-sucedida porque ambos, `pai` e `filho`, satisfazem a regra `consubstancial`: ambos são `pessoa` e ambos `possuem_substância` `divina`." },
+                        { text: "Existe mais de um Deus?", query: "?- findall(S, substância(S), L), length(L, N).", result: "L = [divina], N = 1.", explanation: "Esta consulta testa contra o politeísmo. Ela encontra todas as `substâncias` e conta-as. O resultado `N = 1` confirma que o modelo representa corretamente a existência de uma única substância divina, e portanto, um único Deus." }
+                    ]
+                },
+                hypostatic: {
+                    code: `% --- FACTOS ---\npessoa(jesus).\né_divino(jesus).\nnatureza(divina).\nnatureza(humana).\n\npossui_natureza(jesus, divina).\npossui_natureza(jesus, humana).\n\npropriedade(divina, eterno).\npropriedade(humana, mortal).\n\n% --- REGRAS ---\n% Atribuição de ações à única Pessoa de Jesus\npode_fazer(jesus, Ação) :-\n    possui_natureza(jesus, Natureza),\n    ação_possível(Natureza, Ação).\n\nação_possível(divina, perdoar_pecados).\nação_possível(humana, sofrer_na_cruz).`,
+                    queries: [
+                        { text: "Jesus pode perdoar pecados?", query: "?- pode_fazer(jesus, perdoar_pecados).", result: "true.", explanation: "A consulta é bem-sucedida. A regra `pode_fazer` encontra que `jesus` `possui_natureza` `divina`, e a `ação_possível` para a natureza `divina` é `perdoar_pecados`." },
+                        { text: "Jesus pode sofrer na cruz?", query: "?- pode_fazer(jesus, sofrer_na_cruz).", result: "true.", explanation: "A consulta é bem-sucedida. A regra `pode_fazer` encontra que `jesus` `possui_natureza` `humana`, e a `ação_possível` para a natureza `humana` é `sofrer_na_cruz`." },
+                        { text: "A natureza humana é eterna?", query: "?- propriedade(humana, eterno).", result: "false.", explanation: "A consulta falha porque não existe o facto `propriedade(humana, eterno)` na base de conhecimento. Isto demonstra a regra de Calcedónia 'sem confusão' de naturezas." }
+                    ]
+                },
+                baptism: {
+                    code: `% --- ESTADO INICIAL ---\nhumano(joão).\npossui_pecado(P, original) :- humano(P), \\+ batizado(P).\n\n% --- REGRAS DE EFICÁCIA ---\n% (Simulação de modificação de estado)\n% Se João for batizado, o pecado original é removido.\nremove_pecado(joão) :- assertz(batizado(joão)).`,
+                    queries: [
+                        { text: "João tem pecado original (antes)?", query: "?- possui_pecado(joão, original).", result: "true.", explanation: "Inicialmente, a consulta é bem-sucedida porque `joão` é `humano` e o facto `batizado(joão)` ainda não existe na base de conhecimento." },
+                        { text: "Administrar o batismo a João.", query: "?- remove_pecado(joão).", result: "true.", explanation: "Esta 'ação' é bem-sucedida e adiciona dinamicamente o facto `batizado(joão).` à base de conhecimento, simulando o efeito do sacramento." },
+                        { text: "João tem pecado original (depois)?", query: "?- possui_pecado(joão, original).", result: "false.", explanation: "Após a administração do batismo, a mesma consulta inicial agora falha. A condição `\\+ batizado(P)` na regra `possui_pecado` não é mais satisfeita, demonstrando a eficácia causal do sacramento no modelo." }
+                    ]
+                }
+            };
+            
+            // Logic Lab Logic
+            const labCaseButtons = document.querySelectorAll('.lab-case-btn');
+            const codeDisplay = document.getElementById('prolog-code-display');
+            const queriesContainer = document.getElementById('queries-container');
+            const resultDisplay = document.getElementById('result-display');
+
+            function loadLabCase(caseName) {
+                const caseData = labData[caseName];
+                
+                codeDisplay.textContent = caseData.code;
+                
+                queriesContainer.innerHTML = '';
+                caseData.queries.forEach(q => {
+                    const btn = document.createElement('button');
+                    btn.className = 'query-btn w-full text-left p-3 rounded-md font-medium';
+                    btn.textContent = q.text;
+                    btn.addEventListener('click', () => {
+                        resultDisplay.innerHTML = `
+                            <p class="font-mono text-lg text-green-700">${q.query}</p>
+                            <p class="font-mono text-lg font-bold text-[#402E32] mb-2">${q.result}</p>
+                            <p class="text-gray-700">${q.explanation}</p>
+                        `;
+                    });
+                    queriesContainer.appendChild(btn);
+                });
+
+                resultDisplay.innerHTML = `<p class="text-gray-500">Selecione uma consulta para ver o resultado da inferência lógica.</p>`;
+            }
+
+            labCaseButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    labCaseButtons.forEach(b => {
+                        b.classList.remove('bg-[#A98158]', 'text-white');
+                        b.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    btn.classList.add('bg-[#A98158]', 'text-white');
+                    btn.classList.remove('bg-gray-200', 'text-gray-700');
+                    loadLabCase(btn.dataset.case);
+                });
+            });
+
+            // Load initial case
+            loadLabCase('trinity');
+        });
+    </script>
+
+</body>
+</html>

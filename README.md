@@ -1,2 +1,3 @@
-# dogmasLogica
-Fides et Ratio Computatrum
+# Dogmas da Lógica 📜
+
+> Fides et Ratio Computatrum
