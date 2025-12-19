@@ -5,7 +5,7 @@
 % ==============================================================================
 
 % Carrega os arquivos
-:- consult('bases/escritura.pl').
+:- consult('bases/escrituras.pl').
 :- consult('bases/magisterio.pl').
 :- consult('bases/objecoes.pl').
 :- consult('motor/validador.pl').
