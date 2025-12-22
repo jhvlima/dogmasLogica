@@ -37,3 +37,26 @@ diagnostico(Dogma) :-
     write('VEREDITO: FALHA.'), nl,
     write('Motivo: Objecao nao resolvida encontrada: '), write(Argumento), nl,
     write('Cadastre uma resolucao em magisterio.pl para consertar.'), nl.
+
+% ==============================================================================
+% --- Validação de Hipóteses Pessoais ---
+% DESCRIÇÃO: Adição de motor para verificar suposições pessoais.
+% ==============================================================================
+
+% Uma hipótese é considerada "Verificável" se:
+% 1. Está marcada como 'ativa' (você quer testar ela agora)
+% 2. O fundamento bíblico citado existe na base de escrituras.
+testar_hipotese(ID) :-
+    hipotese(ID, Desc, Ref),
+    write('Testando Hipotese: '), write(ID), nl,
+    (   \+ ativa(ID) 
+    ->  write('STATUS: Inativa (Ative em hipoteses.pl para validar).'), nl
+    ;   Ref, % Verifica se a passagem existe
+        write('DESCRICAO: '), write(Desc), nl,
+        write('FUNDAMENTO: Encontrado em escrituras.pl'), nl,
+        write('STATUS: Verificada com sucesso.'), nl
+    ).
+
+testar_hipotese(ID) :-
+    \+ hipotese(ID, _, _),
+    write('ERRO: Hipotese não encontrada.').

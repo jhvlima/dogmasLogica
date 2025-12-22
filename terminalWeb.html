@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fides et Ratio: Terminal Web</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Atualizado para uma CDN estável do Tau Prolog -->
-    <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.2/tau-prolog.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #FDFBF8; color: #402E32; }
-        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
-        .prolog-terminal { background-color: #1a202c; color: #cbd5e0; font-family: 'Courier New', Courier, monospace; }
-        .logic-btn { transition: all 0.2s; border-left: 4px solid transparent; }
-        .logic-btn:hover { border-left-color: #A98158; background-color: #F4EFE7; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #FDFBF8;
+            color: #402E32;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .prolog-terminal {
+            background-color: #1a202c;
+            color: #cbd5e0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #query-input {
+            background-color: #2d3748;
+            color: #f7fafc;
+            border-color: #4a5568;
+        }
+
+        #suggestions {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+
+        .suggestion-item {
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .suggestion-item:hover {
+            background-color: #4a5568;
+        }
     </style>
 </head>
+
 <body class="p-4 md:p-10">
     <div class="max-w-5xl mx-auto">
         <header class="mb-10 text-center">
@@ -24,23 +58,17 @@
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Coluna de Comandos -->
             <div class="lg:col-span-1 space-y-4">
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-[#EAE0D5]">
                     <h3 class="text-2xl font-bold mb-4">Laboratório</h3>
-                    <p class="text-sm text-gray-600 mb-6">Selecione uma consulta para o motor processar em tempo real:</p>
-                    
-                    <div class="space-y-2" id="query-list">
-                        <button onclick="runQuery('analisar(trindade).')" class="logic-btn w-full text-left p-3 rounded-lg text-sm font-semibold">
-                            ?- analisar(trindade).
-                        </button>
-                        <button onclick="runQuery('eh_deus(jesus).')" class="logic-btn w-full text-left p-3 rounded-lg text-sm font-semibold">
-                            ?- eh_deus(jesus).
-                        </button>
-                        <button onclick="runQuery('mae_de_deus(maria).')" class="logic-btn w-full text-left p-3 rounded-lg text-sm font-semibold">
-                            ?- mae_de_deus(maria).
-                        </button>
+                    <div class="relative">
+                        <input type="text" id="query-input" class="w-full p-3 rounded-lg"
+                            placeholder="Digite sua consulta Prolog...">
+                        <div id="suggestions" class="absolute z-10 w-full mt-1 rounded-lg shadow-lg"
+                            style="display: none;"></div>
                     </div>
+                    <button id="run-query-btn"
+                        class="w-full bg-[#A98158] text-white p-3 rounded-lg mt-4 font-bold">Executar</button>
                 </div>
 
                 <div class="bg-[#F4EFE7] p-4 rounded-lg border border-[#D4B491]">
@@ -52,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Coluna do Terminal -->
             <div class="lg:col-span-2">
                 <div class="prolog-terminal rounded-xl shadow-2xl overflow-hidden flex flex-col h-[500px]">
                     <div class="bg-gray-800 px-4 py-2 flex items-center justify-between">
@@ -64,92 +91,183 @@
                         </div>
                     </div>
                     <div id="terminal-content" class="p-6 overflow-y-auto flex-1 text-sm leading-relaxed">
-                        Iniciando motor Tau-Prolog...<br>
+                        Aguardando carregamento da biblioteca Tau-Prolog...<br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/charsio.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/lists.min.js"></script>
+
     <script>
-        // O código Prolog é embutido diretamente como uma string para o navegador
-        const program = `
-            % --- BASES ---
-            possui_natureza(jesus, divina).
-            mae_de(maria, jesus).
-            
-            dogma(trindade, 'Santissima Trindade').
-            suporte(trindade, 'Joao 1:1').
-            
-            % --- MOTOR ---
-            eh_deus(Pessoa) :- possui_natureza(Pessoa, divina).
-            mae_de_deus(X) :- mae_de(X, Filho), eh_deus(Filho).
-
-            analisar(Dogma) :- 
-                dogma(Dogma, Nome),
-                suporte(Dogma, Ref),
-                write('Analisando: '), write(Nome), nl,
-                write('Suporte: '), write(Ref), nl,
-                write('Status: SOLIDO').
-        `;
-
-        let session;
+        // Define DOM elements once
         const terminal = document.getElementById('terminal-content');
         const statusEl = document.getElementById('status');
+        const queryInput = document.getElementById('query-input');
+        const suggestionsContainer = document.getElementById('suggestions');
+        const runQueryBtn = document.getElementById('run-query-btn');
 
-        window.onload = function() {
-            if (typeof pl === "undefined") {
-                statusEl.innerHTML = '<span class="w-3 h-3 bg-red-500 rounded-full"></span><span>Erro: Biblioteca não carregada</span>';
-                terminal.innerHTML += "Erro fatal: A biblioteca Tau Prolog não pôde ser carregada.<br>";
-                return;
-            }
+        let session;
+        let allSuggestions = [];
 
+        // --- Main Application Logic ---
+        async function initializeApp() {
+            terminal.innerHTML += "Biblioteca Tau-Prolog carregada. Inicializando sessão...<br>";
             session = pl.create();
 
-            // Configura a captura do 'write' do Prolog para o HTML
             session.standard_output = {
-                put_char: function(char) {
-                    terminal.innerHTML += char === '\n' ? '<br>' : char;
+                put_char: function (char) {
+                    terminal.innerHTML += char === '\n' ? '<br>' : char.replace(/</g, "&lt;").replace(/>/g, "&gt;");
                 },
-                flush: function() {}
+                flush: function () { }
             };
 
-            // Carrega o programa
-            session.consult(program, {
-                success: function() {
-                    statusEl.innerHTML = '<span class="w-3 h-3 bg-green-500 rounded-full"></span><span>Motor Pronto</span>';
-                    terminal.innerHTML += "Base de conhecimento carregada com sucesso.<br>?- ";
-                },
-                error: function(err) {
-                    statusEl.innerHTML = '<span class="w-3 h-3 bg-red-500 rounded-full"></span><span>Erro na Carga</span>';
-                    terminal.innerHTML += "Erro ao carregar base: " + err + "<br>";
-                }
-            });
-        };
+            try {
+                terminal.innerHTML += "Carregando base de conhecimento...<br>";
+                const program = await loadPrologSource();
+                session.consult(program, {
+                    success: function () {
+                        statusEl.innerHTML = '<span class="w-3 h-3 bg-green-500 rounded-full"></span><span>Motor Pronto</span>';
+                        terminal.innerHTML += "<span class='text-green-400'>Base de conhecimento carregada com sucesso.</span><br>";
+                        setupAutocomplete();
+                        setupQueryControls();
+                    },
+                    error: function (err) {
+                        handleError("Erro na Carga", "Erro ao carregar base de conhecimento: " + session.format_answer(err));
+                    }
+                });
+            } catch (error) {
+                handleError("Erro de Arquivo", `Erro ao carregar arquivos Prolog: ${error.message}.`);
+            }
+        }
 
-        function runQuery(queryString) {
-            if (!session) return;
-            terminal.innerHTML += `<span class="text-yellow-400">${queryString}</span><br>`;
-            session.query(queryString, {
-                success: function(goal) {
-                    session.answer({
-                        success: function(answer) {
-                            terminal.innerHTML += session.format_answer(answer) + "<br>?- ";
-                            terminal.scrollTop = terminal.scrollHeight;
-                        },
-                        error: function(err) {
-                            terminal.innerHTML += "Erro na resposta: " + err + "<br>?- ";
-                        },
-                        fail: function() {
-                            terminal.innerHTML += "false.<br>?- ";
-                        }
+        async function loadPrologSource() {
+            const files = [
+                'bases/escrituras.pl',
+                'bases/magisterio.pl',
+                'bases/objecoes.pl',
+                'motor/validador.pl',
+                'main.pl'
+            ];
+            // Prepend use_module directives to load necessary libraries
+            let combinedCode = `
+                :- use_module(library(charsio)).
+                :- use_module(library(lists)).
+            `;
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) {
+                        throw new Error(`'${file}' not found (${response.status})`);
+                    }
+                    combinedCode += await response.text() + '\n';
+                } catch (e) {
+                    // If main.pl is not found, it's not a critical error, so we can ignore it.
+                    if (file !== 'main.pl') {
+                        throw e;
+                    }
+                }
+            }
+            return combinedCode;
+        }
+
+        function setupAutocomplete() {
+            const predicates = Object.keys(session.rules).map(rule => rule.split('/')[0]).filter((v, i, a) => a.indexOf(v) === i);
+            getAllAnswers("dogma(Id, Name).", (answers) => {
+                const dogmas = answers.map(ans => ans.lookup('Id').toString());
+                allSuggestions = [...new Set([...predicates, ...dogmas])];
+            });
+
+            queryInput.addEventListener('input', () => {
+                const inputText = queryInput.value.split('(')[0];
+                if (inputText.length === 0) {
+                    suggestionsContainer.style.display = 'none';
+                    return;
+                }
+                const filteredSuggestions = allSuggestions.filter(s => s.toLowerCase().startsWith(inputText.toLowerCase()));
+                suggestionsContainer.innerHTML = '';
+                if (filteredSuggestions.length > 0) {
+                    filteredSuggestions.forEach(suggestion => {
+                        const item = document.createElement('div');
+                        item.textContent = suggestion;
+                        item.classList.add('suggestion-item');
+                        item.onclick = () => {
+                            queryInput.value = suggestion + '()';
+                            suggestionsContainer.style.display = 'none';
+                            queryInput.focus();
+                            setTimeout(() => { queryInput.selectionStart = queryInput.selectionEnd = queryInput.value.length - 1; }, 0);
+                        };
+                        suggestionsContainer.appendChild(item);
                     });
-                },
-                error: function(err) {
-                    terminal.innerHTML += "Erro na consulta: " + err + "<br>?- ";
+                    suggestionsContainer.style.display = 'block';
+                } else {
+                    suggestionsContainer.style.display = 'none';
                 }
             });
         }
+
+        function setupQueryControls() {
+            runQueryBtn.addEventListener('click', runQueryFromInput);
+            queryInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') runQueryFromInput();
+            });
+        }
+
+        function runQueryFromInput() {
+            const queryString = queryInput.value;
+            if (!session || !queryString) return;
+
+            terminal.innerHTML += `<div class="text-yellow-400 font-bold mt-2">?- ${queryString}</div>`;
+
+            runQueryBtn.disabled = true;
+            runQueryBtn.textContent = 'Processando...';
+
+            getAllAnswers(queryString, (answers, err) => {
+                if (err) {
+                    terminal.innerHTML += `<span class="text-red-400">Erro: ${session.format_answer(err)}</span><br>`;
+                } else if (answers.length === 0 && !queryString.includes('diagnostico') && !queryString.includes('analisar')) {
+                    terminal.innerHTML += 'false.<br>';
+                } else if (answers.length > 0) {
+                    const output = answers.map(answer => session.format_answer(answer)).join('<br>');
+                    terminal.innerHTML += output + '<br>';
+                }
+                terminal.scrollTop = terminal.scrollHeight;
+                runQueryBtn.disabled = false;
+                runQueryBtn.textContent = 'Executar';
+            });
+        }
+
+        function getAllAnswers(query, onResult) {
+            let answers = [];
+            session.query(query, {
+                success: function (goal) {
+                    function getNext() {
+                        session.answer({
+                            success: function (answer) {
+                                answers.push(answer);
+                                getNext();
+                            },
+                            fail: function () { onResult(answers); },
+                            error: function (err) { onResult([], err); }
+                        });
+                    }
+                    getNext();
+                },
+                error: function (err) { onResult([], err); }
+            });
+        }
+
+        function handleError(type, message) {
+            statusEl.innerHTML = `<span class="w-3 h-3 bg-red-500 rounded-full"></span><span>${type}</span>`;
+            terminal.innerHTML += `<span class="text-red-400">${message}</span><br>`;
+        }
+
+        window.onload = initializeApp;
+
     </script>
 </body>
+
 </html>

@@ -8,107 +8,142 @@ Este projeto utiliza a linguagem de programação lógica Prolog para modelar e 
 
 O projeto está dividido em duas frentes principais:
 
-1. Motor Lógico (Back-end/Prolog): O núcleo de processamento que carrega as bases de conhecimento e executa o validador.
-
-2. (Em Desenvolvimento) Explorador Interativo (Front-end/Web): Uma interface visual (HTML/Tailwind) para exploração didática dos dogmas e laboratórios de lógica.
+1. **Motor Lógico (Back-end/Prolog)**: O núcleo de processamento que carrega as bases de conhecimento e executa o validador.
+2. **Explorador Interativo (Front-end/Web)** *(Em Desenvolvimento)*: Uma interface visual (HTML/Tailwind) para exploração didática dos dogmas e laboratórios de lógica.
 
 ## 📁 Organização dos Arquivos
 
-- main.pl: Ponto de entrada que orquestra o carregamento do sistema.
-
-- bases/:
-  - escrituras.pl: Base de dados de versículos bíblicos (Factos).
-  - magisterio.pl: Definições dogmáticas, suportes e resoluções teológicas.
-  - objecoes.pl: Argumentos que aparentemente contradizem a doutrina.
-
-- motor/:
-  - validador.pl: Regras lógicas para análise de consistência e diagnóstico de falhas.
-
-- index.html: Interface web para exploração interativa.
+- `main.pl` — Ponto de entrada que orquestra o carregamento do sistema
+- `bases/`
+  - `escrituras.pl` — Base de dados de versículos bíblicos
+  - `magisterio.pl` — Definições dogmáticas e resoluções teológicas
+  - `objecoes.pl` — Argumentos que aparentemente contradizem a doutrina
+- `motor/`
+  - `validador.pl` — Regras lógicas para análise de consistência
+- `index.html` — Interface web para exploração interativa
 
 ## 🚀 Como Começar
 
 ### Pré-requisitos
 
-Você precisará ter o SWI-Prolog instalado em sua máquina.
-
-Windows/Linux/macOS: Baixe em swi-prolog.org.
+- **SWI-Prolog** instalado ([swi-prolog.org](https://www.swi-prolog.org))
 
 ### Instalação
 
-Clone este repositório:
-
 ```bash
 git clone https://github.com/jhvlima/dogmaslogica.git
-```
-
-Navegue até a pasta do projeto:
-
-```bash
 cd dogmaslogica
-```
-
-Intale as dependências (se houver):
-
-```bash
-sudo apt install swi-prolog
+sudo apt install swi-prolog  # Linux
 ```
 
 ## 💻 Uso do Motor Lógico (Terminal)
 
-Para iniciar o "Tribunal Lógico dos Dogmas", execute o arquivo principal:
+Inicie o interpretador:
 
 ```bash
 swipl main.pl
 ```
 
-Dentro do interpretador Prolog, você pode usar os seguintes comandos:
-
-> Analisar um dogma específico:
+### Comandos Disponíveis
 
 ```prolog
-?- analisar(trindade).
+?- analisar(trindade).           % Analisar um dogma específico
+?- dogma(X, Descricao).          % Listar dogmas cadastrados
 ```
 
-> Listar dogmas cadastrados:
+### Como Funciona a Validação?
+
+Um dogma é considerado sólido se:
+
+1. Possui ao menos um suporte bíblico em `bases/escrituras.pl`
+2. Todas as objeções em `bases/objecoes.pl` possuem resolução em `bases/magisterio.pl`
+
+## ✍️ Como Contribuir
+
+### Modelo de Preenchimento
+
+**1. `escrituras.pl` — Adicione a passagem bíblica:**
 
 ```prolog
-?- dogma(X, Descricao).
-```
-
-### **Como funciona a validação?**
-
-O motor lógico (motor/validador.pl) define que um dogma é sólido se:
-
-1. Possui ao menos um suporte bíblico cadastrado em bases/escrituras.pl.
-
-2. Não possui "falhas encontradas" — ou seja, todas as objeções em bases/objecoes.pl possuem uma resolução teológica correspondente em bases/magisterio.pl.
-
-## ✍️ Como Contribuir (Adicionando Novos Dogmas)
-
-Para incluir um novo dogma, siga este modelo de preenchimento nos arquivos da pasta bases/:
-
-1. escrituras.pl: Adicione a passagem bíblica de suporte.
-
-```Prolog
 passagem(livro, capitulo, versiculo, conteudo_simbolico).
 ```
 
-2. magisterio.pl: Defina o dogma e vincule-o ao suporte.
+**2. `magisterio.pl` — Defina o dogma:**
 
-```Prolog
+```prolog
 dogma(id_dogma, 'Nome do Dogma').
 suporte(id_dogma, passagem(livro, capitulo, versiculo)).
 ```
 
-3. objecoes.pl: Cadastre argumentos contrários.
+**3. `objecoes.pl` — Cadastre argumentos contrários:**
 
-```Prolog
+```prolog
 objecao(id_dogma, passagem(livro, capitulo, versiculo), id_argumento).
 ```
 
-4. magisterio.pl (Resolução): Cadastre a resposta teórica para a objeção.
+**4. `magisterio.pl` — Registre a resolução teológica:**
 
-```Prolog
+```prolog
 resolucao(id_argumento, 'Explicação Teológica').
 ```
+
+## 📚 Guia de Modelagem em Prolog
+
+### Os Quatro Pilares de um Dogma
+
+| Pilar | Arquivo | Sintaxe |
+|-------|---------|---------|
+| **Fato** | `magisterio.pl` | `dogma(id, 'Nome')` |
+| **Suporte** | `magisterio.pl` + `escrituras.pl` | `suporte(id, passagem(...))` |
+| **Objeção** | `objecoes.pl` | `objecao(id, passagem(...), id_critica)` |
+| **Resolução** | `magisterio.pl` | `resolucao(id_critica, 'Texto')` |
+
+### Exemplo: Ressurreição de Cristo
+
+```prolog
+% Suporte bíblico
+passagem(mateus, 28, 6, ressuscitou_como_disse).
+
+% Objeção comum
+objecao(ressurreicao, passagem(mateus, 28, 13), roubo_do_corpo).
+
+% Resolução teológica
+resolucao(roubo_do_corpo, 'O testemunho dos mártires e as aparições confirmam a vitória sobre a morte').
+```
+
+### Lógica Deôntica (Mandamentos)
+
+Use regras condicionais para suposições:
+
+```prolog
+eh_bom(X) :-
+    cumpre_condicao_A(X),
+    cumpre_condicao_B(X).
+```
+
+### Dogma vs. Suposição
+
+- **Dogmas**: Constantes — `dogma(...)`
+- **Suposições**: Variáveis — `hipotese(...)` com controle via `ativa(...)`
+
+### Checklist de Boas Práticas
+
+- ✓ Use minúsculas para átomos: `jesus`, `maria`, `analisar`
+- ✓ Use maiúsculas para variáveis: `Pessoa`, `X`, `Dogma`
+- ✓ Termine toda linha com ponto (`.`)
+- ✓ Use aspas simples (`'...'`) para textos com espaços
+- ✓ Para debug: `?- gtrace.` antes da consulta
+
+### Operadores Lógicos (Referência Rápida)
+
+| Símbolo | Significado |
+|---------|-------------|
+| `:-` | Porque / Depende de |
+| `,` | E |
+| `;` | Ou |
+| `\+` | Não |
+| `fail` | Contradição |
+
+---
+
+Que este tribunal lógico ajude a iluminar a harmonia entre a Fé e a Razão.

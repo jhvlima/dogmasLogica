@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals & Gold -->
-    <!-- Application Structure Plan: A single-page application with a fixed sidebar for thematic navigation, allowing non-linear exploration. The core is divided into: 1) Introduction, 2) Foundational Concepts (Dogma, Logic), 3) An interactive Dogma Explorer to browse the 44 dogmas by category, 4) A simulated Prolog "Logic Laboratory" to demonstrate inference on key case studies, and 5) Conclusion. This structure breaks down the dense report into digestible, interactive modules, prioritizing user exploration and understanding over a linear reading. The Logic Lab is designed to be the central "wow" factor, making the abstract concept of theological computation tangible. -->
-    <!-- Visualization & Content Choices: Report Info: 44 Dogmas -> Goal: Organize/Explore -> Method: Interactive Accordion (HTML/JS) -> Interaction: Click to expand/collapse categories -> Justification: More user-friendly and less overwhelming than a static table. Report Info: Prolog Case Studies -> Goal: Demonstrate Inference -> Method: Simulated Prolog Environment (HTML/JS) -> Interaction: Click pre-defined queries to see results and explanations -> Justification: Makes the core thesis tangible and interactive, showing logic in action. No quantitative data is present, so no charts (Chart.js/Plotly) are used. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Lato', sans-serif;
@@ -82,6 +79,7 @@
                 <a href="#foundations" class="nav-link block p-4 text-lg font-semibold">Fundamentos</a>
                 <a href="#explorer" class="nav-link block p-4 text-lg font-semibold">Explorador de Dogmas</a>
                 <a href="#lab" class="nav-link block p-4 text-lg font-semibold">Laboratório de Lógica</a>
+                <a href="#terminal" class="nav-link block p-4 text-lg font-semibold">Terminal Interativo</a>
                 <a href="#conclusion" class="nav-link block p-4 text-lg font-semibold">Conclusão</a>
             </nav>
         </aside>
@@ -165,6 +163,22 @@
                             <p class="text-gray-500">Selecione uma consulta para ver o resultado da inferência lógica.</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Interactive Terminal Section -->
+            <section id="terminal" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Terminal Interativo Prolog</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Vá além dos exemplos guiados. O Laboratório de Lógica demonstrou cenários pré-definidos, mas o verdadeiro poder do motor de inferência reside na sua capacidade de responder a qualquer consulta. Esta secção leva-o para uma interface de terminal web completa, onde pode escrever as suas próprias consultas em Prolog, obter sugestões de preenchimento automático e interagir diretamente com toda a base de conhecimento que foi carregada.
+                </p>
+                 <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg text-center">
+                    <p class="text-xl italic text-[#402E32] mb-4">
+                        Faça as suas próprias perguntas. Teste os limites do modelo. Explore a teologia através do código.
+                    </p>
+                    <a href="terminalWeb.html" target="_blank" class="inline-block bg-[#A98158] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-[#8e6a4a] transition-colors duration-300">
+                        Abrir Terminal Web
+                    </a>
                 </div>
             </section>
             
