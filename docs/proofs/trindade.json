@@ -1,0 +1,26 @@
+{
+  "dogma":"trindade",
+  "nome":"A Santissima Trindade",
+  "objecoes": [
+    {
+      "argumento":"desigualdade_divina",
+      "resolucao": {
+	"texto":"Distincao entre Natureza Humana e Divina (Uniao Hipostatica)"
+      },
+      "resolvida":true,
+      "versiculo":"passagem(joao,14,28)"
+    },
+    {
+      "argumento":"unicidade_numerica_estrita",
+      "resolucao": {"texto":"Unidade de Substancia vs Pluralidade de Pessoas"},
+      "resolvida":true,
+      "versiculo":"passagem(deuteronomio,6,4)"
+    }
+  ],
+  "suportes": [
+    "passagem(joao,1,1)",
+    "passagem(mateus,28,19)",
+    "passagem(mateus,28,19)"
+  ],
+  "veredito":"solido"
+}

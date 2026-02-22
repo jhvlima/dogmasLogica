@@ -9,6 +9,7 @@
 :- consult('bases/magisterio.pl').
 :- consult('bases/objecoes.pl').
 :- consult('motor/validador.pl').
+:- consult('motor/tracador.pl').
 
 % Mensagem de boas-vindas automática
 :- initialization(boas_vindas).

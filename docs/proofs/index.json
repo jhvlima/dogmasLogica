@@ -1,0 +1,157 @@
+[
+  {
+    "id":"existencia_deus_razao",
+    "nome":"A Existencia de Deus (conhecivel pela razao)"
+  },
+  {
+    "id":"existencia_deus_fe",
+    "nome":"A Existencia de Deus como Objeto de Fe"
+  },
+  {"id":"unidade_deus", "nome":"A Unidade de Deus"},
+  {"id":"deus_eterno", "nome":"Deus e Eterno"},
+  {"id":"trindade", "nome":"A Santissima Trindade"},
+  {
+    "id":"jesus_deus_essencia",
+    "nome":"Jesus Cristo e verdadeiro Deus e Filho de Deus por Essencia"
+  },
+  {
+    "id":"duas_naturezas",
+    "nome":"Jesus possui duas naturezas (divina e humana) sem confusao"
+  },
+  {
+    "id":"vontade_propria",
+    "nome":"Cada natureza em Cristo possui uma vontade e operacao proprias"
+  },
+  {
+    "id":"filho_natural",
+    "nome":"Jesus Cristo e o Filho Natural de Deus"
+  },
+  {
+    "id":"sacrificio_cruz",
+    "nome":"O sacrificio de Cristo na Cruz foi um verdadeiro sacrificio"
+  },
+  {
+    "id":"redencao",
+    "nome":"Cristo redimiu e reconciliou a humanidade com Deus"
+  },
+  {
+    "id":"ressurreicao",
+    "nome":"Cristo ressuscitou dos mortos ao terceiro dia"
+  },
+  {"id":"ascensao", "nome":"Cristo ascendeu em Corpo e Alma aos Ceus"},
+  {
+    "id":"criacao_ex_nihilo",
+    "nome":"Tudo o que existe foi criado por Deus a partir do Nada (ex nihilo)"
+  },
+  {
+    "id":"mundo_inicio_tempo",
+    "nome":"O mundo teve um inicio no tempo"
+  },
+  {
+    "id":"conservacao_existencia",
+    "nome":"Deus conserva todas as coisas criadas na existencia"
+  },
+  {
+    "id":"corpo_e_alma",
+    "nome":"O ser humano e composto de corpo material e alma espiritual"
+  },
+  {
+    "id":"pecado_original",
+    "nome":"O pecado de Adao propaga-se por geracao (Pecado Original)"
+  },
+  {
+    "id":"homem_nao_se_redime",
+    "nome":"O homem caido nao pode redimir-se a si mesmo"
+  },
+  {
+    "id":"maternidade_divina",
+    "nome":"A Maternidade Divina de Maria (Theotokos)"
+  },
+  {
+    "id":"virgindade_perpetua",
+    "nome":"A Virgindade Perpetua de Maria"
+  },
+  {
+    "id":"imaculada_conceicao",
+    "nome":"A Imaculada Conceicao de Maria"
+  },
+  {
+    "id":"assuncao_maria",
+    "nome":"A Assuncao de Maria em Corpo e Alma"
+  },
+  {
+    "id":"fundacao_igreja",
+    "nome":"A Igreja foi fundada por Jesus Cristo"
+  },
+  {
+    "id":"primado_pedro",
+    "nome":"Cristo conferiu a Pedro o primado de jurisdicao sobre toda a Igreja"
+  },
+  {
+    "id":"jurisdicao_papa",
+    "nome":"O Papa possui poder de jurisdicao pleno e supremo sobre a Igreja"
+  },
+  {
+    "id":"infalibilidade_papa",
+    "nome":"O Papa e infalivel quando fala ex cathedra"
+  },
+  {
+    "id":"infalibilidade_igreja",
+    "nome":"A Igreja e infalivel ao definir materia de fe e costumes"
+  },
+  {
+    "id":"batismo_sacramento",
+    "nome":"O Batismo e um verdadeiro Sacramento instituido por Cristo"
+  },
+  {
+    "id":"confirmacao_sacramento",
+    "nome":"A Confirmacao e um verdadeiro Sacramento"
+  },
+  {
+    "id":"poder_perdoar_pecados",
+    "nome":"A Igreja tem o poder de perdoar os pecados cometidos apos o Batismo"
+  },
+  {
+    "id":"confissao_necessaria",
+    "nome":"A Confissao Sacramental e de direito divino e necessaria para a salvacao"
+  },
+  {
+    "id":"eucaristia_sacramento",
+    "nome":"A Eucaristia e um verdadeiro Sacramento instituido por Cristo"
+  },
+  {
+    "id":"presenca_real",
+    "nome":"A Presenca Real de Cristo na Eucaristia pela Transubstanciacao"
+  },
+  {
+    "id":"uncao_enfermos",
+    "nome":"A Uncao dos Enfermos e um verdadeiro Sacramento"
+  },
+  {
+    "id":"ordem_sacramento",
+    "nome":"A Ordem e um verdadeiro Sacramento"
+  },
+  {
+    "id":"matrimonio_sacramento",
+    "nome":"O Matrimonio e um verdadeiro Sacramento"
+  },
+  {"id":"morte_pecado", "nome":"A Morte e consequencia do pecado"},
+  {
+    "id":"ceu_justos",
+    "nome":"O Ceu (visao beatifica) e o destino dos justos"
+  },
+  {"id":"inferno_eterno", "nome":"O Inferno existe e e eterno"},
+  {
+    "id":"purgatorio_existencia",
+    "nome":"O Purgatorio existe como estado de purificacao"
+  },
+  {
+    "id":"volta_cristo",
+    "nome":"No fim do mundo, Cristo voltara para julgar"
+  },
+  {
+    "id":"ressurreicao_mortos",
+    "nome":"A Ressurreicao dos mortos no Ultimo Dia"
+  },
+  {"id":"juizo_universal", "nome":"Havera um Juizo Universal"}
+]

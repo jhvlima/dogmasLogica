@@ -1,0 +1,29 @@
+name: Export Proofs and Update Pages
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  export-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Install SWI-Prolog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y swi-prolog
+
+      - name: Run export script
+        run: swipl -s scripts/export_proofs.pl
+
+      - name: Commit generated proofs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/proofs || true
+          git commit -m "ci: update proofs" || echo "no changes to commit"
+          git push || echo "push failed"

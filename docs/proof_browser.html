@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Explorador de Provas — Dogmas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body { background: #FDFBF8; color: #402E32; font-family: Lato, sans-serif; }
+    .node circle { fill: #A98158; stroke: #402E32; stroke-width: 2px; }
+    .node text { font-size: 12px; font-weight: bold; pointer-events: none; }
+    .link { stroke: #D4B491; stroke-width: 2px; }
+    .node-support circle { fill: #7cb342; }
+    .node-objecao circle { fill: #d32f2f; }
+    .node-resolucao circle { fill: #388e3c; }
+    .node-raiz circle { fill: #402E32; }
+    svg { border: 1px solid #EAE0D5; border-radius: 8px; background: #FFF; }
+    #tree-container { height: 600px; overflow: auto; }
+    .view-toggle { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .view-toggle button { padding: 0.5rem 1rem; border: 1px solid #D4B491; border-radius: 4px; cursor: pointer; background: white; }
+    .view-toggle button.active { background: #A98158; color: white; }
+  </style>
+</head>
+<body class="p-6">
+  <div class="max-w-6xl mx-auto">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold">Explorador de Provas</h1>
+      <p class="text-sm text-gray-600">Selecione um dogma para ver a árvore de decisão</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <aside class="bg-white p-4 rounded shadow h-fit">
+        <h2 class="font-semibold mb-2">Dogmas cadastrados</h2>
+        <input type="text" id="search-dogma" placeholder="Buscar..." class="w-full px-2 py-1 border border-gray-300 rounded mb-2 text-sm">
+        <ul id="dogma-list" class="space-y-2 text-sm max-h-96 overflow-y-auto"></ul>
+      </aside>
+
+      <main class="md:col-span-3 bg-white p-4 rounded shadow">
+        <h2 id="selected-title" class="font-semibold mb-2">Nenhum dogma selecionado</h2>
+        
+        <div class="view-toggle">
+          <button id="view-tree" class="active">Árvore Visual (D3)</button>
+          <button id="view-text">Resumo Textual</button>
+        </div>
+
+        <div id="tree-container" style="display: none;"></div>
+        <div id="text-container"></div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    let currentProof = null;
+    let currentView = 'tree';
+
+    async function loadIndex(){
+      const res = await fetch('proofs/index.json');
+      if(!res.ok){ document.getElementById('dogma-list').innerText = 'Índice não encontrado.'; return }
+      const list = await res.json();
+      renderDogmaList(list);
+    }
+
+    function renderDogmaList(list){
+      const ul = document.getElementById('dogma-list');
+      ul.innerHTML = '';
+      list.forEach(d => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left px-2 py-1 rounded hover:bg-gray-50';
+        btn.textContent = d.nome || d.id;
+        btn.dataset.id = d.id;
+        btn.dataset.name = d.nome;
+        btn.onclick = () => loadProof(d.id, d.nome);
+        li.appendChild(btn);
+        ul.appendChild(li);
+      });
+    }
+
+    async function loadProof(id, nome){
+      const res = await fetch(`proofs/${id}.json`);
+      const textContainer = document.getElementById('text-container');
+      const treeContainer = document.getElementById('tree-container');
+      const title = document.getElementById('selected-title');
+      if(!res.ok){ textContainer.innerHTML = '<p class="text-red-500">Prova não encontrada.</p>'; title.textContent = nome; return }
+      const data = await res.json();
+      currentProof = data;
+      title.textContent = (data.nome || id) + ' — Árvore de decisão';
+      
+      if(currentView === 'tree'){ renderTree(data, treeContainer); }
+      else { textContainer.innerHTML = renderProofText(data); }
+    }
+
+    function renderTree(data, container){
+      const width = container.parentElement.offsetWidth - 20;
+      const height = 600;
+      const margin = { top: 20, right: 30, bottom: 20, left: 30 };
+
+      container.innerHTML = '';
+      const svg = d3.select(container).append('svg').attr('width', width).attr('height', height);
+      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const treeData = buildTreeData(data);
+      const tree = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom]);
+      const root = d3.hierarchy(treeData);
+      tree(root);
+
+      // Links
+      g.selectAll('.link')
+        .data(root.links())
+        .enter().append('line')
+        .attr('class', 'link')
+        .attr('x1', d => d.source.x)
+        .attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x)
+        .attr('y2', d => d.target.y);
+
+      // Nodes
+      const nodes = g.selectAll('.node')
+        .data(root.descendants())
+        .enter().append('g')
+        .attr('class', d => {
+          let cls = 'node';
+          if(d.data.type === 'raiz') cls += ' node-raiz';
+          else if(d.data.type === 'support') cls += ' node-support';
+          else if(d.data.type === 'objection') cls += ' node-objecao';
+          else if(d.data.type === 'resolution') cls += ' node-resolucao';
+          return cls;
+        })
+        .attr('transform', d => `translate(${d.x},${d.y})`);
+
+      nodes.append('circle').attr('r', 6);
+      nodes.append('text')
+        .attr('dy', 20)
+        .attr('text-anchor', 'middle')
+        .text(d => d.data.label)
+        .style('font-size', '11px');
+
+      // Tooltip
+      nodes.on('mouseover', function(e, d){
+        if(d.data.tooltip){
+          const tooltip = d3.select('body').append('div')
+            .style('position', 'absolute')
+            .style('background', '#F4EFE7')
+            .style('border', '1px solid #D4B491')
+            .style('padding', '8px')
+            .style('border-radius', '4px')
+            .style('font-size', '12px')
+            .style('pointer-events', 'none')
+            .style('left', (e.pageX + 10) + 'px')
+            .style('top', (e.pageY - 10) + 'px')
+            .text(d.data.tooltip)
+            .attr('id', 'tooltip');
+        }
+      }).on('mouseout', function(){
+        d3.select('#tooltip').remove();
+      });
+    }
+
+    function buildTreeData(proof){
+      const root = {
+        label: proof.nome ? proof.nome.substring(0, 12) : proof.dogma,
+        type: 'raiz',
+        tooltip: `Dogma: ${proof.nome || proof.dogma}`,
+        children: []
+      };
+
+      // Add suportes
+      if(proof.suportes && proof.suportes.length > 0){
+        const supportNode = {
+          label: `Suportes (${proof.suportes.length})`,
+          type: 'support',
+          tooltip: 'Fundamentos bíblicos',
+          children: proof.suportes.map(s => ({
+            label: String(s).substring(0, 20),
+            type: 'support-leaf',
+            tooltip: String(s)
+          }))
+        };
+        root.children.push(supportNode);
+      }
+
+      // Add objeções
+      if(proof.objecoes && proof.objecoes.length > 0){
+        const objNode = {
+          label: `Objeções (${proof.objecoes.length})`,
+          type: 'objection',
+          tooltip: 'Argumentos contrários',
+          children: proof.objecoes.map(o => ({
+            label: o.argumento.substring(0, 15),
+            type: o.resolvida ? 'resolution' : 'objection',
+            tooltip: `${o.argumento} — ${o.resolvida ? 'Resolvida' : 'Não resolvida'}`,
+            children: o.resolvida && o.resolucao && o.resolucao.texto ? [
+              {
+                label: 'Resolução',
+                type: 'resolution-leaf',
+                tooltip: o.resolucao.texto.substring(0, 80)
+              }
+            ] : []
+          }))
+        };
+        root.children.push(objNode);
+      }
+
+      // Add veredito
+      const verdictNode = {
+        label: `Veredito: ${proof.veredito}`,
+        type: 'raiz',
+        tooltip: `Resultado final: ${proof.veredito}`
+      };
+      root.children.push(verdictNode);
+
+      return root;
+    }
+
+    function renderProofText(data){
+      function esc(x){ return String(x).replace(/</g,'&lt;') }
+      let out = '';
+      out += `<p class="text-gray-600 mb-4">Veredito: <strong class="text-lg">${esc(data.veredito)}</strong></p>`;
+      out += '<h3 class="mt-4 font-semibold border-b pb-2">Suportes Bíblicos</h3>';
+      if(data.suportes && data.suportes.length>0){
+        out += '<ul class="list-disc list-inside space-y-1">';
+        data.suportes.forEach(s => out += `<li class="text-sm">${esc(s)}</li>`);
+        out += '</ul>';
+      } else out += '<p class="text-gray-500 text-sm">Nenhum suporte registrado.</p>';
+
+      out += '<h3 class="mt-4 font-semibold border-b pb-2">Objeções e Resoluções</h3>';
+      if(data.objecoes && data.objecoes.length>0){
+        out += '<div class="space-y-3">';
+        data.objecoes.forEach((o, i) => {
+          out += `<div class="border-l-4 pl-3 ${o.resolvida ? 'border-green-600' : 'border-red-600'}">`;
+          out += `<div class="font-medium">${i+1}. ${esc(o.argumento)}</div>`;
+          out += `<div class="text-xs text-gray-600">Versículo: ${esc(o.versiculo)}</div>`;
+          out += `<div class="mt-1 text-sm">Status: <span class="${o.resolvida ? 'text-green-600' : 'text-red-600'}">${o.resolvida ? '✓ Resolvida' : '✗ Não resolvida'}</span></div>`;
+          if(o.resolucao && o.resolucao.texto){ out += `<div class="mt-2 text-sm bg-gray-50 p-2 rounded">Resolução: ${esc(o.resolucao.texto)}</div>` }
+          out += '</div>';
+        });
+        out += '</div>';
+      } else out += '<p class="text-gray-500 text-sm">Sem objeções registradas.</p>';
+
+      return out;
+    }
+
+    // View toggle
+    document.getElementById('view-tree').addEventListener('click', function(){
+      currentView = 'tree';
+      const treeContainer = document.getElementById('tree-container');
+      const textContainer = document.getElementById('text-container');
+      treeContainer.style.display = 'block';
+      textContainer.style.display = 'none';
+      document.getElementById('view-tree').classList.add('active');
+      document.getElementById('view-text').classList.remove('active');
+      if(currentProof) renderTree(currentProof, treeContainer);
+    });
+
+    document.getElementById('view-text').addEventListener('click', function(){
+      currentView = 'text';
+      const treeContainer = document.getElementById('tree-container');
+      const textContainer = document.getElementById('text-container');
+      treeContainer.style.display = 'none';
+      textContainer.style.display = 'block';
+      document.getElementById('view-tree').classList.remove('active');
+      document.getElementById('view-text').classList.add('active');
+      if(currentProof) textContainer.innerHTML = renderProofText(currentProof);
+    });
+
+    // Search dogmas
+    document.getElementById('search-dogma').addEventListener('input', function(e){
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll('#dogma-list button').forEach(btn => {
+        const text = (btn.textContent || '').toLowerCase();
+        btn.parentElement.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    });
+
+    loadIndex().catch(e=>{document.getElementById('dogma-list').innerText='Erro ao carregar índice.'})
+  </script>
+</body>
+</html>
