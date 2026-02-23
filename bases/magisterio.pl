@@ -76,6 +76,22 @@ suporte(maternidade_divina, passagem(lucas, 1, 43)).
 suporte(primado_pedro, passagem(mateus, 16, 18)).
 suporte(presenca_real, passagem(mateus, 26, 26)).
 
+% SIGNIFICADO E AXIOMA (NOVOS)
+% significado(Dogma, Texto): descrição resumida do que o dogma significa.
+significado(trindade, 'Um so Deus subsiste em tres Pessoas distintas: Pai, Filho e Espirito Santo.').
+
+% axioma(Dogma, Texto): afirmaçao-fundamento (o "fato" ou axioma) que sustenta a consequencia logica.
+axioma(trindade, 'O Verbo era Deus (Joao 1:1) e a formula batismal (Mt 28:19) indicam a pluralidade de Pessoas na Unidade de Deus.').
+
+% Suporte documental e concilios (opcionais)
+% suporte_documento(Dogma, Documento)
+suporte_documento(trindade, 'Credo de Niceia (325)').
+suporte_documento(trindade, 'Catecismo da Igreja Catolica, nn. 232-267').
+
+% concilio(Dogma, NomeConcilio)
+concilio(trindade, 'Primeiro Concilio de Niceia (325)').
+concilio(trindade, 'Concilio de Constantinopla (381)').
+
 % RESOLUÇÕES
 % resolucao(ArgumentoDaObjecao, ExplicacaoTeologica).
 

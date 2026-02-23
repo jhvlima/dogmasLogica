@@ -38,6 +38,42 @@ diagnostico(Dogma) :-
     write('Motivo: Objecao nao resolvida encontrada: '), write(Argumento), nl,
     write('Cadastre uma resolucao em magisterio.pl para consertar.'), nl.
 
+% diagnostico_detalhado(+Dogma)
+% Mostra um trace legivel, argumento por argumento, com versiculo, resolucao,
+% tipo de heresia (se houver) e suporte do argumento.
+diagnostico_detalhado(Dogma) :-
+        nl, write('=== TRACE DETALEHADO ==='), nl,
+        ( dogma(Dogma, Nome) -> format('Dogma: ~w (~w)~n',[Nome,Dogma]) ; format('Dogma: ~w~n',[Dogma]) ),
+        ( significado(Dogma, Sign) -> format('Significado: ~w~n',[Sign]) ; true ),
+        ( axioma(Dogma, Axi) -> format('Axioma: ~w~n',[Axi]) ; true ),
+        % Suportes biblicos
+        findall(RefStr, (suporte(Dogma,Ref), term_string(Ref,RefStr)), Suportes),
+        ( Suportes == [] -> write('Suportes bíblicos: (nenhum)'), nl ; ( write('Suportes bíblicos:'), nl, forall(member(Su,Suportes), (write('  - '), write(Su), nl)) ) ),
+
+        % Iterar sobre objeções
+        findall(Arg-Ref, objecao(Dogma, Ref, Arg), Pairs),
+        ( Pairs == [] -> write('Objeções: (nenhuma)'), nl
+        ; (
+                write('Objeções encontradas:'), nl,
+                listar_objecoes(Pairs, 1)
+            )
+        ),
+
+        % Veredito final
+        ( dogma_solido(Dogma) -> write('VEREDITO FINAL: SOLIDO'), nl
+        ; ( \+ tem_fundamento(Dogma) -> write('VEREDITO FINAL: FALHA - sem fundamento bíblico'), nl
+            ; write('VEREDITO FINAL: FALHA - existe(s) objeção(ões) não resolvida(s)'), nl ) ).
+
+listar_objecoes([], _).
+listar_objecoes([Arg-Ref|Rest], N) :-
+        term_string(Ref, RefStr),
+        format('~n~w) Argumento: ~w~n',[N,Arg]),
+        format('   Versículo: ~w~n',[RefStr]),
+        ( resolucao(Arg, ResText) -> format('   Resolvida: SIM~n   Resolução: ~w~n',[ResText]) ; format('   Resolvida: NÃO~n') ),
+        ( tipo_heresia(Arg, H) -> format('   Heresia associada: ~w~n',[H]) ; true ),
+        ( suporte_argumento(Arg, SA) -> format('   Suporte do argumento: ~w~n',[SA]) ; true ),
+        listar_objecoes(Rest, N+1).
+
 % ==============================================================================
 % --- Validação de Hipóteses Pessoais ---
 % DESCRIÇÃO: Adição de motor para verificar suposições pessoais.

@@ -165,13 +165,14 @@
         children: []
       };
 
-      // Add suportes
-      if(proof.suportes && proof.suportes.length > 0){
+      // Add suportes (prefere sustentacao.biblicos mas mantém compatibilidade com suportes)
+      const biblicos = (proof.sustentacao && proof.sustentacao.biblicos) ? proof.sustentacao.biblicos : proof.suportes;
+      if(biblicos && biblicos.length > 0){
         const supportNode = {
-          label: `Suportes (${proof.suportes.length})`,
+          label: `Suportes (${biblicos.length})`,
           type: 'support',
           tooltip: 'Fundamentos bíblicos',
-          children: proof.suportes.map(s => ({
+          children: biblicos.map(s => ({
             label: String(s).substring(0, 20),
             type: 'support-leaf',
             tooltip: String(s)
@@ -202,6 +203,18 @@
         root.children.push(objNode);
       }
 
+      // Add sustentacao. Mostrar axioma/documentos/concilios como nó secundário
+      if(proof.sustentacao){
+        const s = proof.sustentacao;
+        const children = [];
+        if(s.axioma && s.axioma !== '') children.push({ label: 'Axioma', type: 'support-leaf', tooltip: s.axioma });
+        if(s.documentos && s.documentos.length>0) children.push({ label: `Docs (${s.documentos.length})`, type: 'support-leaf', tooltip: s.documentos.join(', ') });
+        if(s.concilios && s.concilios.length>0) children.push({ label: `Conc. (${s.concilios.length})`, type: 'support-leaf', tooltip: s.concilios.join(', ') });
+        if(children.length>0){
+          root.children.push({ label: 'Sustentação', type: 'support', tooltip: 'Apoio e axioma', children: children });
+        }
+      }
+
       // Add veredito
       const verdictNode = {
         label: `Veredito: ${proof.veredito}`,
@@ -217,12 +230,38 @@
       function esc(x){ return String(x).replace(/</g,'&lt;') }
       let out = '';
       out += `<p class="text-gray-600 mb-4">Veredito: <strong class="text-lg">${esc(data.veredito)}</strong></p>`;
+      // significado
+      if(data.significado && data.significado !== ''){
+        out += `<p class="italic text-gray-700 mb-3">${esc(data.significado)}</p>`;
+      }
+      // axioma (se houver)
+      const axioma = data.sustentacao && data.sustentacao.axioma ? data.sustentacao.axioma : '';
+      if(axioma && axioma !== ''){
+        out += `<div class="mb-3 p-3 bg-yellow-50 rounded border">`;
+        out += `<strong>Axioma:</strong> ${esc(axioma)}`;
+        out += `</div>`;
+      }
       out += '<h3 class="mt-4 font-semibold border-b pb-2">Suportes Bíblicos</h3>';
-      if(data.suportes && data.suportes.length>0){
+      const biblicos = (data.sustentacao && data.sustentacao.biblicos) ? data.sustentacao.biblicos : data.suportes;
+      if(biblicos && biblicos.length>0){
         out += '<ul class="list-disc list-inside space-y-1">';
-        data.suportes.forEach(s => out += `<li class="text-sm">${esc(s)}</li>`);
+        biblicos.forEach(s => out += `<li class="text-sm">${esc(s)}</li>`);
         out += '</ul>';
       } else out += '<p class="text-gray-500 text-sm">Nenhum suporte registrado.</p>';
+
+      // documentos e concilios
+      if(data.sustentacao){
+        if(data.sustentacao.documentos && data.sustentacao.documentos.length>0){
+          out += '<h4 class="mt-3 font-medium">Documentos</h4><ul class="list-disc list-inside text-sm">';
+          data.sustentacao.documentos.forEach(d => out += `<li>${esc(d)}</li>`);
+          out += '</ul>';
+        }
+        if(data.sustentacao.concilios && data.sustentacao.concilios.length>0){
+          out += '<h4 class="mt-3 font-medium">Concílios</h4><ul class="list-disc list-inside text-sm">';
+          data.sustentacao.concilios.forEach(c => out += `<li>${esc(c)}</li>`);
+          out += '</ul>';
+        }
+      }
 
       out += '<h3 class="mt-4 font-semibold border-b pb-2">Objeções e Resoluções</h3>';
       if(data.objecoes && data.objecoes.length>0){
@@ -233,6 +272,8 @@
           out += `<div class="text-xs text-gray-600">Versículo: ${esc(o.versiculo)}</div>`;
           out += `<div class="mt-1 text-sm">Status: <span class="${o.resolvida ? 'text-green-600' : 'text-red-600'}">${o.resolvida ? '✓ Resolvida' : '✗ Não resolvida'}</span></div>`;
           if(o.resolucao && o.resolucao.texto){ out += `<div class="mt-2 text-sm bg-gray-50 p-2 rounded">Resolução: ${esc(o.resolucao.texto)}</div>` }
+          if(o.tipo_heresia && o.tipo_heresia !== ''){ out += `<div class="mt-1 text-xs text-red-600">Heresia associada: ${esc(o.tipo_heresia)}</div>` }
+          if(o.suporte_argumento && o.suporte_argumento !== ''){ out += `<div class="mt-1 text-xs text-gray-600">Suporte do argumento: ${esc(o.suporte_argumento)}</div>` }
           out += '</div>';
         });
         out += '</div>';
