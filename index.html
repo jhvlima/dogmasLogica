@@ -18,9 +18,26 @@
         h1, h2, h3, h4 {
             font-family: 'Cormorant Garamond', serif;
         }
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #A98158;
+            padding: 12px 16px 6px 16px;
+            margin-top: 8px;
+            border-top: 1px solid #EAE0D5;
+        }
         .nav-link {
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-link-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
         }
         .nav-link.active {
             background-color: #F4EFE7;
@@ -75,12 +92,41 @@
                 <h2 class="text-lg text-[#A98158]">Computatrum</h2>
             </div>
             <nav id="navigation" class="mt-4">
-                <a href="#intro" class="nav-link block p-4 text-lg font-semibold active">Introdução</a>
-                <a href="#foundations" class="nav-link block p-4 text-lg font-semibold">Fundamentos</a>
-                <a href="#explorer" class="nav-link block p-4 text-lg font-semibold">Explorador de Dogmas</a>
-                <a href="#lab" class="nav-link block p-4 text-lg font-semibold">Laboratório de Lógica</a>
-                <a href="#terminal" class="nav-link block p-4 text-lg font-semibold">Terminal Interativo</a>
-                <a href="#conclusion" class="nav-link block p-4 text-lg font-semibold">Conclusão</a>
+                <!-- Básico -->
+                <div class="nav-section-title">Navegação Principal</div>
+                <a href="#intro" class="nav-link block p-4 text-lg font-semibold active">
+                    <span>Introdução</span>
+                </a>
+                
+                <!-- Teoria -->
+                <div class="nav-section-title">Teoria</div>
+                <a href="#foundations" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Fundamentos</span>
+                </a>
+                
+                <!-- Exploração -->
+                <div class="nav-section-title">Exploração</div>
+                <a href="#explorer" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Explorador de Dogmas</span>
+                </a>
+                <a href="#proofs" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Explorador de Provas</span>
+                </a>
+                
+                <!-- Prático -->
+                <div class="nav-section-title">Prático</div>
+                <a href="#lab" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Laboratório de Lógica</span>
+                </a>
+                <a href="#terminal" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Terminal Interativo</span>
+                </a>
+                
+                <!-- Conclusão -->
+                <div class="nav-section-title">Finalização</div>
+                <a href="#conclusion" class="nav-link block p-4 text-lg font-semibold">
+                    <span>Conclusão</span>
+                </a>
             </nav>
         </aside>
 
@@ -166,6 +212,28 @@
                 </div>
             </section>
 
+            <!-- Proofs Explorer Section -->
+            <section id="proofs" class="content-section">
+                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Explorador de Provas e Dogmas</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                    Navegue visualmente pelas estruturas de suporte e objeções para cada um dos dogmas da Igreja Católica. Para cada dogma, você pode visualizar:
+                </p>
+                <ul class="list-disc list-inside text-lg text-gray-700 mb-8 space-y-2">
+                    <li><strong>Significado teológico:</strong> O que o dogma significa segundo a doutrina</li>
+                    <li><strong>Fundamentos de sustentação:</strong> Suportes bíblicos, axiomas, documentos da Igreja e decisões conciliares</li>
+                    <li><strong>Objeções históricas:</strong> Argumentos históricos contra o dogma, identificando as heresias associadas</li>
+                    <li><strong>Resoluções teológicas:</strong> Como a Igreja resolveu cada objeção</li>
+                </ul>
+                <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg text-center">
+                    <p class="text-xl italic text-[#402E32] mb-4">
+                        Explore as estruturas lógicas que sustentam a fé de forma visual ou textual.
+                    </p>
+                    <a href="docs/proof_browser.html" target="_blank" class="inline-block bg-[#A98158] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-[#8e6a4a] transition-colors duration-300">
+                        Abrir Explorador de Provas
+                    </a>
+                </div>
+            </section>
+
             <!-- Interactive Terminal Section -->
             <section id="terminal" class="content-section">
                 <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Terminal Interativo Prolog</h2>
@@ -205,12 +273,14 @@
             // Navigation Logic
             const navigation = document.getElementById('navigation');
             navigation.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A') {
+                // Encontra o elemento <a> mesmo que o clique seja em um elemento filho (como span)
+                const linkElement = e.target.closest('.nav-link');
+                if (linkElement && linkElement.tagName === 'A') {
                     e.preventDefault();
-                    const targetId = e.target.getAttribute('href').substring(1);
+                    const targetId = linkElement.getAttribute('href').substring(1);
 
                     navigationLinks.forEach(link => link.classList.remove('active'));
-                    e.target.classList.add('active');
+                    linkElement.classList.add('active');
 
                     contentSections.forEach(section => {
                         section.classList.remove('active');
