@@ -181,7 +181,7 @@ teste_redencao :-
     
     write('╔════════════════════════════════════════════════════════╗'), nl,
     write('║ Conclusão: Crer em Redenção implica em:              ║'), nl,
-    write('║ • 3 Axiomas Fundamentais (auto-evidentes)            ║'), nl,
+    write('║ • 3 Axiomas/pressupostos fundamentais do modelo      ║'), nl,
     write('║ • 1 Fundamento que se baseia em 3 axiomas +          ║'), nl,
     write('║   passagens específicas de Gênesis e Evangelhos      ║'), nl,
     write('║ • Por causalidade lógica e textual                   ║'), nl,

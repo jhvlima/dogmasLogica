@@ -8,6 +8,7 @@
 :- discontiguous axioma_def/4.
 :- discontiguous implica_em/2.
 :- discontiguous justifica/3.
+% Nota: fundamento/6 foi movido para bases/sustentacao/fundamentos.pl
 
 % ==============================================================================
 % ESTRUTURA CENTRAL: axioma_def(Id, Descricao, Categorias, Peso)
@@ -126,94 +127,12 @@ justifica(evangelhos_palavra_de_deus, presenca_real,
 % 1. Um ou mais axiomas como fundação lógica
 % 2. Passagens bíblicas específicas que o sustentam
 %
-% Isso os distingue de AXIOMAS que são auto-evidentes.
+% Isso os distingue de AXIOMAS/PRESSUPOSTOS do modelo, que não carregam passagens específicas.
 
 % ==============================================================================
 % FUNDAMENTO 1: HUMANIDADE CRIADA EM COMUNHÃO COM DEUS
 % ==============================================================================
-% Sustentado por: Axioma "bíblia_verdadeira"
-% Passagens: Gênesis 1:27 (criação à imagem de Deus), Gênesis 2:8 (comunhão no Éden)
-
-:- discontiguous fundamento/6.
-
-fundamento(humano_criado_em_comunhao,
-           'A Bíblia declara que o ser humano foi criado em comunhão com Deus.',
-           [biblia_verdadeira],                % Axiomas que sustentam este fundamento
-           [passagem(genesis, 1, 27),          % "Criou Deus o homem à sua imagem"
-            passagem(genesis, 2, 8)],          % "E plantou o SENHOR Deus um jardim"
-           [humanidade, criacao, relacao_divina],
-           8).
-
-implica_em(humano_criado_em_comunhao, [
-    corpo_e_alma_necessario,
-    necessidade_reconciliacao,
-    redencao_restauracao
-]).
-
-justifica(humano_criado_em_comunhao, corpo_e_alma,
-          'A criação em comunhão implica em composição: corpo material + alma espiritual.').
-justifica(humano_criado_em_comunhao, criacao_ex_nihilo,
-          'A Bíblia diz que Deus criou o ser humano do nada, em comunhão.').
-justifica(humano_criado_em_comunhao, redencao,
-          'A redenção restaura a comunhão original que foi perdida.').
-
-% ==============================================================================
-% FUNDAMENTO 2: HUMANIDADE ESCOLHEU AFASTAR-SE DE DEUS
-% ==============================================================================
-% Sustentado por: Axioma "bíblia_verdadeira"
-% Passagens: Gênesis 3:1-7 (tentação e escolha), Romanos 5:12 (propagação do pecado)
-
-fundamento(humano_escolheu_afastar,
-           'A Bíblia diz que o ser humano escolheu se afastar de Deus (Pecado Original).',
-           [biblia_verdadeira],                % Axiomas que sustentam este fundamento
-           [passagem(genesis, 3, 1),           % "A serpente era o mais astuto"
-            passagem(genesis, 3, 6),           % "Tomou do fruto da árvore"
-            passagem(romanos, 5, 12)],         % "Portanto, como por um homem entrou o pecado"
-           [humanidade, pecado, livre_arbítrio],
-           9).
-
-implica_em(humano_escolheu_afastar, [
-    necessidade_reconciliacao,
-    homem_nao_redime_a_si_mesmo,
-    necessidade_sacrificio
-]).
-
-justifica(humano_escolheu_afastar, pecado_original,
-          'O pecado original é este afastamento que se propaga por herança.').
-justifica(humano_escolheu_afastar, homem_nao_se_redime,
-          'Se escolheu afastamento voluntário, não tem poder para se redimir.').
-justifica(humano_escolheu_afastar, morte_pecado,
-          'A morte é consequência do afastamento de Deus.').
-justifica(humano_escolheu_afastar, redencao,
-          'O ser humano se afastou e precisa ser reconciliado.').
-
-% ==============================================================================
-% FUNDAMENTO 3: JESUS RECONCILIOU A HUMANIDADE COM DEUS
-% ==============================================================================
-% Sustentado por: Axiomas "evangelhos_palavra_de_deus" e "jesus_existe"
-% Passagens: João 3:16 (propósito da encarnação), Romanos 5:10 (reconciliação)
-
-fundamento(jesus_reconciliou_humanidade,
-           'O Evangelho declara que Jesus reconciliou a humanidade com Deus.',
-           [evangelhos_palavra_de_deus, jesus_existe],  % Axiomas que sustentam este fundamento
-           [passagem(joao, 3, 16),             % "Deus amou o mundo"
-            passagem(romanos, 5, 10),          % "Éramos inimigos, reconciliados pela morte"
-            passagem(colossenses, 1, 20)],     % "Aprouve a Deus reconciliar todas as coisas"
-           [jesus, reconciliacao, salvacao],
-           10).
-
-implica_em(jesus_reconciliou_humanidade, [
-    sacrificio_necessario,
-    redencao_em_cristo,
-    ressurreicao_validacao
-]).
-
-justifica(jesus_reconciliou_humanidade, redencao,
-          'Cristo reconciliou a humanidade através de redenção e resgate do pecado.').
-justifica(jesus_reconciliou_humanidade, sacrificio_cruz,
-          'A reconciliação foi realizada no sacrifício da Cruz como Cordeiro de Deus.').
-justifica(jesus_reconciliou_humanidade, presenca_real,
-          'A Eucaristia é memorial perpétuo da reconciliação em Cristo.').
+% Nota: Fundamentos foram movidos para bases/sustentacao/fundamentos.pl
 
 % ==============================================================================
 % AXIOMAS DERIVADOS (compostos de axiomas fundamentais)
@@ -450,7 +369,7 @@ rastrear_axiomas_fundamentos_para_dogma(DogmaId) :-
     format('║ RASTREAMENTO COMPLETO: ~w~n',[DogmaId]),
     write('╚════════════════════════════════════════════════════════╝'), nl, nl,
     
-    % Parte 1: Axiomas fundamentais (auto-evidentes)
+    % Parte 1: Axiomas/pressupostos fundamentais do modelo
     write('═══ AXIOMAS FUNDAMENTAIS ════════════════════════════════'), nl,
     findall(AxId, (axioma_def(AxId, _, _, _), justifica(AxId, DogmaId, _)), Axiomas),
     ( Axiomas == []

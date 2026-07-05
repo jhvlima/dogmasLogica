@@ -4,11 +4,8 @@
 % COMO RODAR: No terminal, digite: swipl main.pl
 % ==============================================================================
 
-% Carrega os arquivos
-:- consult('bases/escrituras.pl').
-:- consult('bases/magisterio.pl').
-:- consult('bases/objecoes.pl').
-:- consult('bases/axiomas.pl').
+% Carrega as bases e os motores
+:- consult('bases/load.pl').
 :- consult('motor/validador.pl').
 :- consult('motor/tracador.pl').
 :- consult('motor/causalidade.pl').
