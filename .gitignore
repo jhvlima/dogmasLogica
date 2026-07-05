@@ -2,3 +2,6 @@
 *.bak
 *~
 .DS_Store
+.env
+.magisterium_ledger.json
+research/cache/
