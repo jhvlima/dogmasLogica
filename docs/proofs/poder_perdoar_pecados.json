@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"poder_perdoar_pecados",
   "nome":"A Igreja tem o poder de perdoar os pecados cometidos apos o Batismo",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Igreja, por delegacao de Cristo, possui o poder de perdoar os pecados mortais cometidos apos o Batismo.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

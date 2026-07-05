@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"infalibilidade_igreja",
   "nome":"A Igreja e infalivel ao definir materia de fe e costumes",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Igreja Apostolica e infalivel ao definir e propor doutrinas de fe e costumes para a salvacao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"jurisdicao_papa",
   "nome":"O Papa possui poder de jurisdicao pleno e supremo sobre a Igreja",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Papa, Bispo de Roma, titular de Pedro, possui poder de jurisdicao pleno e supremo sobre toda a Igreja.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

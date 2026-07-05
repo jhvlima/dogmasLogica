@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"mundo_inicio_tempo",
   "nome":"O mundo teve um inicio no tempo",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O mundo teve um comeco no tempo, nao e eterno, tendo sido criado por Deus em um determinado momento.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

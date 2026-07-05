@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"imaculada_conceicao",
   "nome":"A Imaculada Conceicao de Maria",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"universalidade_pecado",
+      "periodo_heresia":"Diversos períodos",
+      "resolucao": {
+	"texto":"Roma 3:23 refere-se a todos os seres humanos que alcançam uso da razão. Maria recebeu preservação preventiva (preservatio) pela graça, não remissão posterior."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Má leitura de Romanos 3:23",
+      "tipo_heresia":"Pelagianismo mal entendido",
+      "versiculo":"passagem(romanos,3,23)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Maria foi concebida sem a mancha do pecado original pela graca preventiva de Deus.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

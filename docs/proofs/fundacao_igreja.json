@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"fundacao_igreja",
   "nome":"A Igreja foi fundada por Jesus Cristo",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Igreja Catolica foi fundada por Jesus Cristo para a salvacao de todos os povo ate o fim dos tempos.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

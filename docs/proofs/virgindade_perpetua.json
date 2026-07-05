@@ -1,7 +1,35 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"virgindade_perpetua",
   "nome":"A Virgindade Perpetua de Maria",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"irmaos_de_jesus",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"\"Irmãos\" em Mateus 13:55 refere-se provavelmente a primos (termo aramaico \"ach\" = parente próximo). Protoevangelium de Tiago (século II) atesta perpetuidade desde o início."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Reforma Protestante (Lutero, Calvino)",
+      "tipo_heresia":"Protestantismo/Ceticismo",
+      "versiculo":"passagem(mateus,13,55)"
+    },
+    {
+      "argumento":"consumacao_matrimonio",
+      "periodo_heresia":"Diversos períodos",
+      "resolucao": {
+	"texto":"Mateus 1:25 (\"até que\") não implica consumação. Muitos textos usam \"até\" sem implicação de mudança (Mateus 28:20). Caráter sacramental de Maria transcende casamento normal."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Interpretação literal de Mateus 1:25",
+      "tipo_heresia":"Interpretação Literal Medieval",
+      "versiculo":"passagem(mateus,1,25)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Maria permaneceu virgem antes do parto, no parto e perpetuamente apos o parto do Filho de Deus.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

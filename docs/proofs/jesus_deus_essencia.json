@@ -1,7 +1,35 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"jesus_deus_essencia",
   "nome":"Jesus Cristo e verdadeiro Deus e Filho de Deus por Essencia",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"docetismo",
+      "periodo_heresia":"Século I-II",
+      "resolucao": {
+	"texto":"1 João 1:1-2 afirma que o Verbo foi \"tocado\", tido como real. Hebreus 2:14-17 diz que Cristo assumiu realmente a natureza humana. Seu sofrimento foi real (Hebreus 5:8-9)."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Docetas gnósticos, influência platônica",
+      "tipo_heresia":"Docetismo",
+      "versiculo":"passagem('1_joao',4,2)"
+    },
+    {
+      "argumento":"adocionismo",
+      "periodo_heresia":"Século I-II",
+      "resolucao": {
+	"texto":"João 1:1, 1:3 afirmam que o Lógos preexistia e criava todas as coisas. Colossenses 1:15 o descreve como imagem do Pai desde eternidade."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Ebionitas (séc. I-II), teólogos islâmicos",
+      "tipo_heresia":"Adocionismo",
+      "versiculo":"passagem(romanos,1,4)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Jesus Cristo e verdadeiro Deus e verdadeiro Filho de Deus unigenito por essencia, nao por adocao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

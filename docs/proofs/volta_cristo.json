@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"volta_cristo",
   "nome":"No fim do mundo, Cristo voltara para julgar",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"No fim do mundo, Cristo voltara visivelmente em gloria para julgar vivos e mortos e estabelecer seu reino eterno.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

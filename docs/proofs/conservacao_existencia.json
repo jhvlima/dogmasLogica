@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"conservacao_existencia",
   "nome":"Deus conserva todas as coisas criadas na existencia",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Deus conserva continuamente todas as coisas criadas na existencia atraves de seu poder infinito.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

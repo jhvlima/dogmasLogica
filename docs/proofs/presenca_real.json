@@ -1,7 +1,40 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"presenca_real",
   "nome":"A Presenca Real de Cristo na Eucaristia pela Transubstanciacao",
-  "objecoes": [],
-  "suportes": ["passagem(mateus,26,26)" ],
-  "veredito":"solido"
+  "objecoes": [
+    {
+      "argumento":"simbolismo_eucaristia",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Cristo disse \"Isto É meu corpo\", não \"Isto representa\". Transubstanciação foi definida em Latrão IV (1215). João 6:51-56 afirma \"comer minha carne e beber meu sangue\"."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Teólogos protestantes (Calvino, Zuínglio)",
+      "tipo_heresia":"Sacramentarianismo Protestante",
+      "versiculo":"passagem(lucas,22,19)"
+    },
+    {
+      "argumento":"memorialismo_protestante",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Instituição de Cristo: \"Isto fiz em memória de meu corpo\". Memória é verdade presente, não meramente simbólica. A Eucaristia é sacrifício real (Malaquias 1:11)."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Huldrych Zuínglio",
+      "tipo_heresia":"Memorialismo (Zuínglio)",
+      "versiculo":"passagem(mateus,26,28)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Cristo esta verdadeira, real e substantially presente na Eucaristia pela mudanca de substancia (Transubstanciacao).",
+  "sustentacao": {
+    "axioma":"",
+    "biblicos": ["passagem(mateus,26,26)" ],
+    "concilios": [],
+    "documentos": []
+  },
+  "veredito":"incompleto"
 }

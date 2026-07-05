@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"morte_pecado",
   "nome":"A Morte e consequencia do pecado",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A morte corporal, experimentada por todos os homens, e consequencia e castigo do pecado de Adao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

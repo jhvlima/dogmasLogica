@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"pecado_original",
   "nome":"O pecado de Adao propaga-se por geracao (Pecado Original)",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O pecado de Adao propaga-se a toda a humanidade por geracao, causando morte e afastamento de Deus.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

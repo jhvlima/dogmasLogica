@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"unidade_deus",
   "nome":"A Unidade de Deus",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Ha um so e unico Deus, substancia infinita, imutavel, eterno, incompreensivel, onipotente e beatissimo.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

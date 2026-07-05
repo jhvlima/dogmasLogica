@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"ressurreicao_mortos",
   "nome":"A Ressurreicao dos mortos no Ultimo Dia",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"No Ultimo Dia, todos os mortos ressurreirao nos corpos para comparecer perante Cristo no Juizo Final.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

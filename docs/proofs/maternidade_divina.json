@@ -1,7 +1,92 @@
 {
+  "definicao_dogmatica": {
+    "conexao_revelacao":"A definicao explicita a identidade da Pessoa de Cristo e a maternidade real de Maria em relacao ao Verbo encarnado.",
+    "fonte_aprovada":true,
+    "fonte_id":"mag_maternidade_divina_catecismo_495",
+    "grau":"definitivo",
+    "texto":"Maria e verdadeiramente Mae de Deus, pois gerou segundo a carne o Verbo de Deus feito homem."
+  },
   "dogma":"maternidade_divina",
   "nome":"A Maternidade Divina de Maria (Theotokos)",
   "objecoes": [],
-  "suportes": ["passagem(lucas,1,43)" ],
-  "veredito":"solido"
+  "pressupostos_assentimento": [
+    {
+      "id":"deus_existe",
+      "nivel":"natural",
+      "papel":"Abre a possibilidade racional de uma Revelacao divina.",
+      "proposicao":"Deus existe e pode comunicar-se com a humanidade."
+    },
+    {
+      "id":"jesus_existe",
+      "nivel":"historico",
+      "papel":"Situa a Revelacao crista na historia.",
+      "proposicao":"Jesus de Nazare existiu historicamente."
+    },
+    {
+      "id":"revelacao_divina",
+      "nivel":"revelacional",
+      "papel":"Permite reconhecer conteudos comunicados por Deus.",
+      "proposicao":"Deus revelou verdades para a salvacao."
+    },
+    {
+      "id":"escritura_normativa",
+      "nivel":"revelacional",
+      "papel":"Reconhece a Escritura como testemunho normativo da Revelacao.",
+      "proposicao":"A Sagrada Escritura transmite verdade revelada sob inspiracao divina."
+    },
+    {
+      "id":"igreja_guardia_deposito",
+      "nivel":"eclesial",
+      "papel":"Explica por que a Igreja pode reconhecer, guardar e propor a Revelacao.",
+      "proposicao":"A Igreja guarda e interpreta autenticamente o deposito da fe."
+    },
+    {
+      "id":"magisterio_autoritativo",
+      "nivel":"eclesial",
+      "papel":"Distingue uma conclusao privada de uma definicao dogmatica vinculante.",
+      "proposicao":"O Magisterio pode propor de modo definitivo verdades contidas na Revelacao ou conexas a ela."
+    }
+  ],
+  "referencias_magisteriais": [
+    {
+      "ano":"1992",
+      "autor":"Igreja Catolica",
+      "citacoes": [
+	{
+	  "referencia":"495",
+	  "texto":"A Igreja confessa que Maria e verdadeiramente Mae de Deus."
+	}
+      ],
+      "id":"mag_maternidade_divina_catecismo_495",
+      "nota":"Fonte aprovada manualmente para a Maternidade Divina de Maria.",
+      "papel":"definicao",
+      "referencia":"495",
+      "titulo":"Catecismo da Igreja Catolica",
+      "url":"https://www.vatican.va/archive/cathechism_po/index_new/p1s2cap2_422-682_po.html"
+    }
+  ],
+  "revelacoes_base": [
+    {
+      "id":"verbo_encarnado",
+      "modo":"via_uniao_hipostatica",
+      "nota":"Se o Verbo encarnado e uma unica Pessoa divina, Maria e Mae de Deus segundo a Pessoa gerada em carne.",
+      "proposicao":"O Verbo se fez carne em Jesus Cristo.",
+      "tipo":"explicita"
+    },
+    {
+      "id":"maria_mae_do_senhor",
+      "modo":"via_testemunho_evangelico",
+      "nota":"A expressao mae do Senhor e lida pela Igreja no contexto da identidade divina de Cristo.",
+      "proposicao":"Maria e apresentada como mae do Senhor.",
+      "tipo":"explicita"
+    }
+  ],
+  "significado":"Maria e verdadeiramente Mae de Deus (Theotokos), tendo gerado em carne o Verbo que e Deus.",
+  "sustentacao": {
+    "axioma":"",
+    "biblicos": ["passagem(lucas,1,43)" ],
+    "concilios": [],
+    "documentos": []
+  },
+  "veredito":"definicao_magisterial_presente"
 }

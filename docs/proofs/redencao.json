@@ -1,7 +1,35 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"redencao",
   "nome":"Cristo redimiu e reconciliou a humanidade com Deus",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"jansenismo_graca",
+      "periodo_heresia":"Século XVII",
+      "resolucao": {
+	"texto":"Efésios 2:8 afirma salvação por graça através de fé. Mas fé é obra nossa com graça (cooperação). Inocêncio X (1653) condenou o jansenismo: graça oferecida a todos universalmente."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Cornelius Jansen (1585-1638)",
+      "tipo_heresia":"Jansenismo",
+      "versiculo":"passagem(efesios,2,8)"
+    },
+    {
+      "argumento":"calvinismo_predestinacao",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Romanos 9:18 refere-se a Faraó cujo coração Deus endureceu (após recusa voluntária). Predestinação é compatível com livre arbítrio (Deus conhece futuros atos livres). 1 Timóteo 2:4 afirma que Deus quer todos salvos."
+      },
+      "resolvida":true,
+      "suporte_argumento":"João Calvino",
+      "tipo_heresia":"Calvinismo",
+      "versiculo":"passagem(romanos,9,18)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Cristo pela sua Paixao, Morte e Ressurreicao resgatou e reconciliou toda a humanidade com Deus.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

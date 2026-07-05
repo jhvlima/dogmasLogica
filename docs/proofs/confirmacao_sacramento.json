@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"confirmacao_sacramento",
   "nome":"A Confirmacao e um verdadeiro Sacramento",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"sacramentos_apenas_dois",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Trento (1547) definiu 7 sacramentos como divinos. Cada um tem matéria, forma, intenção e pode ser rastreado ao ministério de Cristo ou Apóstolos."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Lutero e tradição reformada",
+      "tipo_heresia":"Protestantismo",
+      "versiculo":"passagem(efesios,4,5)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Confirmacao e um Sacramento que confere o Espirito Santo para o fortalecimento na fe e testemunha de Cristo.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

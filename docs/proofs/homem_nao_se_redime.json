@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"homem_nao_se_redime",
   "nome":"O homem caido nao pode redimir-se a si mesmo",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O homem caido pelo pecado nao pode redimir-se a si mesmo sem a graca salvifica de Deus.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

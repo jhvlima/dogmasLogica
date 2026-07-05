@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"infalibilidade_papa",
   "nome":"O Papa e infalivel quando fala ex cathedra",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"sola_scriptura_papa",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Mateus 16:17-19 confere a Pedro primado sobre a Igreja. Lc 22:31-32 promete que fé de Pedro não falhará. Tradição desde Clemente I (96 d.C.) atesta primado de Roma."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Reforma Protestante",
+      "tipo_heresia":"Sola Scriptura",
+      "versiculo":"passagem('1_corintios',11,3)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Papa e infalivel quando fala ex cathedra em materia de fe e costumes para toda a Igreja.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

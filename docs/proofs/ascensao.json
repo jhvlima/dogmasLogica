@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"ascensao",
   "nome":"Cristo ascendeu em Corpo e Alma aos Ceus",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Cristo ascendeu aos Ceus em Corpo e Alma e se senta a direita de Deus Pai onipotente.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

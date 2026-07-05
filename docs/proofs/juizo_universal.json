@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"juizo_universal",
   "nome":"Havera um Juizo Universal",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Havera um Juizo Universal ao fim do mundo, em que Cristo julgara todas as nacoes e revelara o destino eterno de cada um.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

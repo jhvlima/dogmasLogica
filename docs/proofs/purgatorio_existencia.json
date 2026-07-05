@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"purgatorio_existencia",
   "nome":"O Purgatorio existe como estado de purificacao",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"nenhum_lugar_intermediario",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"2 Macabeus 12:46 ordena orações pelos mortos. Mateus 12:32 indica pecados sobre os quais não há remissão \"neste mundo, nem no vindouro\" - implicando remissão possível depois. 1 Coríntios 3:13-15 fala de \"fogo\" que prova as obras."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Negação protestante do Purgatório",
+      "tipo_heresia":"Protestantismo",
+      "versiculo":"passagem(lucas,23,43)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Purgatorio existe como estado intermediario de purificacao para almas que morrem em amizade com Deus mas nao completamente purificadas.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

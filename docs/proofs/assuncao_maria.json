@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"assuncao_maria",
   "nome":"A Assuncao de Maria em Corpo e Alma",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"morte_universal_pecado",
+      "periodo_heresia":"Século XVII+",
+      "resolucao": {
+	"texto":"Romanos 5:12 diz morte veio através do pecado, não que todos pecaram pessoalmente. Igreja sempre ensinou isenção de Maria por privilégio especial divino."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Jacobus Arminius",
+      "tipo_heresia":"Arminianismo",
+      "versiculo":"passagem(romanos,5,12)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Maria foi elevada ao Ceu em Corpo e Alma e permanece na gloria como Mae de Deus e Rainha.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

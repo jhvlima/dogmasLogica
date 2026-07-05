@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"uncao_enfermos",
   "nome":"A Uncao dos Enfermos e um verdadeiro Sacramento",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Uncao dos Enfermos e um Sacramento instituido por Cristo que confere graca para cura e perseveranca.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

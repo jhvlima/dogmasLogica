@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"batismo_sacramento",
   "nome":"O Batismo e um verdadeiro Sacramento instituido por Cristo",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"solifidianismo_batismo",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Atos 2:38 liga fé ao Batismo para remissão. 1 Pedro 3:21 afirma que o Batismo salva. Fé sem obras é morta (Tiago 2:26)."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Martinho Lutero, teólogos protestantes",
+      "tipo_heresia":"Solifidianismo Protestante",
+      "versiculo":"passagem(romanos,10,9)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Batismo e um Sacramento instituido por Cristo que regenera o batizado, remite o pecado original e incorpora na Igreja.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

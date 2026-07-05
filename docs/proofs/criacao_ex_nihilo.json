@@ -1,7 +1,35 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"criacao_ex_nihilo",
   "nome":"Tudo o que existe foi criado por Deus a partir do Nada (ex nihilo)",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"dualismo_gnostico",
+      "periodo_heresia":"Século II",
+      "resolucao": {
+	"texto":"Gênesis 1 afirma explicitamente que Deus \"viu que era bom\" ao criar matéria. Dualismo é contrário ao texto. Concílio de Niceia I confirmou bondade da criação,"
+      },
+      "resolvida":true,
+      "suporte_argumento":"Sistemas gnósticos antigos",
+      "tipo_heresia":"Gnosticismo",
+      "versiculo":"passagem(genesis,1,2)"
+    },
+    {
+      "argumento":"evolucao_ateista",
+      "periodo_heresia":"Século XIX+",
+      "resolucao": {
+	"texto":"Evolução como processo natural é compatível com fé: Deus pode operar através de causas secundárias. Mas origem da primeira vida e alma racional exigem criação especial. João Paulo II afirmou compatibilidade em 1996."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Darwinismo materialista (séculos XIX-XX)",
+      "tipo_heresia":"Evolucionismo Ateu",
+      "versiculo":"passagem(genesis,1,28)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Deus criou o universo inteiro do Nada, sem materia preexistente, pelo ato livre de sua vontade.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

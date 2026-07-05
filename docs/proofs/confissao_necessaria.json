@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"confissao_necessaria",
   "nome":"A Confissao Sacramental e de direito divino e necessaria para a salvacao",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"sola_scriptura_confissao",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"João 20:22-23 confere explicitamente poder de absolver. Tiago 5:16 exorta confissão mútua. Tradição Apostólica (Hipólito) atesta confissão desde o século III."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Protestantismo, crítica evangélica",
+      "tipo_heresia":"Sola Scriptura",
+      "versiculo":"passagem(joao,20,22)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Confissao Sacramental para remissao de pecados mortais e de direito divino e necessaria para a salvacao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

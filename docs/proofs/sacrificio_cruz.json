@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"sacrificio_cruz",
   "nome":"O sacrificio de Cristo na Cruz foi um verdadeiro sacrificio",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O sacrificio de Cristo na Cruz foi verdadeiro, voluntario e expiatoria, oferecido por toda a humanidade.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

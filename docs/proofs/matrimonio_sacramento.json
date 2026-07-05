@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"matrimonio_sacramento",
   "nome":"O Matrimonio e um verdadeiro Sacramento",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Matrimonio e um Sacramento que une homem e mulher em alianca permanente para constituicao de familia cristã.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

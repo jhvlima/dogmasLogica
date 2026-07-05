@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"vontade_propria",
   "nome":"Cada natureza em Cristo possui uma vontade e operacao proprias",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Em Cristo, a natureza divina e a humana possuem vontade e operacao proprias, mas subordinadas a um so proposito salvifica.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

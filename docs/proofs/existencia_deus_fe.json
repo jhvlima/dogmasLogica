@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"existencia_deus_fe",
   "nome":"A Existencia de Deus como Objeto de Fe",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A existencia de Deus como verdade revelada e objeto de fe e apresentada pela Sagrada Escritura e Tradicao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

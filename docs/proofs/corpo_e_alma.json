@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"corpo_e_alma",
   "nome":"O ser humano e composto de corpo material e alma espiritual",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"pelagianismo_livre_arbítrio",
+      "periodo_heresia":"Século IV-V",
+      "resolucao": {
+	"texto":"Concílio de Orange (529) definiu que graça precede livre arbítrio. Romanos 9:15 mostra que Deus tem misericórdia soberana, mas oferece a todos. Livre arbítrio existe mas necessita graça conatural."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Pelágio de Bretanha (360-418)",
+      "tipo_heresia":"Pelagianismo",
+      "versiculo":"passagem(romanos,9,15)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O ser humano e composto de corpo material e alma espiritual, imortal e subsistente, unidos hilemorficamente.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

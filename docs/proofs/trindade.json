@@ -1,26 +1,144 @@
 {
+  "definicao_dogmatica": {
+    "conexao_revelacao":"Verdade contida na Revelacao e proposta pela Igreja como misterio central da fe crista.",
+    "fonte_aprovada":true,
+    "fonte_id":"mag_trindade_catecismo_232",
+    "grau":"definitivo",
+    "texto":"Um so Deus subsiste em tres Pessoas distintas: Pai, Filho e Espirito Santo."
+  },
   "dogma":"trindade",
   "nome":"A Santissima Trindade",
   "objecoes": [
     {
-      "argumento":"desigualdade_divina",
+      "argumento":"arianismo_subordinacionismo",
+      "periodo_heresia":"Século IV",
       "resolucao": {
-	"texto":"Distincao entre Natureza Humana e Divina (Uniao Hipostatica)"
+	"texto":"Concílio de Niceia (325) definiu a consubstancialidade. \"Criado\" em Pv 8:22 refere-se à Encarnação. João 14:28 expressa o estado de humilhação, não a natureza eterna."
       },
       "resolvida":true,
-      "versiculo":"passagem(joao,14,28)"
+      "suporte_argumento":"Ário de Alexandria (256-336 d.C.)",
+      "tipo_heresia":"Arianismo",
+      "versiculo":"passagem(proverbios,8,22)"
     },
     {
-      "argumento":"unicidade_numerica_estrita",
-      "resolucao": {"texto":"Unidade de Substancia vs Pluralidade de Pessoas"},
+      "argumento":"monarquianismo_dinamico",
+      "periodo_heresia":"Século II-III",
+      "resolucao": {
+	"texto":"A unidade divina é de natureza, não de número. São três Pessoas em uma única Substância. Deuteronômio 6:4 expressa monoteísmo, não monarquismo."
+      },
       "resolvida":true,
+      "suporte_argumento":"Tertuliano e teólogos do século II-III",
+      "tipo_heresia":"Monarquianismo Dinâmico",
       "versiculo":"passagem(deuteronomio,6,4)"
+    },
+    {
+      "argumento":"tritheismo",
+      "periodo_heresia":"Diversos períodos",
+      "resolucao": {
+	"texto":"As três Pessoas não dividem a substância divina; cada uma é integralmente Deus. A operação é una ad extra; ad intra há relações reais distintas."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Crítica protestante (séc. XVI-XVII)",
+      "tipo_heresia":"Tritheismo",
+      "versiculo":"passagem('1_corintios',8,6)"
+    },
+    {
+      "argumento":"monarquianismo_modal",
+      "periodo_heresia":"Século III+",
+      "resolucao": {
+	"texto":"O Batismo mostra simultaneamente Pai (voz), Filho (corpo) e Espírito Santo (pomba). Se fossem modos sucessivos, não haveria manifestação simultânea."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Sabélio de Roma (séc. III)",
+      "tipo_heresia":"Sabelianismo/Monarquianismo Modal",
+      "versiculo":"passagem('1_joao',1,1)"
     }
   ],
-  "suportes": [
-    "passagem(joao,1,1)",
-    "passagem(mateus,28,19)",
-    "passagem(mateus,28,19)"
+  "pressupostos_assentimento": [
+    {
+      "id":"deus_existe",
+      "nivel":"natural",
+      "papel":"Abre a possibilidade racional de uma Revelacao divina.",
+      "proposicao":"Deus existe e pode comunicar-se com a humanidade."
+    },
+    {
+      "id":"revelacao_divina",
+      "nivel":"revelacional",
+      "papel":"Permite reconhecer conteudos comunicados por Deus.",
+      "proposicao":"Deus revelou verdades para a salvacao."
+    },
+    {
+      "id":"escritura_normativa",
+      "nivel":"revelacional",
+      "papel":"Reconhece a Escritura como testemunho normativo da Revelacao.",
+      "proposicao":"A Sagrada Escritura transmite verdade revelada sob inspiracao divina."
+    },
+    {
+      "id":"igreja_guardia_deposito",
+      "nivel":"eclesial",
+      "papel":"Explica por que a Igreja pode reconhecer, guardar e propor a Revelacao.",
+      "proposicao":"A Igreja guarda e interpreta autenticamente o deposito da fe."
+    },
+    {
+      "id":"magisterio_autoritativo",
+      "nivel":"eclesial",
+      "papel":"Distingue uma conclusao privada de uma definicao dogmatica vinculante.",
+      "proposicao":"O Magisterio pode propor de modo definitivo verdades contidas na Revelacao ou conexas a ela."
+    }
   ],
-  "veredito":"solido"
+  "referencias_magisteriais": [
+    {
+      "ano":"1992",
+      "autor":"Igreja Catolica",
+      "citacoes": [
+	{
+	  "referencia":"232",
+	  "texto":"Os cristãos são batizados em nome do Pai e do Filho e do Espírito Santo."
+	}
+      ],
+      "id":"mag_trindade_catecismo_232",
+      "nota":"Fonte aprovada manualmente para introduzir a doutrina trinitaria no Catecismo.",
+      "papel":"definicao",
+      "referencia":"232",
+      "titulo":"Catecismo da Igreja Catolica",
+      "url":"https://www.vatican.va/archive/cathechism_po/index_new/p1s2cap1_198-421_po.html"
+    }
+  ],
+  "revelacoes_base": [
+    {
+      "id":"deus_unico",
+      "modo":"via_unidade_da_revelacao",
+      "nota":"A Trindade conserva o monoteismo ao distinguir Pessoas sem dividir a substancia divina.",
+      "proposicao":"Ha um so Deus.",
+      "tipo":"explicita"
+    },
+    {
+      "id":"pai_filho_espirito",
+      "modo":"via_formula_batismal",
+      "nota":"A formula batismal manifesta a distincao pessoal em uma unica comunhao divina.",
+      "proposicao":"A Revelacao nomeia Pai, Filho e Espirito Santo de modo distinto.",
+      "tipo":"explicita"
+    },
+    {
+      "id":"verbo_e_deus",
+      "modo":"via_cristologia",
+      "nota":"A divindade do Verbo integra a confessao trinitaria.",
+      "proposicao":"O Verbo e Deus.",
+      "tipo":"explicita"
+    }
+  ],
+  "significado":"Um so Deus subsiste em tres Pessoas distintas: Pai, Filho e Espirito Santo.",
+  "sustentacao": {
+    "axioma":"O Verbo era Deus (Joao 1:1) e a formula batismal (Mt 28:19) indicam a pluralidade de Pessoas na Unidade de Deus.",
+    "biblicos": ["passagem(joao,1,1)", "passagem(mateus,28,19)" ],
+    "concilios": [
+      "Primeiro Concilio de Niceia (325)",
+      "Concilio de Constantinopla (381)"
+    ],
+    "documentos": [
+      "Credo de Niceia (325)",
+      "Catecismo da Igreja Catolica, nn. 232-267"
+    ]
+  },
+  "veredito":"definicao_magisterial_resistente"
 }

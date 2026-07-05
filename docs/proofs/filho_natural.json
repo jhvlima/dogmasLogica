@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"filho_natural",
   "nome":"Jesus Cristo e o Filho Natural de Deus",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Filho e gerado eternamente pelo Pai, participando da mesma natureza e substancia divina.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

@@ -1,7 +1,35 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"duas_naturezas",
   "nome":"Jesus possui duas naturezas (divina e humana) sem confusao",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"nestorianismo",
+      "periodo_heresia":"Século V",
+      "resolucao": {
+	"texto":"Concílio de Éfeso (431) condenou o nestorianismo. Cristo é uma única Pessoa (hypostase), o Lógos, em duas naturezas. Maria é Theotokos (Mãe de Deus)."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Nestório, Bispo de Constantinopla (381-451)",
+      "tipo_heresia":"Nestorianismo",
+      "versiculo":"passagem(joao,1,14)"
+    },
+    {
+      "argumento":"eutiquianismo",
+      "periodo_heresia":"Século V",
+      "resolucao": {
+	"texto":"Concílio de Calcedônia (451) definiu que Cristo tem duas naturezas distintas mas inseparáveis, não confundidas. Uma única natureza negaria a verdadeira humanidade."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Eutiques, monge de Constantinopla (378-454)",
+      "tipo_heresia":"Eutiquianismo/Monofisismo",
+      "versiculo":"passagem(colossenses,1,19)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Jesus Cristo possui duas naturezas distintas (divina e humana) unidas hipostaticamente, sem confusao nem separacao.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

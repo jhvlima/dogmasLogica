@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"deus_eterno",
   "nome":"Deus e Eterno",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Deus existe desde a eternidade, sem principio nem fim, acima de toda sucessao temporal.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

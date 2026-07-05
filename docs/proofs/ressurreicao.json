@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"ressurreicao",
   "nome":"Cristo ressuscitou dos mortos ao terceiro dia",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"ceticismo_ressurreicao",
+      "periodo_heresia":"Século XIX+",
+      "resolucao": {
+	"texto":"Primeira Epístola de Clemente (95 d.C.) e Inácio de Antioquia (110 d.C.) atestam ressurreição histórica. Transformação dos apóstolos de covardes a mártires é evidência. Aparições a 500+ testemunhas (1 Cor 15:6)."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Crítica bíblica moderna (Bultmann, Strauss)",
+      "tipo_heresia":"Ceticismo Histórico",
+      "versiculo":"passagem('1_corintios',15,13)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Cristo ressuscitou verdadeiramente dos mortos no terceiro dia com corpo glorioso e imperecivel.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

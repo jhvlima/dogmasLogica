@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"inferno_eterno",
   "nome":"O Inferno existe e e eterno",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Inferno existe e e eterno, sendo o castigo dos que morrem em pecado mortal e rejeitam a graca divina.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

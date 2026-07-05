@@ -1,7 +1,24 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"eucaristia_sacramento",
   "nome":"A Eucaristia e um verdadeiro Sacramento instituido por Cristo",
-  "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "objecoes": [
+    {
+      "argumento":"antropofagia_aparente",
+      "periodo_heresia":"Diversos períodos",
+      "resolucao": {
+	"texto":"Os apóstolos compreenderam a realeza de Cristo na Eucaristia (João 6:60-66). Canibalismo é consumo selvagem; Eucaristia é comunhão sacramental venerável."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Crítico de Rómulo (crítico pagão do século II)",
+      "tipo_heresia":"Objeção Popular",
+      "versiculo":"passagem(joao,6,51)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A Eucaristia e um Sacramento instituido por Cristo na Ultima Ceia em sinal de seu corpo e sangue.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

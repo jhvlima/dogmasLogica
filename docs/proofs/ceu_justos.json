@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"ceu_justos",
   "nome":"O Ceu (visao beatifica) e o destino dos justos",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"O Ceu (visao beatifica de Deus) e o destino dos justos que morrem em graca divina.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }

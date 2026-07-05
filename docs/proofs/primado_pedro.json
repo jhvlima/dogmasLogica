@@ -1,7 +1,29 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"primado_pedro",
   "nome":"Cristo conferiu a Pedro o primado de jurisdicao sobre toda a Igreja",
-  "objecoes": [],
-  "suportes": ["passagem(mateus,16,18)" ],
-  "veredito":"solido"
+  "objecoes": [
+    {
+      "argumento":"qualificacoes_episcopo",
+      "periodo_heresia":"Século XVI+",
+      "resolucao": {
+	"texto":"Uma esposa é \"esposa de um marido único\" (priscamente casado). Isso não exclui sucessão apostólica ou jurisdição universal do Sucessor de Pedro sobre todos os bispos."
+      },
+      "resolvida":true,
+      "suporte_argumento":"Leitura de 1 Timóteo 3:2",
+      "tipo_heresia":"Crítica Protestante",
+      "versiculo":"passagem('1_timoteo',3,2)"
+    }
+  ],
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"Cristo conferiu a Pedro o primado de jurisdicao sobre toda a Igreja como cabeça visivel dela.",
+  "sustentacao": {
+    "axioma":"",
+    "biblicos": ["passagem(mateus,16,18)" ],
+    "concilios": [],
+    "documentos": []
+  },
+  "veredito":"incompleto"
 }

@@ -1,7 +1,12 @@
 {
+  "definicao_dogmatica": {},
   "dogma":"existencia_deus_razao",
   "nome":"A Existencia de Deus (conhecivel pela razao)",
   "objecoes": [],
-  "suportes": [],
-  "veredito":"sem_fundamento"
+  "pressupostos_assentimento": [],
+  "referencias_magisteriais": [],
+  "revelacoes_base": [],
+  "significado":"A existencia de Deus pode ser demonstrada pela razao natural atraves de seus efeitos no universo.",
+  "sustentacao": {"axioma":"", "biblicos": [], "concilios": [], "documentos": []},
+  "veredito":"nao_modelado"
 }
