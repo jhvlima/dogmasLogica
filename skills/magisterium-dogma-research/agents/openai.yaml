@@ -1,0 +1,4 @@
+interface:
+  display_name: "Magisterium Dogma Research"
+  short_description: "Research one Catholic dogma with Magisterium AI"
+  default_prompt: "Use $magisterium-dogma-research to research one Catholic dogma from my notes with Magisterium AI."
