@@ -1,86 +1,132 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Explorador de Dogmas — Fides et Ratio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Explorador de Provas — Dogmas da Lógica</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- D3.js -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            abbey: {
+              50: '#f4f1ea',
+              100: '#eae5d9',
+              200: '#d4ccb8',
+              600: '#2d4a3e',
+              700: '#1c3329',
+              900: '#1a2421',
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    body { background: #FDFBF8; color: #402E32; font-family: 'Inter', sans-serif; overflow: hidden; }
+    html, body { height: 100%; background: #f4f1ea; color: #1a2421; font-family: 'Inter', sans-serif; }
+    h1, h2, h3, .font-cinzel { font-family: 'Cinzel', serif; }
     
     /* D3 Node Styles */
-    .node circle { fill: #A98158; stroke: #fff; stroke-width: 2px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); transition: all 0.3s; }
-    .node:hover circle { r: 8; stroke: #402E32; stroke-width: 2px; cursor: pointer; }
-    .node text { font-size: 12px; font-weight: 500; fill: #402E32; pointer-events: none; }
-    .link { stroke: #EAE0D5; stroke-width: 2px; }
-    .node-support circle { fill: #7cb342; }
-    .node-objecao circle { fill: #e53935; }
-    .node-resolucao circle { fill: #43a047; }
-    .node-raiz circle { fill: #402E32; }
+    .node circle { fill: #2d4a3e; stroke: #f4f1ea; stroke-width: 2px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08)); transition: all 0.25s; }
+    .node:hover circle { r: 9; stroke: #1a2421; stroke-width: 2px; cursor: pointer; }
+    .node text { font-size: 11px; font-weight: 600; fill: #1a2421; pointer-events: none; font-family: 'Inter', sans-serif; }
+    .link { stroke: #d4ccb8; stroke-width: 2px; }
+    .node-support circle { fill: #15803d; }
+    .node-objecao circle { fill: #b91c1c; }
+    .node-resolucao circle { fill: #047857; }
+    .node-raiz circle { fill: #1c3329; }
     
-    /* Layout & Utilities */
-    svg { width: 100%; height: 100%; }
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    .smooth-transition { transition: all 0.3s ease; }
-    
-    /* Custom Scrollbar for sidebars */
+    /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #EAE0D5; border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #D4B491; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d4ccb8; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #2d4a3e; }
 
     /* Category Accordion */
     .category-header { cursor: pointer; user-select: none; }
-    .category-header:hover { background-color: #F4EFE7; }
+    .category-header:hover { background-color: #dfd8c7; }
     .category-content { display: none; }
-    .category-content.open { display: block; animation: slideDown 0.3s ease-out; }
-    .chevron { transition: transform 0.3s ease; }
+    .category-content.open { display: block; animation: slideDown 0.25s ease-out; }
+    .chevron { transition: transform 0.25s ease; }
     .open .chevron { transform: rotate(180deg); }
     
     @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-5px); }
+        from { opacity: 0; transform: translateY(-4px); }
         to { opacity: 1; transform: translateY(0); }
     }
 
     /* Controls */
-    .view-toggle { display: inline-flex; background: #F4EFE7; border-radius: 8px; padding: 4px; }
-    .view-toggle button { padding: 8px 16px; font-size: 14px; font-weight: 600; color: #887B7D; border-radius: 6px; transition: all 0.3s; }
-    .view-toggle button.active { background: #fff; color: #402E32; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .view-toggle { display: inline-flex; background: #dfd8c7; border-radius: 10px; padding: 3px; border: 1px solid #d4ccb8; }
+    .view-toggle button { padding: 5px 10px; font-size: 11px; font-weight: 600; color: #52635c; border-radius: 7px; transition: all 0.2s; white-space: nowrap; }
+    @media (min-width: 640px) {
+        .view-toggle button { padding: 6px 14px; font-size: 13px; }
+    }
+    .view-toggle button.active { background: #2d4a3e; color: #ffffff; }
   </style>
 </head>
-<body class="h-screen flex antialiased">
+<body class="h-full flex flex-col md:flex-row antialiased overflow-hidden">
   
-  <!-- Sidebar -->
-  <aside class="w-80 lg:w-96 bg-white border-r border-[#EAE0D5] flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-10 shrink-0">
-    <div class="p-6 border-b border-[#EAE0D5]">
-      <h1 class="text-2xl font-bold text-[#402E32] tracking-tight">Dogmas da Fé</h1>
-      <p class="text-sm text-[#A98158] mt-1 font-medium">Fides et Ratio Computatrum</p>
+  <!-- Sidebar Mobile Overlay backdrop -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-stone-900/50 backdrop-blur-xs z-40 hidden md:hidden"></div>
+
+  <!-- Sidebar Drawer -->
+  <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 lg:w-96 bg-[#eae5d9] border-r border-[#d4ccb8] flex flex-col shadow-lg md:shadow-none transform -translate-x-full md:translate-x-0 md:static transition-transform duration-300 ease-in-out shrink-0 h-full">
+    <div class="p-5 border-b border-[#d4ccb8] space-y-3">
+      <div class="flex items-center justify-between">
+        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#2d4a3e] hover:text-[#1c3329] transition-colors">
+          <span>←</span> Página Principal
+        </a>
+        <button id="mobile-close-btn" class="md:hidden p-1 rounded-lg bg-[#dfd8c7] text-[#1a2421]">
+          ✕
+        </button>
+      </div>
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421] tracking-tight">Árvore de Provas</h1>
+        <p class="text-[11px] text-[#2d4a3e] font-bold tracking-wide uppercase">Fides et Ratio Computatrum</p>
+      </div>
       
-      <div class="mt-4 relative">
-        <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        <input type="text" id="search-dogma" placeholder="Buscar dogmas..." class="w-full pl-10 pr-4 py-2 bg-[#FDFBF8] border border-[#EAE0D5] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#A98158] focus:border-transparent smooth-transition">
+      <div class="mt-2 relative">
+        <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#52635c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <input type="text" id="search-dogma" placeholder="Buscar dogmas..." class="w-full pl-9 pr-4 py-2 bg-[#f4f1ea] border border-[#d4ccb8] rounded-xl text-xs font-medium text-[#1a2421] placeholder-[#52635c] focus:outline-none focus:border-[#2d4a3e] transition-all">
       </div>
     </div>
     
     <!-- Categorized List -->
-    <div id="dogma-list-container" class="flex-1 overflow-y-auto custom-scrollbar p-3">
+    <div id="dogma-list-container" class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2">
         <!-- Categories injected here -->
     </div>
   </aside>
 
   <!-- Main Content -->
-  <main class="flex-1 flex flex-col relative bg-[#FDFBF8]">
+  <main class="flex-1 flex flex-col relative bg-[#f4f1ea] min-w-0 h-full">
     
-    <!-- Top Header -->
-    <header class="h-20 px-8 flex items-center justify-between border-b border-[#EAE0D5] bg-white/80 backdrop-blur-md z-10">
-      <div>
-        <h2 id="selected-title" class="text-xl font-bold text-[#402E32]">Nenhum dogma selecionado</h2>
+    <!-- Top Header Bar -->
+    <header class="h-16 sm:h-20 px-4 sm:px-8 flex items-center justify-between border-b border-[#d4ccb8] bg-[#eae5d9]/80 backdrop-blur-md z-10 shrink-0 gap-2">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] focus:outline-none shrink-0" aria-label="Abrir Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <h2 id="selected-title" class="text-sm sm:text-lg font-bold font-cinzel text-[#1a2421] truncate max-w-[140px] sm:max-w-xs md:max-w-none">Selecione um dogma na lista</h2>
       </div>
-      <div class="view-toggle shadow-sm" id="toggle-container" style="display: none;">
-        <button id="view-tree" class="active">Árvore Lógica (D3)</button>
+
+      <div class="view-toggle shrink-0" id="toggle-container" style="display: none;">
+        <button id="view-tree" class="active">Árvore (D3)</button>
         <button id="view-text">Dossiê Textual</button>
       </div>
     </header>
@@ -89,19 +135,21 @@
     <div class="flex-1 overflow-hidden relative">
       
       <!-- Welcome State -->
-      <div id="welcome-state" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-        <svg class="w-24 h-24 text-[#EAE0D5] mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-        </svg>
-        <h2 class="text-2xl font-bold text-[#402E32] mb-2">Selecione um dogma na lista</h2>
-        <p class="text-[#887B7D] max-w-md">Explore a hierarquia causal, os fundamentos bíblicos e a resolução de objeções lógicas da doutrina católica.</p>
+      <div id="welcome-state" class="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-3 sm:space-y-4">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] shadow-xs">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">Selecione um Dogma no Painel Lateral</h2>
+        <p class="text-xs sm:text-sm text-[#52635c] max-w-md leading-relaxed">
+          Navegue pelas 8 categorias doutrinárias para visualizar a árvore causal de deduções, axiomas raiz e resoluções de objeções lógicas.
+        </p>
       </div>
 
       <!-- Tree Container -->
       <div id="tree-container" class="absolute inset-0 hidden"></div>
       
       <!-- Text Container -->
-      <div id="text-container" class="absolute inset-0 hidden overflow-y-auto custom-scrollbar p-8 lg:p-12"></div>
+      <div id="text-container" class="absolute inset-0 hidden overflow-y-auto custom-scrollbar p-4 sm:p-8 lg:p-12"></div>
     </div>
 
   </main>
@@ -135,10 +183,29 @@
     };
 
     let currentProof = null;
-    let currentView = 'tree'; // 'tree' or 'text'
+    let currentView = 'tree';
     let allDogmas = [];
 
-    // Reverse lookup for categories
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function toggleMobileMenu() {
+        const isOpen = !sidebar.classList.contains('-translate-x-full');
+        if (isOpen) {
+            sidebar.classList.add('-translate-x-full');
+            sidebarBackdrop.classList.add('hidden');
+        } else {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarBackdrop.classList.remove('hidden');
+        }
+    }
+
+    if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', toggleMobileMenu);
+    if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', toggleMobileMenu);
+
     const categoryLookup = {};
     Object.keys(CATEGORIAS_MAP).forEach(cat => {
         CATEGORIAS_MAP[cat].forEach(dogmaName => {
@@ -153,7 +220,7 @@
         allDogmas = await res.json();
         renderCategories(allDogmas);
       } catch (e) {
-        document.getElementById('dogma-list-container').innerHTML = `<p class="text-red-500 p-4">Erro ao carregar o índice de dogmas: ${e.message}</p>`;
+        document.getElementById('dogma-list-container').innerHTML = `<p class="text-red-700 text-xs p-4">Erro ao carregar o índice de dogmas: ${e.message}</p>`;
       }
     }
 
@@ -162,60 +229,54 @@
       container.innerHTML = '';
       
       const categorized = {};
-      const uncategorized = [];
       
-      // Grouping
       dogmas.forEach(d => {
           const cat = categoryLookup[d.nome] || 'Outros Dogmas';
           if (!categorized[cat]) categorized[cat] = [];
           categorized[cat].push(d);
       });
 
-      // Rendering groups based on original order of CATEGORIAS_MAP
       const order = [...Object.keys(CATEGORIAS_MAP), 'Outros Dogmas'];
       
       order.forEach(catName => {
           if (!categorized[catName] || categorized[catName].length === 0) return;
           
           const catDiv = document.createElement('div');
-          catDiv.className = 'mb-2 rounded-lg bg-white border border-[#EAE0D5] overflow-hidden';
+          catDiv.className = 'rounded-xl bg-[#eae5d9] border border-[#d4ccb8] overflow-hidden';
           
           const header = document.createElement('div');
-          header.className = 'category-header flex items-center justify-between p-3 bg-[#FDFBF8] border-b border-transparent smooth-transition';
+          header.className = 'category-header flex items-center justify-between p-2.5 sm:p-3 bg-[#eae5d9] hover:bg-[#dfd8c7] transition-colors border-b border-transparent';
           header.innerHTML = `
-            <span class="font-semibold text-sm text-[#402E32]">${catName}</span>
-            <svg class="chevron w-4 h-4 text-[#A98158]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <span class="font-bold text-xs font-cinzel text-[#1a2421] flex items-center gap-1.5"><span class="text-[#2d4a3e]">✦</span> ${catName}</span>
+            <svg class="chevron w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           `;
           
           const content = document.createElement('div');
-          content.className = 'category-content bg-white p-1';
+          content.className = 'category-content bg-[#f4f1ea]/70 p-1 space-y-0.5';
           
           categorized[catName].forEach(d => {
               const btn = document.createElement('button');
-              btn.className = 'w-full text-left px-3 py-2 text-sm text-gray-700 rounded-md hover:bg-[#F4EFE7] hover:text-[#402E32] smooth-transition dogma-item truncate';
+              btn.className = 'w-full text-left px-3 py-2 text-xs text-[#3a4742] rounded-lg hover:bg-[#dfd8c7] hover:text-[#1a2421] transition-colors dogma-item truncate';
               btn.textContent = d.nome || d.id;
               btn.dataset.id = d.id;
               btn.dataset.name = d.nome || d.id;
               btn.onclick = () => {
-                  document.querySelectorAll('.dogma-item').forEach(b => b.classList.remove('bg-[#F4EFE7]', 'font-semibold', 'text-[#402E32]'));
-                  btn.classList.add('bg-[#F4EFE7]', 'font-semibold', 'text-[#402E32]');
+                  document.querySelectorAll('.dogma-item').forEach(b => b.classList.remove('bg-[#dfd8c7]', 'font-bold', 'text-[#1a2421]'));
+                  btn.classList.add('bg-[#dfd8c7]', 'font-bold', 'text-[#1a2421]');
                   loadProof(d.id, d.nome || d.id);
+                  if (window.innerWidth < 768) toggleMobileMenu();
               };
               content.appendChild(btn);
           });
           
           header.onclick = () => {
               const isOpen = content.classList.contains('open');
-              // Close all others (optional accordion behavior)
-              // document.querySelectorAll('.category-content').forEach(c => c.classList.remove('open'));
-              // document.querySelectorAll('.category-header').forEach(h => h.classList.remove('border-[#EAE0D5]'));
-              
               if (!isOpen) {
                   content.classList.add('open');
-                  header.classList.add('border-[#EAE0D5]');
+                  header.classList.add('border-[#d4ccb8]');
               } else {
                   content.classList.remove('open');
-                  header.classList.remove('border-[#EAE0D5]');
+                  header.classList.remove('border-[#d4ccb8]');
               }
           };
           
@@ -231,11 +292,10 @@
       
       const res = await fetch(`proofs/${id}.json`);
       const textContainer = document.getElementById('text-container');
-      const treeContainer = document.getElementById('tree-container');
       const title = document.getElementById('selected-title');
       
       if(!res.ok){ 
-          textContainer.innerHTML = '<div class="text-red-500 font-medium">Erro: Prova lógica não encontrada ou não gerada no servidor.</div>'; 
+          textContainer.innerHTML = '<div class="text-red-700 font-semibold p-4 text-xs sm:text-sm">Erro: Prova lógica não encontrada ou não gerada no servidor.</div>'; 
           title.textContent = nome; 
           showView('text');
           return; 
@@ -284,156 +344,152 @@
     }
 
     function vereditoClass(veredito){
-      if(veredito === 'definicao_magisterial_resistente' || veredito === 'solido') return 'bg-green-100 text-green-900 border-green-200';
-      if(veredito === 'definicao_magisterial_presente') return 'bg-blue-100 text-blue-900 border-blue-200';
-      if(veredito === 'conflito_nos_dados' || veredito === 'objecao_nao_resolvida') return 'bg-red-100 text-red-900 border-red-200';
-      return 'bg-amber-100 text-amber-900 border-amber-200';
+      if(veredito === 'definicao_magisterial_resistente' || veredito === 'solido') return 'bg-emerald-100 text-emerald-900 border-emerald-300';
+      if(veredito === 'definicao_magisterial_presente') return 'bg-[#dfd8c7] text-[#2d4a3e] border-[#d4ccb8]';
+      if(veredito === 'conflito_nos_dados' || veredito === 'objecao_nao_resolvida') return 'bg-rose-100 text-rose-900 border-rose-300';
+      return 'bg-amber-100 text-amber-900 border-amber-300';
     }
 
     function renderProofText(data){
       let html = `
-        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-[#EAE0D5] overflow-hidden mb-12">
+        <div class="max-w-4xl mx-auto bg-[#eae5d9] rounded-2xl shadow-sm border border-[#d4ccb8] overflow-hidden mb-12">
           
-          <div class="p-8 border-b border-[#EAE0D5] bg-[#FDFBF8]">
-             <div class="flex items-start justify-between mb-2">
-                 <h2 class="text-3xl font-bold text-[#402E32] leading-tight">${data.nome || data.dogma}</h2>
-                 <span class="px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider shadow-sm border ml-4 shrink-0 ${vereditoClass(data.veredito)}">
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#f4f1ea]">
+             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+                 <h2 class="text-xl sm:text-3xl font-bold font-cinzel text-[#1a2421] leading-tight">${data.nome || data.dogma}</h2>
+                 <span class="px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider border shrink-0 self-start ${vereditoClass(data.veredito)}">
                     ${vereditoLabel(data.veredito)}
                  </span>
              </div>
-             <p class="text-lg text-[#887B7D] leading-relaxed mt-4">${data.significado || 'Nenhuma definição teológica adicional registrada.'}</p>
+             <p class="text-xs sm:text-base text-[#3a4742] leading-relaxed mt-2 sm:mt-3">${data.significado || 'Nenhuma definição teológica adicional registrada.'}</p>
           </div>
       `;
 
-      // Definição magisterial
       if(data.definicao_dogmatica && Object.keys(data.definicao_dogmatica).length > 0){
         const def = data.definicao_dogmatica;
         html += `
-          <div class="p-8 border-b border-[#EAE0D5] bg-white">
-            <div class="flex items-center gap-3 mb-5">
-              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6M7 4h7l3 3v13H7V4z"></path></svg>
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#eae5d9]">
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2d4a3e]/10 flex items-center justify-center text-[#2d4a3e]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#402E32]">Definição Magisterial</h3>
+              <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Definição Magisterial</h3>
             </div>
-            <div class="rounded-lg border border-blue-200 bg-blue-50 p-5">
-              <p class="text-blue-950 text-lg font-medium leading-relaxed">${def.texto}</p>
-              <div class="flex flex-wrap gap-2 mt-4 text-xs font-semibold uppercase tracking-wide">
-                ${def.grau ? `<span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-800">${String(def.grau).replace(/_/g, ' ')}</span>` : ''}
-                ${def.fonte_id ? `<span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-800">Fonte: ${def.fonte_id}</span>` : ''}
-                ${def.fonte_aprovada ? `<span class="px-2 py-1 rounded bg-green-100 border border-green-200 text-green-800">Fonte aprovada</span>` : `<span class="px-2 py-1 rounded bg-amber-100 border border-amber-200 text-amber-800">Fonte pendente</span>`}
+            <div class="rounded-xl border border-[#d4ccb8] bg-[#f4f1ea] p-4 sm:p-5 space-y-3">
+              <p class="text-[#1a2421] text-xs sm:text-base font-medium leading-relaxed">${def.texto}</p>
+              <div class="flex flex-wrap gap-1.5 pt-1 text-[11px] font-semibold uppercase tracking-wide">
+                ${def.grau ? `<span class="px-2 py-0.5 rounded-lg bg-[#dfd8c7] border border-[#d4ccb8] text-[#2d4a3e]">${String(def.grau).replace(/_/g, ' ')}</span>` : ''}
+                ${def.fonte_id ? `<span class="px-2 py-0.5 rounded-lg bg-[#dfd8c7] border border-[#d4ccb8] text-[#2d4a3e]">Fonte: ${def.fonte_id}</span>` : ''}
+                ${def.fonte_aprovada ? `<span class="px-2 py-0.5 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-900">Fonte aprovada</span>` : `<span class="px-2 py-0.5 rounded-lg bg-amber-100 border border-amber-300 text-amber-900">Fonte pendente</span>`}
               </div>
-              ${def.conexao_revelacao ? `<p class="text-blue-900 text-sm leading-relaxed mt-4">${def.conexao_revelacao}</p>` : ''}
+              ${def.conexao_revelacao ? `<p class="text-[#3a4742] text-xs leading-relaxed pt-2 border-t border-[#d4ccb8]">${def.conexao_revelacao}</p>` : ''}
             </div>
           </div>
         `;
       }
 
-      // Pressupostos de assentimento
       if(data.pressupostos_assentimento && data.pressupostos_assentimento.length > 0){
         html += `
-          <div class="p-8 border-b border-[#EAE0D5] bg-[#FDFBF8]">
-            <div class="flex items-center gap-3 mb-5">
-              <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m9-9H3"></path></svg>
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#f4f1ea]">
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#dfd8c7] flex items-center justify-center text-[#2d4a3e]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#402E32]">Pressupostos de Assentimento</h3>
+              <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Pressupostos de Assentimento</h3>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         `;
         data.pressupostos_assentimento.forEach(p => {
           html += `
-            <div class="rounded-lg border border-amber-200 bg-white p-4">
-              <div class="flex items-center justify-between gap-3 mb-2">
-                <strong class="text-[#402E32]">${String(p.id).replace(/_/g, ' ')}</strong>
-                <span class="px-2 py-1 rounded bg-amber-100 text-amber-900 text-xs font-bold uppercase">${p.nivel}</span>
+            <div class="rounded-xl border border-[#d4ccb8] bg-[#eae5d9] p-3.5 sm:p-4 space-y-1.5">
+              <div class="flex items-center justify-between gap-2">
+                <strong class="text-[#1a2421] text-xs font-mono">${String(p.id).replace(/_/g, ' ')}</strong>
+                <span class="px-2 py-0.5 rounded bg-[#dfd8c7] text-[#2d4a3e] text-[10px] font-bold uppercase">${p.nivel}</span>
               </div>
-              <p class="text-gray-800 text-sm leading-relaxed">${p.proposicao}</p>
-              <p class="text-gray-500 text-xs leading-relaxed mt-2">${p.papel}</p>
+              <p class="text-[#3a4742] text-xs leading-relaxed">${p.proposicao}</p>
+              <p class="text-[#52635c] text-[11px] italic">${p.papel}</p>
             </div>
           `;
         });
         html += `</div></div>`;
       }
 
-      // Revelações base e explicitação
       if(data.revelacoes_base && data.revelacoes_base.length > 0){
         html += `
-          <div class="p-8 border-b border-[#EAE0D5] bg-white">
-            <div class="flex items-center gap-3 mb-5">
-              <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h2v14h-2zM5 11h14v2H5z"></path></svg>
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#eae5d9]">
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#dfd8c7] flex items-center justify-center text-[#2d4a3e]">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               </div>
-              <h3 class="text-2xl font-bold text-[#402E32]">Revelações Base / Explicitação</h3>
+              <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Revelações Base</h3>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-2.5">
         `;
         data.revelacoes_base.forEach(r => {
           html += `
-            <div class="rounded-lg border border-purple-200 bg-purple-50 p-4">
-              <div class="flex flex-wrap items-center gap-2 mb-2">
-                <strong class="text-purple-950">${String(r.id).replace(/_/g, ' ')}</strong>
-                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-800 text-xs font-bold uppercase">${r.tipo}</span>
-                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-800 text-xs font-bold uppercase">${String(r.modo).replace(/_/g, ' ')}</span>
+            <div class="rounded-xl border border-[#d4ccb8] bg-[#f4f1ea] p-3.5 sm:p-4 space-y-1.5">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <strong class="text-[#1a2421] text-xs font-mono">${String(r.id).replace(/_/g, ' ')}</strong>
+                <span class="px-1.5 py-0.5 rounded bg-[#dfd8c7] text-[#2d4a3e] text-[10px] font-bold uppercase">${r.tipo}</span>
+                <span class="px-1.5 py-0.5 rounded bg-[#dfd8c7] text-[#2d4a3e] text-[10px] font-bold uppercase">${String(r.modo).replace(/_/g, ' ')}</span>
               </div>
-              <p class="text-purple-950 text-sm leading-relaxed">${r.proposicao}</p>
-              ${r.nota ? `<p class="text-purple-800 text-xs leading-relaxed mt-2">${r.nota}</p>` : ''}
+              <p class="text-[#1a2421] text-xs leading-relaxed">${r.proposicao}</p>
+              ${r.nota ? `<p class="text-[#52635c] text-[11px] italic">${r.nota}</p>` : ''}
             </div>
           `;
         });
         html += `</div></div>`;
       }
       
-      // Sustentação
       if(data.sustentacao){
         html += `
-          <div class="p-8 border-b border-[#EAE0D5]">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#f4f1ea]">
+            <div class="flex items-center gap-2.5 mb-4">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#dfd8c7] flex items-center justify-center text-[#2d4a3e]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#402E32]">Bases de Sustentação</h3>
+                <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Bases de Sustentação</h3>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         `;
         
         if(data.sustentacao.axioma){
           html += `
-            <div class="col-span-1 md:col-span-2 bg-[#F4EFE7] p-5 rounded-lg border border-[#D4B491]">
-                <strong class="text-[#402E32] uppercase text-xs tracking-widest block mb-2">Fundamento Axiomático Principal</strong>
-                <p class="text-gray-800 text-lg font-medium">${data.sustentacao.axioma}</p>
+            <div class="col-span-1 md:col-span-2 bg-[#eae5d9] p-4 sm:p-5 rounded-xl border border-[#d4ccb8] space-y-1">
+                <strong class="text-[#2d4a3e] uppercase text-[10px] font-bold tracking-widest block">Fundamento Axiomático Principal</strong>
+                <p class="text-[#1a2421] text-xs sm:text-base font-semibold leading-relaxed">${data.sustentacao.axioma}</p>
             </div>`;
         }
         
         if(data.sustentacao.biblicos && data.sustentacao.biblicos.length > 0){
           html += `
-            <div class="bg-green-50 p-5 rounded-lg border border-green-200">
-                <strong class="text-green-800 block mb-3 font-semibold">Sagrada Escritura</strong>
-                <ul class="space-y-2">`;
+            <div class="bg-[#eae5d9] p-4 sm:p-5 rounded-xl border border-[#d4ccb8] space-y-2">
+                <strong class="text-[#2d4a3e] block text-xs font-bold uppercase tracking-wider">Sagrada Escritura</strong>
+                <ul class="space-y-1.5">`;
           data.sustentacao.biblicos.forEach(b => {
-            html += `<li class="flex items-start text-green-900 text-sm"><span class="mr-2 text-green-500">•</span>${b}</li>`;
+            html += `<li class="flex items-start text-[#1a2421] text-xs"><span class="mr-1.5 text-[#2d4a3e] font-bold">•</span>${b}</li>`;
           });
           html += `</ul></div>`;
         }
         
         if(data.sustentacao.documentos && data.sustentacao.documentos.length > 0){
           html += `
-            <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
-                <strong class="text-blue-800 block mb-3 font-semibold">Magistério / Documentos</strong>
-                <ul class="space-y-2">`;
+            <div class="bg-[#eae5d9] p-4 sm:p-5 rounded-xl border border-[#d4ccb8] space-y-2">
+                <strong class="text-[#2d4a3e] block text-xs font-bold uppercase tracking-wider">Magistério / Documentos</strong>
+                <ul class="space-y-1.5">`;
           data.sustentacao.documentos.forEach(d => {
-            html += `<li class="flex items-start text-blue-900 text-sm"><span class="mr-2 text-blue-500">•</span>${d}</li>`;
+            html += `<li class="flex items-start text-[#1a2421] text-xs"><span class="mr-1.5 text-[#2d4a3e] font-bold">•</span>${d}</li>`;
           });
           html += `</ul></div>`;
         }
         
         if(data.sustentacao.concilios && data.sustentacao.concilios.length > 0){
           html += `
-            <div class="bg-purple-50 p-5 rounded-lg border border-purple-200 md:col-span-2">
-                <strong class="text-purple-800 block mb-3 font-semibold">Concílios</strong>
-                <div class="flex flex-wrap gap-2">`;
+            <div class="bg-[#eae5d9] p-4 sm:p-5 rounded-xl border border-[#d4ccb8] md:col-span-2 space-y-2">
+                <strong class="text-[#2d4a3e] block text-xs font-bold uppercase tracking-wider">Concílios Ecumênicos</strong>
+                <div class="flex flex-wrap gap-1.5 pt-1">`;
           data.sustentacao.concilios.forEach(c => {
-            html += `<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-md text-sm">${c}</span>`;
+            html += `<span class="px-2.5 py-1 bg-[#dfd8c7] border border-[#d4ccb8] text-[#1a2421] font-semibold rounded-lg text-xs">${c}</span>`;
           });
           html += `</div></div>`;
         }
@@ -441,42 +497,41 @@
         html += `</div></div>`;
       }
       
-      // Referências magisteriais aprovadas
       if(data.referencias_magisteriais && data.referencias_magisteriais.length > 0){
         html += `
-          <div class="p-8 border-b border-[#EAE0D5] bg-white">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8M8 11h8m-8 4h5M5 5a2 2 0 012-2h8l4 4v12a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"></path></svg>
+          <div class="p-4 sm:p-8 border-b border-[#d4ccb8] bg-[#eae5d9]">
+            <div class="flex items-center gap-2.5 mb-4">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#dfd8c7] flex items-center justify-center text-[#2d4a3e]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#402E32]">Referências Magisteriais Aprovadas</h3>
+                <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Referências Magisteriais Aprovadas</h3>
             </div>
-            <div class="space-y-5">
+            <div class="space-y-3">
         `;
 
         data.referencias_magisteriais.forEach(ref => {
           const meta = [ref.autor, ref.ano, ref.referencia].filter(Boolean).join(' • ');
           html += `
-            <article class="border border-blue-200 rounded-lg overflow-hidden bg-blue-50/40">
-              <div class="p-5 bg-blue-50 border-b border-blue-100">
-                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+            <article class="border border-[#d4ccb8] rounded-xl overflow-hidden bg-[#f4f1ea]">
+              <div class="p-4 border-b border-[#d4ccb8] bg-[#eae5d9]">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
                   <div>
-                    <p class="text-blue-950 font-semibold text-lg">${ref.titulo || ref.id}</p>
-                    ${meta ? `<p class="text-sm text-blue-800 mt-1">${meta}</p>` : ''}
-                    ${ref.nota ? `<p class="text-sm text-blue-900 mt-3">${ref.nota}</p>` : ''}
+                    <p class="text-[#1a2421] font-bold text-xs sm:text-base">${ref.titulo || ref.id}</p>
+                    ${meta ? `<p class="text-[11px] font-medium text-[#52635c] mt-0.5">${meta}</p>` : ''}
+                    ${ref.nota ? `<p class="text-xs text-[#3a4742] mt-1.5">${ref.nota}</p>` : ''}
                   </div>
-                  ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="shrink-0 px-3 py-1.5 rounded-md bg-white border border-blue-200 text-blue-800 text-sm font-semibold hover:bg-blue-100 smooth-transition">Abrir fonte</a>` : ''}
+                  ${ref.url ? `<a href="${ref.url}" target="_blank" rel="noopener noreferrer" class="shrink-0 px-2.5 py-1 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-colors self-start">Abrir fonte</a>` : ''}
                 </div>
               </div>
           `;
 
           if(ref.citacoes && ref.citacoes.length > 0){
-            html += `<div class="p-5 space-y-3">`;
+            html += `<div class="p-4 space-y-2.5">`;
             ref.citacoes.forEach(cit => {
               html += `
-                <blockquote class="border-l-4 border-blue-400 pl-4 text-sm text-gray-800 leading-relaxed">
-                  ${cit.texto}
-                  ${cit.referencia ? `<footer class="mt-2 text-xs font-semibold text-blue-800">Referência: ${cit.referencia}</footer>` : ''}
+                <blockquote class="border-l-3 border-[#2d4a3e] pl-3 text-xs text-[#1a2421] leading-relaxed italic">
+                  "${cit.texto}"
+                  ${cit.referencia ? `<footer class="mt-1 text-[11px] font-semibold text-[#2d4a3e] not-italic">Referência: ${cit.referencia}</footer>` : ''}
                 </blockquote>
               `;
             });
@@ -489,40 +544,39 @@
         html += `</div></div>`;
       }
 
-      // Objeções e Heresias
       if(data.objecoes && data.objecoes.length > 0){
         html += `
-          <div class="p-8">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          <div class="p-4 sm:p-8 bg-[#f4f1ea]">
+            <div class="flex items-center gap-2.5 mb-4">
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-rose-100 flex items-center justify-center text-rose-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-[#402E32]">Objeções Identificadas (${data.objecoes.length})</h3>
+                <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#1a2421]">Objeções Identificadas (${data.objecoes.length})</h3>
             </div>
-            <div class="space-y-6">
+            <div class="space-y-3">
         `;
         
         data.objecoes.forEach(obj => {
           html += `
-            <div class="border border-red-200 rounded-lg overflow-hidden shadow-sm">
-                <div class="bg-red-50 p-5 border-b border-red-200">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div class="border border-rose-200 rounded-xl overflow-hidden shadow-2xs">
+                <div class="bg-rose-50/80 p-4 border-b border-rose-200">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                         <div>
-                            <span class="uppercase text-xs font-bold tracking-widest text-red-500 mb-1 block">Argumento Opositor</span>
-                            <p class="text-red-900 font-semibold text-lg leading-tight mb-2">${obj.argumento.replace(/_/g, ' ')}</p>
-                            ${obj.versiculo ? `<p class="text-sm text-red-700 mt-2"><strong>Referência Bíblica:</strong> ${obj.versiculo}</p>` : ''}
-                            ${obj.suporte_argumento ? `<p class="text-sm text-red-700 mt-1"><strong>Suporte:</strong> ${obj.suporte_argumento}</p>` : ''}
+                            <span class="uppercase text-[9px] font-bold tracking-widest text-rose-700 block mb-0.5">Argumento Opositor</span>
+                            <p class="text-rose-950 font-bold text-xs sm:text-sm leading-tight mb-1">${obj.argumento.replace(/_/g, ' ')}</p>
+                            ${obj.versiculo ? `<p class="text-xs text-rose-800"><strong>Referência Bíblica:</strong> ${obj.versiculo}</p>` : ''}
+                            ${obj.suporte_argumento ? `<p class="text-xs text-rose-800"><strong>Suporte:</strong> ${obj.suporte_argumento}</p>` : ''}
                         </div>
-                        ${obj.tipo_heresia ? `<div class="shrink-0"><span class="px-3 py-1 bg-red-200 text-red-900 rounded-md text-xs font-bold uppercase tracking-wide border border-red-300">Heresia: ${obj.tipo_heresia}</span></div>` : ''}
+                        ${obj.tipo_heresia ? `<div class="shrink-0"><span class="px-2 py-0.5 bg-rose-100 text-rose-900 rounded-lg text-[10px] font-bold uppercase border border-rose-200">Heresia: ${obj.tipo_heresia}</span></div>` : ''}
                     </div>
                 </div>
           `;
           
           if(obj.resolucao){
             html += `
-                <div class="bg-white p-5 border-l-4 border-green-500">
-                    <span class="uppercase text-xs font-bold tracking-widest text-green-600 mb-2 block">Resolução Teológica Oficial</span>
-                    <p class="text-gray-700 text-md leading-relaxed">${obj.resolucao.texto || obj.resolucao}</p>
+                <div class="bg-[#eae5d9] p-4 border-l-4 border-emerald-600">
+                    <span class="uppercase text-[9px] font-bold tracking-widest text-emerald-800 block mb-0.5">Resolução Teológica Oficial</span>
+                    <p class="text-[#1a2421] text-xs leading-relaxed">${obj.resolucao.texto || obj.resolucao}</p>
                 </div>
             `;
           }
@@ -542,28 +596,25 @@
       
       const width = container.clientWidth;
       const height = container.clientHeight;
-      if (width === 0 || height === 0) return; // Wait for layout
+      if (width === 0 || height === 0) return;
 
-      const margin = { top: 40, right: 30, bottom: 40, left: 30 };
+      const margin = { top: 35, right: 20, bottom: 35, left: 20 };
 
       const svg = d3.select(container).append('svg')
           .attr('width', '100%')
           .attr('height', '100%')
           .attr('viewBox', [0, 0, width, height]);
 
-      // Zoom support
       const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
       svg.call(d3.zoom().on('zoom', (event) => {
          g.attr('transform', event.transform);
       }));
 
       const treeData = buildTreeData(data);
-      // Use dynamic size based on container
-      const tree = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom - 100]);
+      const tree = d3.tree().size([width - margin.left - margin.right, height - margin.top - margin.bottom - 80]);
       const root = d3.hierarchy(treeData);
       tree(root);
 
-      // Links (Curved lines)
       const linkGenerator = d3.linkVertical()
           .x(d => d.x)
           .y(d => d.y);
@@ -575,7 +626,6 @@
         .attr('fill', 'none')
         .attr('d', linkGenerator);
 
-      // Nodes
       const nodes = g.selectAll('.node')
         .data(root.descendants())
         .enter().append('g')
@@ -589,22 +639,20 @@
         })
         .attr('transform', d => `translate(${d.x},${d.y})`);
 
-      nodes.append('circle').attr('r', 8);
+      nodes.append('circle').attr('r', 7);
       
-      // Node Text
       nodes.append('text')
-        .attr('dy', d => d.children ? -15 : 22)
+        .attr('dy', d => d.children ? -12 : 20)
         .attr('text-anchor', 'middle')
         .text(d => d.data.label);
 
-      // Interactive Tooltip
       const tooltipDiv = d3.select('body').append('div')
-        .attr('class', 'absolute hidden bg-white border border-[#EAE0D5] p-3 rounded-lg shadow-lg max-w-xs z-50 text-sm pointer-events-none transition-opacity duration-200');
+        .attr('class', 'absolute hidden bg-[#eae5d9] border border-[#d4ccb8] p-3 rounded-xl shadow-lg max-w-xs z-50 text-xs text-[#1a2421] pointer-events-none transition-opacity duration-200');
 
       nodes.on('mouseover', function(e, d){
         if(d.data.tooltip){
           tooltipDiv.classed('hidden', false)
-            .html(`<strong>${d.data.label}</strong><br/><span class="text-gray-600 mt-1 block">${d.data.tooltip}</span>`)
+            .html(`<strong>${d.data.label}</strong><br/><span class="text-[#52635c] mt-1 block">${d.data.tooltip}</span>`)
             .style('left', (e.pageX + 15) + 'px')
             .style('top', (e.pageY - 15) + 'px');
         }
@@ -617,7 +665,7 @@
 
     function buildTreeData(proof){
       const root = {
-        label: proof.nome ? proof.nome.substring(0, 20) + '...' : proof.dogma,
+        label: proof.nome ? proof.nome.substring(0, 18) + '...' : proof.dogma,
         type: 'raiz',
         tooltip: `Dogma Central: ${proof.nome || proof.dogma}`,
         children: []
@@ -648,7 +696,7 @@
         root.children.push({
           label: `Pressupostos (${proof.pressupostos_assentimento.length})`,
           type: 'support',
-          tooltip: 'Condições de inteligibilidade e assentimento, não causas da verdade objetiva do dogma.',
+          tooltip: 'Condições de assentimento.',
           children: proof.pressupostos_assentimento.map(p => ({
             label: p.nivel,
             type: 'support-leaf',
@@ -661,16 +709,15 @@
         root.children.push({
           label: `Revelações (${proof.revelacoes_base.length})`,
           type: 'support',
-          tooltip: 'Verdades reveladas elementares explicitadas pelo dogma.',
+          tooltip: 'Verdades reveladas elementares.',
           children: proof.revelacoes_base.map(r => ({
             label: r.tipo,
             type: 'support-leaf',
-            tooltip: `${r.id}: ${r.proposicao} (${String(r.modo).replace(/_/g, ' ')})`
+            tooltip: `${r.id}: ${r.proposicao}`
           }))
         });
       }
 
-      // Sustentacao e Axiomas
       if(proof.sustentacao){
         const s = proof.sustentacao;
         const children = [];
@@ -684,43 +731,30 @@
         if(s.concilios && s.concilios.length>0) children.push({ label: `Concílios (${s.concilios.length})`, type: 'support-leaf', tooltip: s.concilios.join(', ') });
         
         if(children.length>0){
-          root.children.push({ label: 'Fundamentos', type: 'support', tooltip: 'Bases axiomáticas, escriturísticas e do magistério.', children: children });
+          root.children.push({ label: 'Fundamentos', type: 'support', tooltip: 'Bases axiomáticas e bíblicas.', children: children });
         }
-      } else if (proof.suportes && proof.suportes.length > 0) {
-         // Legacy fallback
-         root.children.push({
-          label: `Suportes Bíblicos`,
-          type: 'support',
-          tooltip: 'Fundamentos bíblicos antigos',
-          children: proof.suportes.map(s => ({
-            label: 'Escritura',
-            type: 'support-leaf',
-            tooltip: String(s)
-          }))
-        });
       }
 
       if(proof.referencias_magisteriais && proof.referencias_magisteriais.length > 0){
         root.children.push({
           label: `Magistério (${proof.referencias_magisteriais.length})`,
           type: 'support',
-          tooltip: 'Referências magisteriais aprovadas manualmente.',
+          tooltip: 'Referências magisteriais aprovadas.',
           children: proof.referencias_magisteriais.map(ref => ({
-            label: ref.titulo ? ref.titulo.substring(0, 16) + '...' : 'Fonte',
+            label: ref.titulo ? ref.titulo.substring(0, 14) + '...' : 'Fonte',
             type: 'support-leaf',
-            tooltip: `${ref.titulo || ref.id}${ref.referencia ? ' — ' + ref.referencia : ''}`
+            tooltip: `${ref.titulo || ref.id}`
           }))
         });
       }
 
-      // Add objeções
       if(proof.objecoes && proof.objecoes.length > 0){
         const objNode = {
-          label: `Objeções Historicas`,
+          label: `Objeções`,
           type: 'objection',
           tooltip: 'Desafios lógicos e heresias.',
           children: proof.objecoes.map(o => ({
-            label: o.argumento.replace(/_/g, ' ').substring(0, 15) + '...',
+            label: o.argumento.replace(/_/g, ' ').substring(0, 14) + '...',
             type: o.resolvida ? 'resolution' : 'objection',
             tooltip: `${o.argumento.replace(/_/g, ' ')} — ${o.resolvida ? '(Resolvida pela Igreja)' : '(Em Disputa)'}`,
             children: o.resolvida && o.resolucao && o.resolucao.texto ? [
@@ -735,31 +769,30 @@
         root.children.push(objNode);
       }
 
-      // Add veredito
       root.children.push({
-        label: `Resultado: ${vereditoLabel(proof.veredito)}`,
+        label: `Veredito: ${vereditoLabel(proof.veredito)}`,
         type: 'raiz',
-        tooltip: `Veredito de qualidade da modelagem: ${vereditoLabel(proof.veredito)}`
+        tooltip: `Veredito da modelagem: ${vereditoLabel(proof.veredito)}`
       });
 
       return root;
     }
 
-    // Toggle events
     document.getElementById('view-tree').addEventListener('click', () => showView('tree'));
     document.getElementById('view-text').addEventListener('click', () => showView('text'));
 
-    // Responsive D3 resize
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        if(currentView === 'tree' && currentProof) {
-            renderTree(currentProof, document.getElementById('tree-container'));
-        }
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if(currentView === 'tree' && currentProof) {
+                renderTree(currentProof, document.getElementById('tree-container'));
+            }
+        }, 150);
     });
 
-    // Search functionality
     document.getElementById('search-dogma').addEventListener('input', function(e){
       const query = e.target.value.toLowerCase();
-      let hasResults = false;
       
       document.querySelectorAll('.category-content').forEach(content => {
           let categoryHasMatch = false;
@@ -768,7 +801,6 @@
              if(text.includes(query)) {
                  btn.style.display = 'block';
                  categoryHasMatch = true;
-                 hasResults = true;
              } else {
                  btn.style.display = 'none';
              }
@@ -779,7 +811,7 @@
               header.style.display = 'flex';
               if(query !== '') {
                   content.classList.add('open');
-                  header.classList.add('border-[#EAE0D5]');
+                  header.classList.add('border-[#d4ccb8]');
               }
           } else {
               header.style.display = 'none';
@@ -787,17 +819,15 @@
           }
       });
       
-      // Close all if search is empty
       if(query === '') {
           document.querySelectorAll('.category-content').forEach(c => c.classList.remove('open'));
           document.querySelectorAll('.category-header').forEach(h => {
               h.style.display = 'flex';
-              h.classList.remove('border-[#EAE0D5]');
+              h.classList.remove('border-[#d4ccb8]');
           });
       }
     });
 
-    // Init
     loadIndex();
   </script>
 </body>

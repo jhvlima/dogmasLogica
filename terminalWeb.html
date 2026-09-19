@@ -1,109 +1,209 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-BR" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fides et Ratio: Terminal Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Fides et Ratio: Terminal Web Prolog</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lato:wght@400;700&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        abbey: {
+                            50: '#f4f1ea',
+                            100: '#eae5d9',
+                            200: '#d4ccb8',
+                            600: '#2d4a3e',
+                            700: '#1c3329',
+                            900: '#1a2421',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Lato', sans-serif;
-            background-color: #FDFBF8;
-            color: #402E32;
+        html, body {
+            height: 100%;
+            background-color: #f4f1ea;
+            color: #1a2421;
+            font-family: 'Inter', sans-serif;
         }
-
-        h1,
-        h2,
-        h3 {
-            font-family: 'Cormorant Garamond', serif;
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
         }
-
+        .abbey-gradient-text {
+            background: linear-gradient(135deg, #1c3329 0%, #2d4a3e 50%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .monastery-card {
+            background: #eae5d9;
+            border: 1px solid #d4ccb8;
+            box-shadow: 0 4px 20px rgba(28, 51, 41, 0.04);
+        }
         .prolog-terminal {
-            background-color: #1a202c;
-            color: #cbd5e0;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #1c2622;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid #2d4a3e;
+            word-break: break-word;
+            white-space: pre-wrap;
         }
-
-        #query-input {
-            background-color: #2d3748;
-            color: #f7fafc;
-            border-color: #4a5568;
-        }
-
-        #suggestions {
-            background-color: #2d3748;
-            border-color: #4a5568;
-        }
-
         .suggestion-item {
             cursor: pointer;
-            padding: 8px;
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            color: #1a2421;
+            transition: background 0.15s ease;
         }
-
         .suggestion-item:hover {
-            background-color: #4a5568;
+            background-color: #dfd8c7;
+            color: #2d4a3e;
+            font-weight: 600;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f1ea;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4ccb8;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d4a3e;
         }
     </style>
 </head>
 
-<body class="p-4 md:p-10">
-    <div class="max-w-5xl mx-auto">
-        <header class="mb-10 text-center">
-            <h1 class="text-5xl font-bold text-[#402E32]">Fides et Ratio Computatrum</h1>
-            <p class="text-[#A98158] italic mt-2">Motor de Inferência Teológica via Navegador</p>
+<body class="p-4 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+
+    <div class="max-w-6xl mx-auto w-full space-y-6 sm:space-y-8 my-auto">
+        
+        <!-- Navigation Back Bar -->
+        <div class="flex items-center justify-between">
+            <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#2d4a3e] hover:text-[#1c3329] transition-colors">
+                <span>←</span> Página Principal
+            </a>
+            <span class="text-[10px] font-mono text-[#52635c] bg-[#eae5d9] px-2 py-0.5 rounded border border-[#d4ccb8]">Tau-Prolog v0.3.4</span>
+        </div>
+
+        <!-- Header -->
+        <header class="text-center space-y-2 sm:space-y-3">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-cinzel font-bold text-lg sm:text-xl mx-auto shadow-xs">
+                ✝
+            </div>
+            <h1 class="text-2xl sm:text-4xl md:text-5xl font-bold text-[#1a2421] tracking-tight">
+                Fides et Ratio <span class="abbey-gradient-text">Computatrum</span>
+            </h1>
+            <p class="text-[11px] sm:text-xs text-[#2d4a3e] font-bold tracking-wider uppercase">
+                Console de Inferência Teológica em Prolog
+            </p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-1 space-y-4">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-[#EAE0D5]">
-                    <h3 class="text-2xl font-bold mb-4">Laboratório</h3>
+        <!-- Main Workspace Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+            
+            <!-- Left Controls Sidebar -->
+            <div class="lg:col-span-1 space-y-4 sm:space-y-6">
+                
+                <!-- Query Box Card -->
+                <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-3 sm:space-y-4">
+                    <h3 class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <span>Consultas Prolog</span>
+                    </h3>
+                    <p class="text-xs text-[#3a4742] leading-relaxed">
+                        Digite um predicado como <code class="text-[#2d4a3e] font-mono font-bold">analisar(trindade).</code>
+                    </p>
                     <div class="relative">
-                        <input type="text" id="query-input" class="w-full p-3 rounded-lg"
+                        <input type="text" id="query-input" class="w-full bg-[#f4f1ea] border border-[#d4ccb8] focus:border-[#2d4a3e] text-[#1a2421] placeholder-[#52635c] p-3 rounded-xl font-mono text-base sm:text-sm focus:outline-none transition-all"
                             placeholder="Digite sua consulta Prolog...">
-                        <div id="suggestions" class="absolute z-10 w-full mt-1 rounded-lg shadow-lg"
-                            style="display: none;"></div>
+                        <div id="suggestions" class="absolute z-20 w-full mt-1 bg-[#eae5d9] border border-[#d4ccb8] rounded-xl shadow-lg overflow-hidden max-h-48 overflow-y-auto hidden"></div>
                     </div>
                     <button id="run-query-btn"
-                        class="w-full bg-[#A98158] text-white p-3 rounded-lg mt-4 font-bold">Executar</button>
+                        class="w-full bg-[#2d4a3e] text-white font-bold p-3 rounded-xl shadow-md hover:bg-[#1c3329] transition-all text-xs sm:text-sm">
+                        Executar Consulta
+                    </button>
                 </div>
 
-                <div class="bg-[#F4EFE7] p-4 rounded-lg border border-[#D4B491]">
-                    <h4 class="font-bold text-sm mb-2">Status do Motor:</h4>
+                <!-- Common Queries Shortcut Card -->
+                <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-2.5">
+                    <h4 class="text-[11px] font-bold uppercase tracking-wider text-[#2d4a3e]">Atalhos Recomendados</h4>
+                    <div class="space-y-1.5 text-xs font-mono">
+                        <button onclick="setQuery('analisar(trindade).')" class="w-full text-left p-2.5 rounded-lg bg-[#f4f1ea] border border-[#d4ccb8] hover:border-[#2d4a3e] text-[#1a2421] hover:text-[#2d4a3e] transition-all flex justify-between items-center text-xs">
+                            <span class="font-semibold break-all">analisar(trindade).</span>
+                            <span class="text-[#52635c] shrink-0">▶</span>
+                        </button>
+                        <button onclick="setQuery('analisar(redencao).')" class="w-full text-left p-2.5 rounded-lg bg-[#f4f1ea] border border-[#d4ccb8] hover:border-[#2d4a3e] text-[#1a2421] hover:text-[#2d4a3e] transition-all flex justify-between items-center text-xs">
+                            <span class="font-semibold break-all">analisar(redencao).</span>
+                            <span class="text-[#52635c] shrink-0">▶</span>
+                        </button>
+                        <button onclick="setQuery('dogma(X, Desc).')" class="w-full text-left p-2.5 rounded-lg bg-[#f4f1ea] border border-[#d4ccb8] hover:border-[#2d4a3e] text-[#1a2421] hover:text-[#2d4a3e] transition-all flex justify-between items-center text-xs">
+                            <span class="font-semibold break-all">dogma(X, Desc).</span>
+                            <span class="text-[#52635c] shrink-0">▶</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Motor Status Card -->
+                <div class="monastery-card p-3.5 sm:p-4 rounded-xl flex items-center justify-between">
+                    <span class="text-xs font-bold text-[#3a4742]">Status do Motor:</span>
                     <div id="status" class="flex items-center space-x-2 text-xs">
-                        <span class="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></span>
-                        <span>Iniciando...</span>
+                        <span class="w-2.5 h-2.5 bg-amber-600 rounded-full animate-pulse"></span>
+                        <span class="text-[#1a2421] font-medium">Iniciando Tau-Prolog...</span>
                     </div>
+                </div>
+
+            </div>
+
+            <!-- Right Terminal Output -->
+            <div class="lg:col-span-2">
+                <div class="prolog-terminal rounded-2xl shadow-xl overflow-hidden flex flex-col h-[380px] sm:h-[460px] md:h-[540px]">
+                    
+                    <!-- Terminal Top Bar -->
+                    <div class="bg-[#141b18] px-4 py-2.5 border-b border-[#2d4a3e] flex items-center justify-between shrink-0">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 bg-red-500/80 rounded-full"></span>
+                            <span class="w-3 h-3 bg-amber-500/80 rounded-full"></span>
+                            <span class="w-3 h-3 bg-emerald-500/80 rounded-full"></span>
+                            <span class="text-xs font-mono font-semibold text-slate-300 ml-2">swipl / tau-prolog</span>
+                        </div>
+                        <button onclick="clearTerminal()" class="text-xs text-slate-400 hover:text-slate-200 transition-colors">Limpar</button>
+                    </div>
+
+                    <!-- Terminal Output Window -->
+                    <div id="terminal-content" class="p-4 sm:p-6 overflow-y-auto flex-1 text-xs sm:text-sm leading-relaxed space-y-1">
+                        <div class="text-slate-400">Aguardando inicialização da biblioteca Tau-Prolog...</div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="lg:col-span-2">
-                <div class="prolog-terminal rounded-xl shadow-2xl overflow-hidden flex flex-col h-[500px]">
-                    <div class="bg-gray-800 px-4 py-2 flex items-center justify-between">
-                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Prolog Output</span>
-                        <div class="flex space-x-1">
-                            <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                            <div class="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                        </div>
-                    </div>
-                    <div id="terminal-content" class="p-6 overflow-y-auto flex-1 text-sm leading-relaxed">
-                        Aguardando carregamento da biblioteca Tau-Prolog...<br>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/charsio.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tau-prolog@0.3.4/modules/lists.min.js"></script>
 
     <script>
-        // Define DOM elements once
         const terminal = document.getElementById('terminal-content');
         const statusEl = document.getElementById('status');
         const queryInput = document.getElementById('query-input');
@@ -113,9 +213,17 @@
         let session;
         let allSuggestions = [];
 
-        // --- Main Application Logic ---
+        function setQuery(query) {
+            queryInput.value = query;
+            queryInput.focus();
+        }
+
+        function clearTerminal() {
+            terminal.innerHTML = '<div class="text-emerald-400 font-mono text-xs">Terminal limpo. Motor pronto.</div>';
+        }
+
         async function initializeApp() {
-            terminal.innerHTML += "Biblioteca Tau-Prolog carregada. Inicializando sessão...<br>";
+            terminal.innerHTML += '<div class="text-slate-400 font-mono">Biblioteca Tau-Prolog carregada com sucesso.</div>';
             session = pl.create();
 
             session.standard_output = {
@@ -126,12 +234,13 @@
             };
 
             try {
-                terminal.innerHTML += "Carregando base de conhecimento...<br>";
+                terminal.innerHTML += '<div class="text-slate-400 font-mono">Carregando base de conhecimento teológico...</div>';
                 const program = await loadPrologSource();
                 session.consult(program, {
                     success: function () {
-                        statusEl.innerHTML = '<span class="w-3 h-3 bg-green-500 rounded-full"></span><span>Motor Pronto</span>';
-                        terminal.innerHTML += "<span class='text-green-400'>Base de conhecimento carregada com sucesso.</span><br>";
+                        statusEl.innerHTML = '<span class="w-2.5 h-2.5 bg-emerald-600 rounded-full"></span><span class="text-emerald-800 font-bold">Motor Pronto</span>';
+                        terminal.innerHTML += '<div class="text-emerald-400 font-mono font-bold mt-2">✓ Base de conhecimento carregada com sucesso!</div>';
+                        terminal.innerHTML += '<div class="text-amber-300 font-mono text-xs mt-1">Dica: Digite "analisar(trindade)." ou clique num dos atalhos à esquerda.</div>';
                         setupAutocomplete();
                         setupQueryControls();
                     },
@@ -160,7 +269,6 @@
                 'motor/validador.pl',
                 'main.pl'
             ];
-            // Prepend use_module directives to load necessary libraries
             let combinedCode = `
                 :- use_module(library(charsio)).
                 :- use_module(library(lists)).
@@ -173,7 +281,6 @@
                     }
                     combinedCode += await response.text() + '\n';
                 } catch (e) {
-                    // If main.pl is not found, it's not a critical error, so we can ignore it.
                     if (file !== 'main.pl') {
                         throw e;
                     }
@@ -192,7 +299,7 @@
             queryInput.addEventListener('input', () => {
                 const inputText = queryInput.value.split('(')[0];
                 if (inputText.length === 0) {
-                    suggestionsContainer.style.display = 'none';
+                    suggestionsContainer.classList.add('hidden');
                     return;
                 }
                 const filteredSuggestions = allSuggestions.filter(s => s.toLowerCase().startsWith(inputText.toLowerCase()));
@@ -204,15 +311,15 @@
                         item.classList.add('suggestion-item');
                         item.onclick = () => {
                             queryInput.value = suggestion + '()';
-                            suggestionsContainer.style.display = 'none';
+                            suggestionsContainer.classList.add('hidden');
                             queryInput.focus();
                             setTimeout(() => { queryInput.selectionStart = queryInput.selectionEnd = queryInput.value.length - 1; }, 0);
                         };
                         suggestionsContainer.appendChild(item);
                     });
-                    suggestionsContainer.style.display = 'block';
+                    suggestionsContainer.classList.remove('hidden');
                 } else {
-                    suggestionsContainer.style.display = 'none';
+                    suggestionsContainer.classList.add('hidden');
                 }
             });
         }
@@ -225,26 +332,26 @@
         }
 
         function runQueryFromInput() {
-            const queryString = queryInput.value;
+            const queryString = queryInput.value.trim();
             if (!session || !queryString) return;
 
-            terminal.innerHTML += `<div class="text-yellow-400 font-bold mt-2">?- ${queryString}</div>`;
+            terminal.innerHTML += `<div class="text-amber-300 font-mono font-bold mt-3">?- ${queryString}</div>`;
 
             runQueryBtn.disabled = true;
             runQueryBtn.textContent = 'Processando...';
 
             getAllAnswers(queryString, (answers, err) => {
                 if (err) {
-                    terminal.innerHTML += `<span class="text-red-400">Erro: ${session.format_answer(err)}</span><br>`;
+                    terminal.innerHTML += `<span class="text-red-400 font-mono">Erro: ${session.format_answer(err)}</span><br>`;
                 } else if (answers.length === 0 && !queryString.includes('diagnostico') && !queryString.includes('analisar')) {
-                    terminal.innerHTML += 'false.<br>';
+                    terminal.innerHTML += '<span class="text-rose-400 font-mono">false.</span><br>';
                 } else if (answers.length > 0) {
                     const output = answers.map(answer => session.format_answer(answer)).join('<br>');
-                    terminal.innerHTML += output + '<br>';
+                    terminal.innerHTML += `<div class="text-emerald-400 font-mono">${output}</div>`;
                 }
                 terminal.scrollTop = terminal.scrollHeight;
                 runQueryBtn.disabled = false;
-                runQueryBtn.textContent = 'Executar';
+                runQueryBtn.textContent = 'Executar Consulta';
             });
         }
 
@@ -269,13 +376,11 @@
         }
 
         function handleError(type, message) {
-            statusEl.innerHTML = `<span class="w-3 h-3 bg-red-500 rounded-full"></span><span>${type}</span>`;
-            terminal.innerHTML += `<span class="text-red-400">${message}</span><br>`;
+            statusEl.innerHTML = `<span class="w-2.5 h-2.5 bg-red-600 rounded-full"></span><span class="text-red-700 font-bold">${type}</span>`;
+            terminal.innerHTML += `<div class="text-red-400 font-mono mt-2">${message}</div>`;
         }
 
         window.onload = initializeApp;
-
     </script>
 </body>
-
 </html>

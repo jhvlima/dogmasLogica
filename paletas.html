@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogmas da Lógica — Opções de Paleta Clara</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel, Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1ede6;
+            color: #2c221e;
+        }
+        h1, h2, h3, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* PALETA 1: Pergaminho Sacro & Ouro Antigo (Quente / Clássico) */
+        .theme-pergaminho {
+            --bg: #fbf8f2;
+            --card-bg: #f3ede2;
+            --card-border: #e2d5c3;
+            --primary: #8c6a2b;
+            --primary-hover: #73551f;
+            --text-main: #2c221e;
+            --text-muted: #6e5c52;
+            --accent: #7c2d12;
+            --code-bg: #27211e;
+            --code-text: #f3e5ab;
+            --badge-bg: #ede1cb;
+        }
+
+        /* PALETA 2: Mármore Romano & Azul Teológico (Fresco / Moderno) */
+        .theme-marmole {
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #b45309;
+            --code-bg: #0f172a;
+            --code-text: #93c5fd;
+            --badge-bg: #eff6ff;
+        }
+
+        /* PALETA 3: Papel Mosteiro & Verde Abadia (Acadêmico / Natural) */
+        .theme-mosteiro {
+            --bg: #f4f1ea;
+            --card-bg: #eae5d9;
+            --card-border: #d4ccb8;
+            --primary: #2d4a3e;
+            --primary-hover: #1c3329;
+            --text-main: #1a2421;
+            --text-muted: #52635c;
+            --accent: #b8860b;
+            --code-bg: #1c2622;
+            --code-text: #a7f3d0;
+            --badge-bg: #dfd8c7;
+        }
+
+        .preview-box {
+            background-color: var(--bg);
+            color: var(--text-main);
+            border: 2px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+        .preview-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+        }
+        .preview-btn {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+        .preview-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        .preview-accent {
+            color: var(--primary);
+        }
+        .preview-badge {
+            background-color: var(--badge-bg);
+            color: var(--primary);
+            border: 1px solid var(--card-border);
+        }
+        .preview-code {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 md:p-12">
+
+    <div class="max-w-6xl mx-auto space-y-10">
+        
+        <!-- Header -->
+        <div class="text-center space-y-3">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-200/60 text-amber-900 border border-amber-300">
+                ✦ Escolha da Identidade Visual (Modo Claro)
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-bold font-cinzel text-stone-900">
+                Paletas de Cores Claras para o Dogmas da Lógica
+            </h1>
+            <p class="text-sm sm:text-base text-stone-600 max-w-2xl mx-auto">
+                Selecione abaixo a paleta que melhor reflete a experiência desejada para o projeto. Todas priorizam alta legibilidade, contraste e elegância acadêmica.
+            </p>
+        </div>
+
+        <!-- Palette Cards Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- OPÇÃO 1: Pergaminho Sacro -->
+            <div class="theme-pergaminho preview-box p-6 rounded-2xl shadow-sm flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-amber-900/10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-amber-800">Opção 1</span>
+                        <span class="preview-badge px-2.5 py-0.5 rounded-full text-xs font-semibold">Clássico Sacro</span>
+                    </div>
+
+                    <h2 class="text-2xl font-bold font-cinzel text-stone-900">Pergaminho Sacro & Ouro Antigo</h2>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Inspirada em manuscritos antigos e teologia clássica. Tons quentes de pergaminho marfim, ouro velho e detalhes em nanquim e carmesim.
+                    </p>
+
+                    <!-- Swatches -->
+                    <div class="flex gap-2 pt-1">
+                        <div class="w-8 h-8 rounded-full border border-stone-300 shadow-inner" style="background:#fbf8f2;" title="Fundo (#fbf8f2)"></div>
+                        <div class="w-8 h-8 rounded-full border border-stone-300 shadow-inner" style="background:#f3ede2;" title="Cards (#f3ede2)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#8c6a2b;" title="Destaque (#8c6a2b)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#7c2d12;" title="Acento (#7c2d12)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#2c221e;" title="Texto (#2c221e)"></div>
+                    </div>
+
+                    <!-- Live Component Mockup -->
+                    <div class="preview-card p-4 rounded-xl space-y-3 shadow-xs">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold font-cinzel preview-accent">A Santíssima Trindade</h3>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-mono font-semibold preview-badge">Veredito: Resistente</span>
+                        </div>
+                        <p class="text-xs text-stone-700 leading-normal">
+                            Há um só Deus em três Pessoas distintas: Pai, Filho e Espírito Santo, consubstanciais.
+                        </p>
+                        <div class="preview-code p-2.5 rounded text-[11px] font-mono">
+                            ?- analisar(trindade).<br>
+                            <span class="opacity-80">% Veredito: definicao_magisterial_resistente</span>
+                        </div>
+                        <button class="preview-btn w-full py-2 rounded-lg text-xs font-semibold shadow-xs">
+                            Explorar Árvore de Provas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-amber-900/10 text-center">
+                    <span class="text-xs font-semibold text-amber-900">Sensação: Nobre, Aconchegante, Histórica</span>
+                </div>
+            </div>
+
+            <!-- OPÇÃO 2: Mármore Romano -->
+            <div class="theme-marmole preview-box p-6 rounded-2xl shadow-sm flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-slate-200">
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-900">Opção 2</span>
+                        <span class="preview-badge px-2.5 py-0.5 rounded-full text-xs font-semibold">Acadêmico Moderno</span>
+                    </div>
+
+                    <h2 class="text-2xl font-bold font-cinzel text-slate-900">Mármore Romano & Azul Teológico</h2>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Inspirada em arquitetura romana e clareza acadêmica. Fundo mármore claríssimo com azul mariano profundo e detalhes em ouro e grafite.
+                    </p>
+
+                    <!-- Swatches -->
+                    <div class="flex gap-2 pt-1">
+                        <div class="w-8 h-8 rounded-full border border-slate-300 shadow-inner" style="background:#f8fafc;" title="Fundo (#f8fafc)"></div>
+                        <div class="w-8 h-8 rounded-full border border-slate-300 shadow-inner" style="background:#ffffff;" title="Cards (#ffffff)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#1e3a8a;" title="Destaque (#1e3a8a)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#b45309;" title="Acento (#b45309)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#0f172a;" title="Texto (#0f172a)"></div>
+                    </div>
+
+                    <!-- Live Component Mockup -->
+                    <div class="preview-card p-4 rounded-xl space-y-3 shadow-xs">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold font-cinzel preview-accent">A Santíssima Trindade</h3>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-mono font-semibold preview-badge">Veredito: Resistente</span>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-normal">
+                            Há um só Deus em três Pessoas distintas: Pai, Filho e Espírito Santo, consubstanciais.
+                        </p>
+                        <div class="preview-code p-2.5 rounded text-[11px] font-mono">
+                            ?- analisar(trindade).<br>
+                            <span class="opacity-80">% Veredito: definicao_magisterial_resistente</span>
+                        </div>
+                        <button class="preview-btn w-full py-2 rounded-lg text-xs font-semibold shadow-xs">
+                            Explorar Árvore de Provas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-200 text-center">
+                    <span class="text-xs font-semibold text-blue-900">Sensação: Limpa, Clara, Institucional</span>
+                </div>
+            </div>
+
+            <!-- OPÇÃO 3: Papel Mosteiro -->
+            <div class="theme-mosteiro preview-box p-6 rounded-2xl shadow-sm flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b pb-3 border-emerald-900/10">
+                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-900">Opção 3</span>
+                        <span class="preview-badge px-2.5 py-0.5 rounded-full text-xs font-semibold">Mosteiro & Arquivo</span>
+                    </div>
+
+                    <h2 class="text-2xl font-bold font-cinzel text-emerald-950">Papel Mosteiro & Verde Abadia</h2>
+                    <p class="text-xs text-emerald-800/80 leading-relaxed">
+                        Inspirada em scripts monásticos e bibliotecas antigas. Tom de papel natural prensado, verde abadia elegante e acentos bronze.
+                    </p>
+
+                    <!-- Swatches -->
+                    <div class="flex gap-2 pt-1">
+                        <div class="w-8 h-8 rounded-full border border-stone-300 shadow-inner" style="background:#f4f1ea;" title="Fundo (#f4f1ea)"></div>
+                        <div class="w-8 h-8 rounded-full border border-stone-300 shadow-inner" style="background:#eae5d9;" title="Cards (#eae5d9)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#2d4a3e;" title="Destaque (#2d4a3e)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#b8860b;" title="Acento (#b8860b)"></div>
+                        <div class="w-8 h-8 rounded-full shadow-inner" style="background:#1a2421;" title="Texto (#1a2421)"></div>
+                    </div>
+
+                    <!-- Live Component Mockup -->
+                    <div class="preview-card p-4 rounded-xl space-y-3 shadow-xs">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold font-cinzel preview-accent">A Santíssima Trindade</h3>
+                            <span class="text-[10px] px-2 py-0.5 rounded font-mono font-semibold preview-badge">Veredito: Resistente</span>
+                        </div>
+                        <p class="text-xs text-emerald-900/90 leading-normal">
+                            Há um só Deus em três Pessoas distintas: Pai, Filho e Espírito Santo, consubstanciais.
+                        </p>
+                        <div class="preview-code p-2.5 rounded text-[11px] font-mono">
+                            ?- analisar(trindade).<br>
+                            <span class="opacity-80">% Veredito: definicao_magisterial_resistente</span>
+                        </div>
+                        <button class="preview-btn w-full py-2 rounded-lg text-xs font-semibold shadow-xs">
+                            Explorar Árvore de Provas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-emerald-900/10 text-center">
+                    <span class="text-xs font-semibold text-emerald-900">Sensação: Orgânica, Serena, Erudita</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Instructions Footer -->
+        <div class="bg-stone-200/70 p-6 rounded-2xl border border-stone-300 text-center space-y-2">
+            <h3 class="text-base font-bold font-cinzel text-stone-800">Qual opção você prefere?</h3>
+            <p class="text-xs text-stone-600">
+                Você pode abrir <code class="bg-stone-300 px-2 py-0.5 rounded font-mono">paletas.html</code> diretamente no seu navegador para comparar. Me diga qual das opções (1, 2 ou 3) você quer aplicar ao site principal!
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

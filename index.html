@@ -1,297 +1,807 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="h-full scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fides et Ratio Computatrum: Uma Análise Interativa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Fides et Ratio Computatrum: Análise Teológica Lógica</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel, Inter, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        abbey: {
+                            50: '#f4f1ea',
+                            100: '#eae5d9',
+                            200: '#d4ccb8',
+                            600: '#2d4a3e',
+                            700: '#1c3329',
+                            900: '#1a2421',
+                        },
+                        bronze: {
+                            400: '#d4af37',
+                            500: '#b8860b',
+                            600: '#8b6508',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        html,
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: #FDFBF8;
-            color: #402E32;
+            height: 100%;
+            background-color: #f4f1ea;
+            color: #1a2421;
+            font-family: 'Inter', sans-serif;
         }
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', serif;
+
+        h1,
+        h2,
+        h3,
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
         }
-        .nav-section-title {
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #A98158;
-            padding: 12px 16px 6px 16px;
-            margin-top: 8px;
-            border-top: 1px solid #EAE0D5;
+
+        .abbey-gradient-text {
+            background: linear-gradient(135deg, #1c3329 0%, #2d4a3e 50%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
+        .monastery-card {
+            background: #eae5d9;
+            border: 1px solid #d4ccb8;
+            box-shadow: 0 4px 20px rgba(28, 51, 41, 0.04);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .monastery-card:hover {
+            border-color: #2d4a3e;
+            box-shadow: 0 8px 25px rgba(45, 74, 62, 0.08);
+        }
+
         .nav-link {
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border-left: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            color: #52635c;
         }
-        .nav-link-icon {
-            font-size: 1.2rem;
-            width: 24px;
-            text-align: center;
-        }
+
         .nav-link.active {
-            background-color: #F4EFE7;
-            color: #A98158;
-            border-left-color: #A98158;
+            background: linear-gradient(90deg, rgba(45, 74, 62, 0.12) 0%, rgba(234, 229, 217, 0) 100%);
+            color: #1c3329;
+            border-left-color: #2d4a3e;
+            font-weight: 700;
         }
-        .nav-link:hover {
-            background-color: #F4EFE7;
-            border-left-color: #D4B491;
+
+        .nav-link:hover:not(.active) {
+            background: rgba(45, 74, 62, 0.04);
+            color: #1a2421;
+            border-left-color: rgba(45, 74, 62, 0.4);
         }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
-        }
-        .dogma-category {
-            transition: all 0.3s ease;
-            border: 1px solid #EAE0D5;
-        }
-        .dogma-category:hover {
-            border-color: #A98158;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
+
         .prolog-code {
-            background-color: #2d3748;
-            color: #e2e8f0;
-            font-family: monospace;
+            background-color: #1c2622;
+            border: 1px solid #2d4a3e;
+            color: #a7f3d0;
+            font-family: 'JetBrains Mono', monospace;
+            word-break: break-word;
             white-space: pre-wrap;
         }
-        .query-btn {
-            background-color: #EAE0D5;
-            transition: all 0.2s ease;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
         }
-        .query-btn:hover {
-            background-color: #A98158;
-            color: #ffffff;
+
+        ::-webkit-scrollbar-track {
+            background: #f4f1ea;
         }
-        .result-box {
-            background-color: #F4EFE7;
-            border-left: 4px solid #A98158;
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4ccb8;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d4a3e;
         }
     </style>
 </head>
-<body class="antialiased">
 
-    <div class="flex flex-col md:flex-row min-h-screen">
-        <!-- Sidebar Navigation -->
-        <aside class="w-full md:w-64 bg-[#F4EFE7] border-r border-[#EAE0D5] flex-shrink-0">
-            <div class="p-6">
-                <h1 class="text-2xl font-bold text-[#402E32]">Fides et Ratio</h1>
-                <h2 class="text-lg text-[#A98158]">Computatrum</h2>
+<body class="antialiased flex flex-col md:flex-row h-full overflow-hidden">
+
+    <!-- Mobile Top Header Bar -->
+    <header
+        class="md:hidden flex items-center justify-between px-4 py-3 bg-[#eae5d9] border-b border-[#d4ccb8] shrink-0 z-30 shadow-xs">
+        <div class="flex items-center gap-2.5 min-w-0">
+            <div
+                class="w-8 h-8 rounded-full bg-[#2d4a3e]/10 border border-[#2d4a3e]/30 flex items-center justify-center text-[#2d4a3e] font-cinzel font-bold text-sm shrink-0">
+                ✝
             </div>
-            <nav id="navigation" class="mt-4">
-                <!-- Básico -->
-                <div class="nav-section-title">Navegação Principal</div>
-                <a href="#intro" class="nav-link block p-4 text-lg font-semibold active">
-                    <span>Introdução</span>
-                </a>
-                
-                <!-- Teoria -->
-                <div class="nav-section-title">Teoria</div>
-                <a href="#foundations" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Fundamentos</span>
-                </a>
-                
-                <!-- Exploração -->
-                <div class="nav-section-title">Exploração</div>
-                <a href="#explorer" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Explorador de Dogmas</span>
-                </a>
-                <a href="#proofs" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Explorador de Provas</span>
-                </a>
-                
-                <!-- Prático -->
-                <div class="nav-section-title">Prático</div>
-                <a href="#lab" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Laboratório de Lógica</span>
-                </a>
-                <a href="#terminal" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Terminal Interativo</span>
-                </a>
-                
-                <!-- Conclusão -->
-                <div class="nav-section-title">Finalização</div>
-                <a href="#conclusion" class="nav-link block p-4 text-lg font-semibold">
-                    <span>Conclusão</span>
-                </a>
-            </nav>
-        </aside>
+            <div class="truncate">
+                <h1 class="text-sm font-bold font-cinzel text-[#1a2421] leading-tight truncate">Fides et Ratio</h1>
+                <p class="text-[10px] text-[#2d4a3e] font-semibold tracking-wide uppercase">Computatrum</p>
+            </div>
+        </div>
+        <button id="mobile-menu-btn"
+            class="p-2 rounded-lg bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] focus:outline-none shrink-0"
+            aria-label="Abrir Menu Nav">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+            </svg>
+        </button>
+    </header>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-6 md:p-10 lg:p-12 overflow-y-auto">
+    <!-- Sidebar Mobile Backdrop -->
+    <div id="sidebar-backdrop"
+        class="fixed inset-0 bg-stone-900/50 backdrop-blur-xs z-40 hidden md:hidden transition-opacity"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 md:w-72 bg-[#eae5d9] border-r border-[#d4ccb8] transform -translate-x-full md:translate-x-0 md:static transition-transform duration-300 ease-in-out flex flex-col justify-between shrink-0 shadow-lg md:shadow-none h-full">
+        <div class="p-5 sm:p-6 overflow-y-auto">
+            <!-- Logo & Brand Header -->
+            <div class="hidden md:flex items-center gap-3 mb-8 pb-6 border-b border-[#d4ccb8]">
+                <div
+                    class="w-10 h-10 rounded-full bg-[#2d4a3e]/15 border border-[#2d4a3e]/30 flex items-center justify-center text-[#2d4a3e] font-cinzel font-bold text-lg shadow-xs">
+                    ✝
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold font-cinzel text-[#1a2421] tracking-wide">Fides et Ratio</h1>
+                    <p class="text-xs text-[#2d4a3e] font-bold tracking-wider uppercase">Computatrum</p>
+                </div>
+            </div>
+
+            <!-- Mobile Close Button inside Drawer Header -->
+            <div class="flex md:hidden items-center justify-between mb-6 pb-4 border-b border-[#d4ccb8]">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e]">Menu de Navegação</span>
+                <button id="mobile-close-btn" class="p-1.5 rounded-lg bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8]">
+                    ✕
+                </button>
+            </div>
+
+            <nav id="navigation" class="space-y-5">
+                <div>
+                    <div
+                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
+                        Visão Geral</div>
+                    <a href="#intro"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium active">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        <span>Introdução</span>
+                    </a>
+                </div>
+
+                <div>
+                    <div
+                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
+                        Teoria & Lógica</div>
+                    <a href="#foundations"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 10V11m-4 10V11m8 10V11">
+                            </path>
+                        </svg>
+                        <span>Fundamentos</span>
+                    </a>
+                </div>
+
+                <div>
+                    <div
+                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
+                        Exploração Doutrinária</div>
+                    <a href="#explorer"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <span>Explorador de Dogmas</span>
+                    </a>
+                    <a href="#proofs"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18"></path>
+                        </svg>
+                        <span>Árvores de Provas</span>
+                    </a>
+                </div>
+
+                <div>
+                    <div
+                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
+                        Ambiente Interativo</div>
+                    <a href="#lab"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
+                            </path>
+                        </svg>
+                        <span>Laboratório de Lógica</span>
+                    </a>
+                    <a href="#terminal"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span>Terminal Web Prolog</span>
+                    </a>
+                </div>
+
+                <div>
+                    <div
+                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
+                        Síntese & Contato</div>
+                    <a href="#conclusion"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Conclusão</span>
+                    </a>
+                    <a href="#contact"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Contato & Colaboração</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Footer info in Sidebar -->
+        <div class="p-4 sm:p-5 border-t border-[#d4ccb8] text-xs text-[#52635c] space-y-1.5 bg-[#eae5d9] shrink-0">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#2d4a3e] animate-pulse"></span>
+                <span class="font-semibold text-[#1a2421]">Engine Prolog v2.1</span>
+            </div>
+            <p class="text-[11px]">Modelo de Consistência Teológica</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area: Continuous Scrollable Page -->
+    <main id="main-content" class="flex-1 min-w-0 p-4 sm:p-6 md:p-10 lg:p-12 overflow-y-auto h-full scroll-smooth">
+        <div class="max-w-5xl mx-auto space-y-16 sm:space-y-24 pb-16">
 
             <!-- Introduction Section -->
-            <section id="intro" class="content-section active">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">A Fé que Procura a Compreensão Computacional</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Bem-vindo a uma exploração interativa do projeto "Fides et Ratio Computatrum". Esta aplicação traduz um relatório académico denso sobre a formalização do dogma católico numa experiência digital. O objetivo é demonstrar como os princípios da lógica formal e da programação, especificamente a linguagem Prolog, podem ser aplicados para modelar e raciocinar sobre as complexas verdades da fé. Navegue pelas secções para compreender os conceitos, explorar os dogmas e interagir com simulações lógicas que unem dois mundos aparentemente distintos: a teologia e a ciência da computação.
-                </p>
-                <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg">
-                    <p class="text-xl italic text-[#402E32]">
-                        "Este trabalho pode ser visto como uma continuação, com as ferramentas do século XXI, da longa tradição de <span class="font-semibold">fides quaerens intellectum</span> ('a fé que procura a compreensão')."
+            <section id="intro" class="content-section scroll-mt-6 sm:scroll-mt-10 space-y-6 sm:space-y-8">
+
+                <!-- Hero Banner Image -->
+                <div
+                    class="relative w-full h-56 sm:h-80 md:h-96 rounded-2xl overflow-hidden border border-[#d4ccb8] shadow-md group">
+                    <img src="assets/Gemini_Generated_Image_ncdj8uncdj8uncdj.jpeg"
+                        alt="Fides et Ratio Computatrum - A Catedral da Lógica e Fé"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#1a2421]/90 via-[#1a2421]/30 to-transparent flex items-end p-4 sm:p-8">
+                        <div class="space-y-1 text-white">
+                            <span
+                                class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#b8860b] bg-[#f4f1ea]/90 text-[#1a2421] px-2.5 py-1 rounded-md border border-[#d4ccb8] backdrop-blur-xs">Fides
+                                et Ratio Computatrum</span>
+                            <p class="text-xs sm:text-sm font-medium text-slate-200">A Catedral da Lógica Teológica em
+                                Prolog</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3 sm:space-y-4">
+                    <span
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#dfd8c7] text-[#1c3329] border border-[#d4ccb8]">
+                        <span>✦</span> Fides Quaerens Intellectum Computatrum
+                    </span>
+                    <h2
+                        class="text-2xl sm:text-4xl md:text-5xl font-bold font-cinzel text-[#1a2421] tracking-tight leading-tight">
+                        A Fé que Procura a <span class="abbey-gradient-text">Compreensão Computacional</span>
+                    </h2>
+                    <p class="text-sm sm:text-base text-[#3a4742] leading-relaxed font-medium">
+                        Este projeto ousa aplicar o rigor da <strong>Programação Lógica em Prolog</strong> para mapear a
+                        estrutura formal da fé católica. Nosso objetivo não é "provar" Deus matematicamente, mas modelar
+                        a consistência interna das definições dogmáticas, revelando a teologia como um sistema coerente
+                        de proposições interconectadas, fundamentadas na Revelação e na Tradição.
                     </p>
+                    <p class="text-sm sm:text-base text-[#52635c] leading-relaxed mt-4">
+                        Utilizando árvores de inferência, decompomos dogmas complexos em cadeias dedutivas. O sistema
+                        demonstra passo a passo como as verdades de fé se sustentam logicamente umas nas outras, unindo
+                        o estudo teológico clássico (Escrituras, Concílios, Padres da Igreja) aos fundamentos da Ciência
+                        da Computação de forma incremental e transparente.
+                    </p>
+                    <p class="text-sm sm:text-base text-[#52635c] leading-relaxed mt-4">
+                        Convidamos tanto o crente quanto o cético a percorrer esse caminho. Para o crente, é uma
+                        oportunidade de aprofundamento intelectual, descobrindo as ricas implicações lógicas daquilo que
+                        já se professa pela fé. Para o não-familiarizado, esta é uma janela para entender a
+                        racionalidade que sustenta o catolicismo: ao aceitar o "primeiro passo" do dogma, descobre-se
+                        todo um edifício de verdades que dele decorrem. Ressaltamos, contudo, que a fé precede a
+                        compreensão; a lógica é uma ferramenta de luz, mas a aceitação plena da Verdade é um dom do
+                        Espírito Santo.
+                    </p>
+                </div>
+
+                <!-- Highlight Quote Banner -->
+                <div
+                    class="monastery-card p-5 sm:p-8 rounded-2xl border-l-4 border-l-[#2d4a3e] relative overflow-hidden">
+                    <div
+                        class="absolute -right-6 -bottom-6 text-7xl sm:text-9xl text-[#2d4a3e]/5 select-none font-cinzel">
+                        ✝</div>
+                    <p class="text-base sm:text-xl font-cinzel text-[#1a2421] italic leading-relaxed mb-3">
+                        "Este trabalho dá continuidade, com as ferramentas do século XXI, à tradição de <span
+                            class="text-[#2d4a3e] font-bold">fides quaerens intellectum</span> — demonstrando a harmonia
+                        entre a razão formal e a revelação."
+                    </p>
+                    <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#2d4a3e]">— Princípio
+                        Epistemológico do Projeto</span>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
+                    <div class="monastery-card p-5 rounded-xl space-y-1.5">
+                        <div class="text-2xl sm:text-3xl font-bold font-cinzel text-[#2d4a3e]">44+</div>
+                        <div class="text-xs sm:text-sm font-semibold text-[#1a2421]">Dogmas Mapeados</div>
+                        <div class="text-[11px] text-[#52635c]">Divididos nas 8 categorias teológicas</div>
+                    </div>
+                    <div class="monastery-card p-5 rounded-xl space-y-1.5">
+                        <div class="text-2xl sm:text-3xl font-bold font-cinzel text-[#2d4a3e]">3 Níveis</div>
+                        <div class="text-xs sm:text-sm font-semibold text-[#1a2421]">Hierarquia Causal</div>
+                        <div class="text-[11px] text-[#52635c]">Axiomas ➔ Fundamentos ➔ Dogmas</div>
+                    </div>
+                    <div class="monastery-card p-5 rounded-xl space-y-1.5">
+                        <div class="text-2xl sm:text-3xl font-bold font-cinzel text-[#2d4a3e]">Prolog Engine</div>
+                        <div class="text-xs sm:text-sm font-semibold text-[#1a2421]">Inferência em Tempo Real</div>
+                        <div class="text-[11px] text-[#52635c]">Resolução de objeções e heresias</div>
+                    </div>
                 </div>
             </section>
 
             <!-- Foundations Section -->
-            <section id="foundations" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-8">Os Pilares do Sistema</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-10">
-                    Para construir um modelo lógico da fé, precisamos primeiro de definir os nossos blocos de construção. Esta secção explora os dois pilares fundamentais do projeto: a natureza precisa de um **dogma católico** e as ferramentas da **lógica formal** usadas para o representar. Compreender estes conceitos é essencial para apreciar a análise que se segue.
-                </p>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-[#EAE0D5]">
-                        <h3 class="text-3xl font-bold mb-4">O Que é um Dogma?</h3>
-                        <p class="mb-4">No catolicismo, um dogma não é uma mera opinião, mas uma verdade de fé revelada por Deus e proposta de forma infalível pela Igreja. Cada dogma possui características essenciais:</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><span class="font-semibold">Absoluto e Definitivo:</span> É imutável, pois a sua fonte é Deus.</li>
-                            <li><span class="font-semibold">Infalível:</span> A sua proclamação está protegida do erro pelo Espírito Santo.</li>
-                            <li><span class="font-semibold">Inquestionável:</span> Não pode ser revogado ou negado após a sua proclamação.</li>
+            <section id="foundations"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Estrutura
+                        Epistemológica</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Os Pilares do Sistema
+                    </h2>
+                    <p class="text-[#3a4742] mt-2 text-sm sm:text-base leading-relaxed">
+                        Para formalizar proposições doutrinárias em código executável, o sistema estabelece uma analogia
+                        estrita entre dogmas teológicos e sistemas axiomáticos formais.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                    <!-- Card 1 -->
+                    <div class="monastery-card p-5 sm:p-8 rounded-2xl space-y-3">
+                        <div
+                            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e]">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">O Que é um Dogma?</h3>
+                        <p class="text-[#3a4742] text-xs sm:text-sm leading-relaxed">
+                            No Catolicismo, um dogma é uma verdade divinamente revelada e proposta de forma infalível
+                            pelo Magistério. Possui propriedades lógicas idênticas aos axiomas de um sistema formal:
+                        </p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-[#3a4742] pt-1">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Absoluto e Definitivo:</strong> Imutável, pois
+                                    deriva da Verdade Divina.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Infalível:</strong> Sua formulação é imune ao erro
+                                    teológico.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Irrevogável:</strong> Não admite contradição lógica
+                                    posterior.</span>
+                            </li>
                         </ul>
-                        <p class="mt-4">Esta precisão e certeza tornam os dogmas análogos a axiomas num sistema formal, ideais para a modelação computacional.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-sm border border-[#EAE0D5]">
-                        <h3 class="text-3xl font-bold mb-4">As Ferramentas da Lógica</h3>
-                        <p class="mb-4">Para traduzir a teologia numa linguagem que um computador possa entender, usamos a Lógica de Predicados e a linguagem Prolog.</p>
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><span class="font-semibold">Lógica de Predicados:</span> Permite-nos representar objetos (ex: `jesus`, `maria`), propriedades (ex: `é_divino(X)`) e relações (ex: `é_mãe_de(X, Y)`).</li>
-                            <li><span class="font-semibold">Prolog:</span> Uma linguagem de programação declarativa. Em vez de dizermos ao computador *como* fazer algo, nós declaramos o que é verdade (factos e regras) e ele deduz as respostas (inferência).</li>
+
+                    <!-- Card 2 -->
+                    <div class="monastery-card p-5 sm:p-8 rounded-2xl space-y-3">
+                        <div
+                            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e]">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">A Ferramenta: Prolog</h3>
+                        <p class="text-[#3a4742] text-xs sm:text-sm leading-relaxed">
+                            A linguagem Prolog baseia-se na Lógica de Predicados de Primeira Ordem. Em vez de comandos
+                            imperativos, declara-se a base de fatos e regras de inferência:
+                        </p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-[#3a4742] pt-1">
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Predicados & Objetos:</strong> Representação de
+                                    identidades (`jesus`, `maria`) e atributos (`divino(X)`).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Resolução de Horn:</strong> O motor Prolog deduza
+                                    verdades automaticamente através de unificação e retrocesso.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-[#2d4a3e] font-bold">•</span>
+                                <span><strong class="text-[#1a2421]">Consistência:</strong> Detecção imediata de
+                                    incongruências e objeções resolvidas.</span>
+                            </li>
                         </ul>
-                         <p class="mt-4">Esta abordagem espelha o raciocínio teológico, onde conclusões são derivadas de um conjunto de verdades reveladas.</p>
                     </div>
                 </div>
             </section>
 
             <!-- Dogma Explorer Section -->
-            <section id="explorer" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Explorador de Dogmas</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    Os 44 principais dogmas da fé católica são tradicionalmente organizados em oito categorias temáticas. Clique numa categoria abaixo para revelar os dogmas associados a ela. Esta estrutura oferece um mapa do terreno dogmático que serve de base para a nossa base de conhecimento formal.
-                </p>
-                <div id="dogma-container" class="space-y-4"></div>
+            <section id="explorer"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Base de Conhecimento
+                        Cadastrada</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Explorador de Dogmas</h2>
+                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
+                        Selecione uma categoria abaixo para visualizar os dogmas modelados e catalogados na base
+                        oficial.
+                    </p>
+                </div>
+
+                <div id="dogma-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                    <!-- Dynamic JavaScript insertion -->
+                </div>
+            </section>
+
+            <!-- Proofs Explorer Section -->
+            <section id="proofs"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Grafos de Causalidade
+                        Lógica</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Explorador de Provas</h2>
+                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
+                        Navegue visualmente pelas cadeias dedutivas que ligam axiomas e versículos bíblicos às
+                        definições dogmáticas finais.
+                    </p>
+                </div>
+
+                <div class="monastery-card p-6 sm:p-8 rounded-2xl space-y-5 text-center">
+                    <div
+                        class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] mx-auto">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18"></path>
+                        </svg>
+                    </div>
+                    <div class="max-w-2xl mx-auto space-y-2">
+                        <h3 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">Visualizador de Provas
+                            Teológicas</h3>
+                        <p class="text-[#3a4742] text-xs sm:text-sm leading-relaxed">
+                            Acesse a interface dedicada com suporte a grafos interativos de causalidade, inspeção de
+                            axiomas raiz e veredito de resiliência magisterial.
+                        </p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="docs/proof_browser.html" target="_blank"
+                            class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-xl font-semibold bg-[#2d4a3e] text-white shadow-md hover:bg-[#1c3329] transition-all text-xs sm:text-sm w-full sm:w-auto">
+                            <span>Abrir Navegador de Provas</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
             </section>
 
             <!-- Logic Lab Section -->
-            <section id="lab" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Laboratório de Lógica</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    Esta é a parte central da nossa análise. Aqui, simulamos como uma base de conhecimento em Prolog pode representar e raciocinar sobre alguns dos dogmas mais complexos. Selecione um estudo de caso, observe os factos e regras que o modelam e, em seguida, faça consultas para ver o motor de inferência em ação.
-                </p>
-                <div class="flex items-center justify-center space-x-4 mb-8">
-                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-[#A98158] text-white" data-case="trinity">A Santíssima Trindade</button>
-                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-gray-200 text-gray-700" data-case="hypostatic">A União Hipostática</button>
-                    <button class="lab-case-btn px-6 py-2 rounded-md font-semibold bg-gray-200 text-gray-700" data-case="baptism">Causalidade Sacramental</button>
+            <section id="lab"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Simulador de
+                        Inferência</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Laboratório de Lógica
+                    </h2>
+                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
+                        Selecione um caso de estudo teológico para inspecionar os fatos/regras em Prolog e testar
+                        consultas interativas.
+                    </p>
                 </div>
 
-                <div id="lab-content" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-3xl font-bold mb-4">Base de Conhecimento (Prolog)</h3>
-                        <div id="prolog-code-display" class="prolog-code p-4 rounded-lg text-sm h-96 overflow-y-auto"></div>
+                <!-- Case Selector Tabs -->
+                <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
+                    <button
+                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#2d4a3e] text-white text-left sm:text-center"
+                        data-case="trinity">
+                        ✦ A Santíssima Trindade
+                    </button>
+                    <button
+                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] text-left sm:text-center"
+                        data-case="hypostatic">
+                        ✝ União Hipostática
+                    </button>
+                    <button
+                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] text-left sm:text-center"
+                        data-case="baptism">
+                        § Causalidade Sacramental
+                    </button>
+                </div>
+
+                <div id="lab-content" class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+                    <!-- Code Column -->
+                    <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-3 flex flex-col min-w-0">
+                        <div class="flex items-center justify-between">
+                            <h3
+                                class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                                <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                                <span>Base de Conhecimento</span>
+                            </h3>
+                            <span class="text-[11px] font-mono text-[#52635c]">facts.pl</span>
+                        </div>
+                        <pre id="prolog-code-display"
+                            class="prolog-code p-3.5 sm:p-4 rounded-xl text-xs h-64 sm:h-80 overflow-y-auto leading-relaxed flex-1"></pre>
                     </div>
-                    <div>
-                        <h3 class="text-3xl font-bold mb-4">Consultas e Inferências</h3>
-                        <div id="queries-container" class="space-y-3 mb-6"></div>
-                        <h4 class="text-2xl font-bold mb-2">Resultado:</h4>
-                        <div id="result-display" class="result-box p-4 rounded-md min-h-[100px]">
-                            <p class="text-gray-500">Selecione uma consulta para ver o resultado da inferência lógica.</p>
+
+                    <!-- Query Column -->
+                    <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-4 flex flex-col justify-between min-w-0">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3
+                                    class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                    <span>Consultas</span>
+                                </h3>
+                                <span class="text-xs font-mono text-[#2d4a3e] font-bold">?- query.</span>
+                            </div>
+                            <div id="queries-container" class="space-y-2"></div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t border-[#d4ccb8] space-y-2">
+                            <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#2d4a3e]">
+                                Resultado da Inferência</div>
+                            <div id="result-display"
+                                class="p-3.5 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] min-h-[90px] text-xs sm:text-sm">
+                                <p class="text-[#52635c] italic">Clique em uma das consultas acima para disparar o
+                                    raciocínio formal.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Proofs Explorer Section -->
-            <section id="proofs" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Explorador de Provas e Dogmas</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Navegue visualmente pelas estruturas de suporte e objeções para cada um dos dogmas da Igreja Católica. Para cada dogma, você pode visualizar:
-                </p>
-                <ul class="list-disc list-inside text-lg text-gray-700 mb-8 space-y-2">
-                    <li><strong>Significado teológico:</strong> O que o dogma significa segundo a doutrina</li>
-                    <li><strong>Fundamentos de sustentação:</strong> Suportes bíblicos, axiomas, documentos da Igreja e decisões conciliares</li>
-                    <li><strong>Objeções históricas:</strong> Argumentos históricos contra o dogma, identificando as heresias associadas</li>
-                    <li><strong>Resoluções teológicas:</strong> Como a Igreja resolveu cada objeção</li>
-                </ul>
-                <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg text-center">
-                    <p class="text-xl italic text-[#402E32] mb-4">
-                        Explore as estruturas lógicas que sustentam a fé de forma visual ou textual.
-                    </p>
-                    <a href="docs/proof_browser.html" target="_blank" class="inline-block bg-[#A98158] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-[#8e6a4a] transition-colors duration-300">
-                        Abrir Explorador de Provas
-                    </a>
-                </div>
-            </section>
-
             <!-- Interactive Terminal Section -->
-            <section id="terminal" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Terminal Interativo Prolog</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Vá além dos exemplos guiados. O Laboratório de Lógica demonstrou cenários pré-definidos, mas o verdadeiro poder do motor de inferência reside na sua capacidade de responder a qualquer consulta. Esta secção leva-o para uma interface de terminal web completa, onde pode escrever as suas próprias consultas em Prolog, obter sugestões de preenchimento automático e interagir diretamente com toda a base de conhecimento que foi carregada.
-                </p>
-                 <div class="p-6 border-l-4 border-[#A98158] bg-[#F4EFE7] rounded-r-lg text-center">
-                    <p class="text-xl italic text-[#402E32] mb-4">
-                        Faça as suas próprias perguntas. Teste os limites do modelo. Explore a teologia através do código.
+            <section id="terminal"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Execução Web</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Terminal Interativo
+                        Prolog</h2>
+                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
+                        Experimente o interpretador Prolog rodando 100% diretamente no navegador com a base dogmática
+                        completa carregada.
                     </p>
-                    <a href="terminalWeb.html" target="_blank" class="inline-block bg-[#A98158] text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-[#8e6a4a] transition-colors duration-300">
-                        Abrir Terminal Web
-                    </a>
+                </div>
+
+                <div class="monastery-card p-6 sm:p-8 rounded-2xl space-y-5 text-center">
+                    <div
+                        class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] mx-auto">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="max-w-2xl mx-auto space-y-2">
+                        <h3 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">Console Web com
+                            Autocompletar</h3>
+                        <p class="text-[#3a4742] text-xs sm:text-sm leading-relaxed">
+                            Execute predicados como <code
+                                class="text-[#2d4a3e] bg-[#dfd8c7] px-1.5 py-0.5 rounded font-mono font-bold">analisar(trindade).</code>
+                            com sugestões de sintaxe em tempo real.
+                        </p>
+                    </div>
+                    <div class="pt-2">
+                        <a href="terminalWeb.html" target="_blank"
+                            class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-xl font-semibold bg-[#2d4a3e] text-white shadow-md hover:bg-[#1c3329] transition-all text-xs sm:text-sm w-full sm:w-auto">
+                            <span>Abrir Terminal Prolog</span>
+                            <span>→</span>
+                        </a>
+                    </div>
                 </div>
             </section>
-            
+
             <!-- Conclusion Section -->
-            <section id="conclusion" class="content-section">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#402E32] mb-4">Novas Vistas para uma Ciência Antiga</h2>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    A aplicação da lógica computacional à teologia não procura substituir a fé pela razão, mas sim usar a razão formal para iluminar a coerência interna da fé. Este projeto demonstrou que é viável modelar verdades teológicas complexas, derivar inferências corretas e, mais importante, usar os limites do formalismo para identificar com precisão os contornos do mistério.
-                </p>
-                <h3 class="text-3xl font-bold mt-8 mb-4">Direções Futuras</h3>
-                <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                    Esta abordagem abre um vasto campo para futuras investigações. As possibilidades incluem a expansão da base de conhecimento para todos os dogmas, o uso de lógicas mais sofisticadas (temporal, deôntica) para modelar outros aspetos da doutrina e a aplicação da mesma metodologia a outros sistemas teológicos, abrindo um novo e rigoroso caminho para o diálogo inter-religioso baseado na análise formal das suas arquiteturas de crença.
-                </p>
+            <section id="conclusion"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Síntese e Futuro</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Novas Vistas para uma
+                        Ciência Antiga</h2>
+                </div>
+
+                <div class="monastery-card p-5 sm:p-8 rounded-2xl space-y-5">
+                    <p class="text-[#3a4742] text-sm sm:text-base leading-relaxed">
+                        A aplicação da lógica computacional à teologia não visa substituir o mistério da fé pela razão
+                        instrumental, mas sim utilizar o rigor do formalismo para demonstrar a extraordinária
+                        consistência e não-contradição da doutrina católica.
+                    </p>
+
+                    <div class="border-t border-[#d4ccb8] pt-5 space-y-3">
+                        <h3 class="text-lg sm:text-xl font-bold font-cinzel text-[#2d4a3e]">Perspectivas e Próximos
+                            Passos</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                            <div class="p-4 rounded-xl bg-[#dfd8c7]/60 border border-[#d4ccb8] space-y-1">
+                                <div class="font-semibold text-[#1a2421] text-xs sm:text-sm">🔍 Expansão da Base</div>
+                                <p class="text-[11px] sm:text-xs text-[#52635c] leading-relaxed">Catalogação contínua de
+                                    todas as definições dos 21 Concílios Ecumênicos.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-[#dfd8c7]/60 border border-[#d4ccb8] space-y-1">
+                                <div class="font-semibold text-[#1a2421] text-xs sm:text-sm">⚙️ Lógicas Modal & Deôntica
+                                </div>
+                                <p class="text-[11px] sm:text-xs text-[#52635c] leading-relaxed">Modelagem de obrigações
+                                    morais e verdades necessárias vs. contingentes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-        </main>
-    </div>
+            <!-- Contact & Contribution Section -->
+            <section id="contact" class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Diálogo & Colaboração</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Entre em Contato</h2>
+                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
+                        Este é um projeto aberto de estudo e pesquisa. Se você deseja enviar sugestões, recomendações teológicas, correções de conteúdo ou colaborar com o desenvolvimento, será muito bem-vindo!
+                    </p>
+                </div>
 
+                <div class="monastery-card p-6 sm:p-8 rounded-2xl space-y-6 border border-[#d4ccb8]">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <h3 class="text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                Contato via E-mail
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[#52635c] leading-relaxed">
+                                Envie uma mensagem para trocar ideias sobre a modelagem dos dogmas, sugerir novas fontes do Magistério ou tirar dúvidas.
+                            </p>
+                            <a href="mailto:joao30henrique@gmail.com?subject=Dogmas%20da%20L%C3%B3gica%20-%20Contato%20/%20Sugest%C3%A3o" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#2d4a3e] text-white hover:bg-[#1c3329] transition-all text-xs sm:text-sm shadow-xs">
+                                <span>Enviar E-mail (joao30henrique@gmail.com)</span>
+                                <span>→</span>
+                            </a>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h3 class="text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                Repositório GitHub
+                            </h3>
+                            <p class="text-xs sm:text-sm text-[#52635c] leading-relaxed">
+                                Acompanhe o código-fonte em Prolog, abra issues ou contribua diretamente via Pull Requests no GitHub.
+                            </p>
+                            <a href="https://github.com/jhvlima/dogmaslogica" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#dfd8c7] text-[#1a2421] border border-[#d4ccb8] hover:bg-[#d4ccb8] transition-all text-xs sm:text-sm">
+                                <span>Ver Repositório no GitHub</span>
+                                <span>↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- JavaScript Application Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const navigationLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileCloseBtn = document.getElementById('mobile-close-btn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+            const mainContent = document.getElementById('main-content');
 
-            // Navigation Logic
+            function toggleMobileMenu() {
+                const isOpen = !sidebar.classList.contains('-translate-x-full');
+                if (isOpen) {
+                    sidebar.classList.add('-translate-x-full');
+                    sidebarBackdrop.classList.add('hidden');
+                } else {
+                    sidebar.classList.remove('-translate-x-full');
+                    sidebarBackdrop.classList.remove('hidden');
+                }
+            }
+
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', toggleMobileMenu);
+            if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', toggleMobileMenu);
+
+            // Smooth scroll & anchor transport
             const navigation = document.getElementById('navigation');
             navigation.addEventListener('click', (e) => {
-                // Encontra o elemento <a> mesmo que o clique seja em um elemento filho (como span)
                 const linkElement = e.target.closest('.nav-link');
                 if (linkElement && linkElement.tagName === 'A') {
                     e.preventDefault();
                     const targetId = linkElement.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
 
-                    navigationLinks.forEach(link => link.classList.remove('active'));
-                    linkElement.classList.add('active');
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
 
-                    contentSections.forEach(section => {
-                        section.classList.remove('active');
-                        if (section.id === targetId) {
-                            section.classList.add('active');
-                        }
-                    });
+                    // Close sidebar on mobile
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.add('-translate-x-full');
+                        sidebarBackdrop.classList.add('hidden');
+                    }
                 }
             });
 
-            // Dogma Data
+            // Scrollspy using IntersectionObserver
+            const observerOptions = {
+                root: mainContent,
+                rootMargin: '-15% 0px -65% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navigationLinks.forEach(link => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            contentSections.forEach(section => observer.observe(section));
+
+            // Dogmas Data
             const dogmas = {
                 "Sobre Deus": [
                     "A Existência de Deus (conhecível pela razão)", "A Existência de Deus como Objeto de Fé", "A Unidade de Deus", "Deus é Eterno", "A Santíssima Trindade"
@@ -318,70 +828,77 @@
                     "A Morte é consequência do pecado", "O Céu (visão beatífica) é o destino dos justos", "O Inferno existe e é eterno", "O Purgatório existe como estado de purificação", "No fim do mundo, Cristo voltará para julgar", "A Ressurreição dos mortos no Último Dia", "Haverá um Juízo Universal"
                 ]
             };
-            
-            // Dogma Explorer Logic
+
             const dogmaContainer = document.getElementById('dogma-container');
-            Object.keys(dogmas).forEach(category => {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'dogma-category bg-white rounded-lg shadow-sm cursor-pointer';
-                
-                const header = document.createElement('div');
-                header.className = 'p-4 flex justify-between items-center';
-                header.innerHTML = `<h3 class="text-2xl font-bold text-[#402E32]">${category}</h3><span class="text-2xl text-[#A98158] transform transition-transform duration-300">+</span>`;
-                
-                const content = document.createElement('div');
-                content.className = 'p-4 border-t border-[#EAE0D5] hidden';
-                const list = document.createElement('ul');
-                list.className = 'list-disc list-inside space-y-2';
-                dogmas[category].forEach(dogma => {
-                    const item = document.createElement('li');
-                    item.textContent = dogma;
-                    list.appendChild(item);
+            if (dogmaContainer) {
+                Object.keys(dogmas).forEach(category => {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'monastery-card rounded-xl overflow-hidden';
+
+                    const header = document.createElement('div');
+                    header.className = 'p-3.5 sm:p-4 flex justify-between items-center cursor-pointer select-none hover:bg-[#dfd8c7]/50 transition-colors';
+                    header.innerHTML = `
+                        <h3 class="text-sm sm:text-base font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                            <span class="text-[#2d4a3e]">✦</span> ${category}
+                        </h3>
+                        <span class="w-6 h-6 rounded-full bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-xs transform transition-transform duration-300">+</span>
+                    `;
+
+                    const content = document.createElement('div');
+                    content.className = 'p-3.5 sm:p-4 border-t border-[#d4ccb8] hidden space-y-2 bg-[#f4f1ea]/60';
+                    const list = document.createElement('ul');
+                    list.className = 'space-y-1.5 text-xs text-[#3a4742]';
+                    dogmas[category].forEach(dogma => {
+                        const item = document.createElement('li');
+                        item.className = 'flex items-start gap-2';
+                        item.innerHTML = `<span class="text-[#2d4a3e] font-bold mt-0.5">•</span><span>${dogma}</span>`;
+                        list.appendChild(item);
+                    });
+                    content.appendChild(list);
+
+                    categoryDiv.appendChild(header);
+                    categoryDiv.appendChild(content);
+
+                    header.addEventListener('click', () => {
+                        const isHidden = content.classList.toggle('hidden');
+                        const icon = header.querySelector('span:last-child');
+                        icon.textContent = isHidden ? '+' : '−';
+                        icon.classList.toggle('rotate-180', !isHidden);
+                    });
+
+                    dogmaContainer.appendChild(categoryDiv);
                 });
-                content.appendChild(list);
-                
-                categoryDiv.appendChild(header);
-                categoryDiv.appendChild(content);
-                
-                header.addEventListener('click', () => {
-                    const isHidden = content.classList.toggle('hidden');
-                    header.querySelector('span').textContent = isHidden ? '+' : '−';
-                    header.querySelector('span').classList.toggle('rotate-180', !isHidden);
-                });
-                
-                dogmaContainer.appendChild(categoryDiv);
-            });
+            }
 
             // Logic Lab Data
             const labData = {
                 trinity: {
                     code: `% --- FACTOS (Axiomas) ---\nsubstância(divina).\npessoa(pai).\npessoa(filho).\npessoa(espírito_santo).\n\npossui_substância(pai, divina).\npossui_substância(filho, divina).\npossui_substância(espírito_santo, divina).\n\n% --- REGRAS (Teoremas) ---\né_deus(X) :- pessoa(X), possui_substância(X, divina).\n\nconsubstancial(X, Y) :-\n    pessoa(X),\n    pessoa(Y),\n    possui_substância(X, S),\n    possui_substância(Y, S).\n\ndistinto(X, Y) :- X \\= Y.`,
                     queries: [
-                        { text: "O Filho é Deus?", query: "?- é_deus(filho).", result: "true.", explanation: "A consulta é bem-sucedida porque a regra `é_deus(X)` é satisfeita: `filho` é um facto `pessoa` e também um facto `possui_substância(filho, divina)`." },
-                        { text: "O Pai e o Filho são distintos?", query: "?- distinto(pai, filho).", result: "true.", explanation: "A consulta é bem-sucedida porque os átomos `pai` e `filho` não são idênticos, satisfazendo o operador `\\=`." },
-                        { text: "O Pai e o Filho são consubstanciais?", query: "?- consubstancial(pai, filho).", result: "true.", explanation: "A consulta é bem-sucedida porque ambos, `pai` e `filho`, satisfazem a regra `consubstancial`: ambos são `pessoa` e ambos `possuem_substância` `divina`." },
-                        { text: "Existe mais de um Deus?", query: "?- findall(S, substância(S), L), length(L, N).", result: "L = [divina], N = 1.", explanation: "Esta consulta testa contra o politeísmo. Ela encontra todas as `substâncias` e conta-as. O resultado `N = 1` confirma que o modelo representa corretamente a existência de uma única substância divina, e portanto, um único Deus." }
+                        { text: "O Filho é Deus?", query: "?- é_deus(filho).", result: "true.", explanation: "A regra `é_deus(X)` é satisfeita porque `filho` é `pessoa` e possui a substância `divina`." },
+                        { text: "O Pai e o Filho são distintos?", query: "?- distinto(pai, filho).", result: "true.", explanation: "Os átomos `pai` e `filho` são distintos no universo de discurso (`\\=`)." },
+                        { text: "O Pai e o Filho são consubstanciais?", query: "?- consubstancial(pai, filho).", result: "true.", explanation: "Ambos compartilham a mesma e única substância `divina`." },
+                        { text: "Existe mais de um Deus?", query: "?- findall(S, substância(S), L), length(L, N).", result: "L = [divina], N = 1.", explanation: "Retorna `N = 1`, provando computacionalmente a ausência de politeísmo." }
                     ]
                 },
                 hypostatic: {
-                    code: `% --- FACTOS ---\npessoa(jesus).\né_divino(jesus).\nnatureza(divina).\nnatureza(humana).\n\npossui_natureza(jesus, divina).\npossui_natureza(jesus, humana).\n\npropriedade(divina, eterno).\npropriedade(humana, mortal).\n\n% --- REGRAS ---\n% Atribuição de ações à única Pessoa de Jesus\npode_fazer(jesus, Ação) :-\n    possui_natureza(jesus, Natureza),\n    ação_possível(Natureza, Ação).\n\nação_possível(divina, perdoar_pecados).\nação_possível(humana, sofrer_na_cruz).`,
+                    code: `% --- FACTOS ---\npessoa(jesus).\né_divino(jesus).\nnatureza(divina).\nnatureza(humana).\n\npossui_natureza(jesus, divina).\npossui_natureza(jesus, humana).\n\npropriedade(divina, eterno).\npropriedade(humana, mortal).\n\n% --- REGRAS ---\npode_fazer(jesus, Ação) :-\n    possui_natureza(jesus, Natureza),\n    ação_possível(Natureza, Ação).\n\nação_possível(divina, perdoar_pecados).\nação_possível(humana, sofrer_na_cruz).`,
                     queries: [
-                        { text: "Jesus pode perdoar pecados?", query: "?- pode_fazer(jesus, perdoar_pecados).", result: "true.", explanation: "A consulta é bem-sucedida. A regra `pode_fazer` encontra que `jesus` `possui_natureza` `divina`, e a `ação_possível` para a natureza `divina` é `perdoar_pecados`." },
-                        { text: "Jesus pode sofrer na cruz?", query: "?- pode_fazer(jesus, sofrer_na_cruz).", result: "true.", explanation: "A consulta é bem-sucedida. A regra `pode_fazer` encontra que `jesus` `possui_natureza` `humana`, e a `ação_possível` para a natureza `humana` é `sofrer_na_cruz`." },
-                        { text: "A natureza humana é eterna?", query: "?- propriedade(humana, eterno).", result: "false.", explanation: "A consulta falha porque não existe o facto `propriedade(humana, eterno)` na base de conhecimento. Isto demonstra a regra de Calcedónia 'sem confusão' de naturezas." }
+                        { text: "Jesus pode perdoar pecados?", query: "?- pode_fazer(jesus, perdoar_pecados).", result: "true.", explanation: "Pela natureza divina de Cristo." },
+                        { text: "Jesus pode sofrer na cruz?", query: "?- pode_fazer(jesus, sofrer_na_cruz).", result: "true.", explanation: "Pela natureza humana de Cristo." },
+                        { text: "A natureza humana é eterna?", query: "?- propriedade(humana, eterno).", result: "false.", explanation: "Evita a confusão de naturezas definida no Concílio de Calcedônia." }
                     ]
                 },
                 baptism: {
-                    code: `% --- ESTADO INICIAL ---\nhumano(joão).\npossui_pecado(P, original) :- humano(P), \\+ batizado(P).\n\n% --- REGRAS DE EFICÁCIA ---\n% (Simulação de modificação de estado)\n% Se João for batizado, o pecado original é removido.\nremove_pecado(joão) :- assertz(batizado(joão)).`,
+                    code: `% --- ESTADO INICIAL ---\nhumano(joão).\npossui_pecado(P, original) :- humano(P), \\+ batizado(P).\n\n% --- REGRAS DE EFICÁCIA ---\nremove_pecado(joão) :- assertz(batizado(joão)).`,
                     queries: [
-                        { text: "João tem pecado original (antes)?", query: "?- possui_pecado(joão, original).", result: "true.", explanation: "Inicialmente, a consulta é bem-sucedida porque `joão` é `humano` e o facto `batizado(joão)` ainda não existe na base de conhecimento." },
-                        { text: "Administrar o batismo a João.", query: "?- remove_pecado(joão).", result: "true.", explanation: "Esta 'ação' é bem-sucedida e adiciona dinamicamente o facto `batizado(joão).` à base de conhecimento, simulando o efeito do sacramento." },
-                        { text: "João tem pecado original (depois)?", query: "?- possui_pecado(joão, original).", result: "false.", explanation: "Após a administração do batismo, a mesma consulta inicial agora falha. A condição `\\+ batizado(P)` na regra `possui_pecado` não é mais satisfeita, demonstrando a eficácia causal do sacramento no modelo." }
+                        { text: "João tem pecado original (antes)?", query: "?- possui_pecado(joão, original).", result: "true.", explanation: "Pois ainda não foi batizado." },
+                        { text: "Administrar o batismo a João.", query: "?- remove_pecado(joão).", result: "true.", explanation: "Adiciona dinamicamente `batizado(joão)`." },
+                        { text: "João tem pecado original (depois)?", query: "?- possui_pecado(joão, original).", result: "false.", explanation: "Demonstra a eficácia causal do sacramento no modelo." }
                     ]
                 }
             };
-            
-            // Logic Lab Logic
+
             const labCaseButtons = document.querySelectorAll('.lab-case-btn');
             const codeDisplay = document.getElementById('prolog-code-display');
             const queriesContainer = document.getElementById('queries-container');
@@ -389,43 +906,44 @@
 
             function loadLabCase(caseName) {
                 const caseData = labData[caseName];
-                
+                if (!caseData) return;
+
                 codeDisplay.textContent = caseData.code;
-                
                 queriesContainer.innerHTML = '';
+
                 caseData.queries.forEach(q => {
                     const btn = document.createElement('button');
-                    btn.className = 'query-btn w-full text-left p-3 rounded-md font-medium';
-                    btn.textContent = q.text;
+                    btn.className = 'w-full text-left p-2.5 sm:p-3 rounded-xl font-medium text-xs bg-[#dfd8c7]/80 border border-[#d4ccb8] hover:border-[#2d4a3e] hover:bg-[#dfd8c7] transition-all text-[#1a2421] flex flex-col gap-0.5 shadow-2xs';
+                    btn.innerHTML = `<span class="font-bold text-[#1a2421] text-xs">${q.text}</span><span class="font-mono text-[#2d4a3e] text-[11px] font-semibold break-all">${q.query}</span>`;
+
                     btn.addEventListener('click', () => {
                         resultDisplay.innerHTML = `
-                            <p class="font-mono text-lg text-green-700">${q.query}</p>
-                            <p class="font-mono text-lg font-bold text-[#402E32] mb-2">${q.result}</p>
-                            <p class="text-gray-700">${q.explanation}</p>
+                            <div class="space-y-1">
+                                <div class="font-mono text-xs text-[#2d4a3e] font-bold break-all">${q.query}</div>
+                                <div class="font-mono text-xs sm:text-sm font-bold text-emerald-800">${q.result}</div>
+                                <p class="text-xs text-[#3a4742] leading-relaxed pt-1 border-t border-[#d4ccb8]">${q.explanation}</p>
+                            </div>
                         `;
                     });
                     queriesContainer.appendChild(btn);
                 });
 
-                resultDisplay.innerHTML = `<p class="text-gray-500">Selecione uma consulta para ver o resultado da inferência lógica.</p>`;
+                resultDisplay.innerHTML = `<p class="text-[#52635c] italic text-xs">Clique em uma das consultas acima para disparar o raciocínio formal.</p>`;
             }
 
             labCaseButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     labCaseButtons.forEach(b => {
-                        b.classList.remove('bg-[#A98158]', 'text-white');
-                        b.classList.add('bg-gray-200', 'text-gray-700');
+                        b.className = 'lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] text-left sm:text-center';
                     });
-                    btn.classList.add('bg-[#A98158]', 'text-white');
-                    btn.classList.remove('bg-gray-200', 'text-gray-700');
+                    btn.className = 'lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#2d4a3e] text-white text-left sm:text-center shadow-xs';
                     loadLabCase(btn.dataset.case);
                 });
             });
 
-            // Load initial case
             loadLabCase('trinity');
         });
     </script>
-
 </body>
+
 </html>
