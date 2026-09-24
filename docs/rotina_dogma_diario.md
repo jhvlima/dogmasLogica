@@ -103,7 +103,7 @@ swipl -s tests/tracador_tests.pl
 swipl -s scripts/export_proofs.pl
 ```
 
-Abra `docs/proof_browser.html` e confira se o dogma mostra as referências aprovadas.
+Abra `prova.html` e confira se o dogma mostra as referências aprovadas.
 
 ## Regra de ouro
 

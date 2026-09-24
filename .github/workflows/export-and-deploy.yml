@@ -24,6 +24,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/proofs || true
+          git add data/proofs || true
           git commit -m "ci: update proofs" || echo "no changes to commit"
           git push || echo "push failed"

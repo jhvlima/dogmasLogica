@@ -28,9 +28,9 @@ Este projeto implementa um **sistema de exploração de dogmas católicos** atra
 
 ### Build & Deploy
 
-- **`scripts/export_proofs.pl`** — Script que gera JSONs em `docs/proofs/{dogma_id}.json` e `docs/proofs/index.json`
+- **`scripts/export_proofs.pl`** — Script que gera JSONs em `data/proofs/{dogma_id}.json` e `data/proofs/index.json`
 - **`.github/workflows/export-and-deploy.yml`** — GitHub Actions que executa o export automaticamente a cada push
-- **`docs/proof_browser.html`** — Interface web estática que lista e visualiza os dogmas
+- **`prova.html`** — Interface web estática que lista e visualiza os dogmas
 
 ## Como Usar
 
@@ -42,11 +42,11 @@ Este projeto implementa um **sistema de exploração de dogmas católicos** atra
 swipl -s scripts/export_proofs.pl
 ```
 
-Isso criará arquivos em `docs/proofs/`.
+Isso criará arquivos em `data/proofs/`.
 
 #### 2. Abrir a interface web
 
-Abra [docs/proof_browser.html](docs/proof_browser.html) no navegador. Você verá:
+Abra [prova.html](prova.html) no navegador. Você verá:
 
 - **Painel esquerdo**: Lista de dogmas (com busca)
 - **Painel direito**:

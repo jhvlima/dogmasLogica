@@ -13,7 +13,7 @@ O objetivo principal é estudar e conhecer os dogmas da Igreja Católica, unindo
 O projeto divide-se em duas frentes principais:
 
 1. **Motor Lógico (Back-end / Prolog)**: O núcleo de processamento em Prolog que carrega as bases de conhecimento (`bases/`) e executa os validadores.
-2. **Explorador Interativo (Front-end / Web)**: Interface web unificada (`index.html`), navegável via terminal interativo (`terminalWeb.html`) e visualizador de grafos e provas lógicas (`docs/proof_browser.html`).
+2. **Explorador Interativo (Front-end / Web)**: Interface web unificada (`index.html`) e visualizador de grafos e provas lógicas (`prova.html`).
 
 O modelo atual separa três ideias: a verdade objetiva do dogma, a capacidade de assentimento a partir de pressupostos de fé/razão, e a qualidade dos dados já cadastrados. Por isso, o veredito do sistema é um estado de **modelagem** (`nao_modelado`, `definicao_magisterial_presente`, `definicao_magisterial_resistente`, etc.), não uma sentença teológica contra o dogma.
 

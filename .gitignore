@@ -5,3 +5,4 @@
 .env
 .magisterium_ledger.json
 research/cache/
+books/

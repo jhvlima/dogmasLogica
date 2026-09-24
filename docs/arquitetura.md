@@ -132,8 +132,8 @@ Esses estados não dizem que o dogma é falso ou verdadeiro; dizem quão bem ele
 ```text
 Prolog canônico
   -> scripts/export_proofs.pl
-  -> docs/proofs/*.json
-  -> docs/proof_browser.html
+  -> data/proofs/*.json
+  -> prova.html
   -> GitHub Pages
 ```
 

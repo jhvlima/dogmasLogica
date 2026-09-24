@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Explorador de Provas — Dogmas da Lógica</title>
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- D3.js -->
@@ -36,7 +38,7 @@
     }
   </script>
   <style>
-    html, body { height: 100%; background: #f4f1ea; color: #1a2421; font-family: 'Inter', sans-serif; }
+    html, body { height: 100%; background: #f4f1ea url('assets/sacred_pattern_bg.png') repeat fixed; background-size: 400px 400px; color: #1a2421; font-family: 'Inter', sans-serif; }
     h1, h2, h3, .font-cinzel { font-family: 'Cinzel', serif; }
     
     /* D3 Node Styles */
@@ -86,7 +88,7 @@
   <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 lg:w-96 bg-[#eae5d9] border-r border-[#d4ccb8] flex flex-col shadow-lg md:shadow-none transform -translate-x-full md:translate-x-0 md:static transition-transform duration-300 ease-in-out shrink-0 h-full">
     <div class="p-5 border-b border-[#d4ccb8] space-y-3">
       <div class="flex items-center justify-between">
-        <a href="../index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#2d4a3e] hover:text-[#1c3329] transition-colors">
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#2d4a3e] hover:text-[#1c3329] transition-colors">
           <span>←</span> Página Principal
         </a>
         <button id="mobile-close-btn" class="md:hidden p-1 rounded-lg bg-[#dfd8c7] text-[#1a2421]">
@@ -215,10 +217,13 @@
 
     async function loadIndex(){
       try {
-        const res = await fetch('proofs/index.json');
+        const res = await fetch('data/proofs/index.json');
         if(!res.ok) throw new Error('Não foi possível carregar index.json');
         allDogmas = await res.json();
         renderCategories(allDogmas);
+
+        // Suporte a Deeplinking via URL Hash (ex: #trindade ou ?dogma=trindade)
+        checkUrlRoute();
       } catch (e) {
         document.getElementById('dogma-list-container').innerHTML = `<p class="text-red-700 text-xs p-4">Erro ao carregar o índice de dogmas: ${e.message}</p>`;
       }
@@ -286,11 +291,39 @@
       });
     }
 
+    function checkUrlRoute() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramDogma = urlParams.get('dogma');
+        const hashDogma = window.location.hash.replace('#', '');
+        const targetId = paramDogma || hashDogma;
+
+        if (targetId && allDogmas.length > 0) {
+            const found = allDogmas.find(d => d.id === targetId);
+            if (found) {
+                const btn = document.querySelector(`.dogma-item[data-id="${found.id}"]`);
+                if (btn) {
+                    const content = btn.parentElement;
+                    const header = content.previousElementSibling;
+                    content.classList.add('open');
+                    if (header) header.classList.add('border-[#d4ccb8]');
+                    btn.click();
+                }
+            }
+        }
+    }
+
+    window.addEventListener('hashchange', checkUrlRoute);
+
     async function loadProof(id, nome){
       document.getElementById('welcome-state').style.display = 'none';
       document.getElementById('toggle-container').style.display = 'inline-flex';
       
-      const res = await fetch(`proofs/${id}.json`);
+      // Atualizar URL hash sem recarregar para permitir compartilhamento direto
+      if (window.location.hash !== `#${id}`) {
+          history.pushState(null, '', `#${id}`);
+      }
+      
+      const res = await fetch(`data/proofs/${id}.json`);
       const textContainer = document.getElementById('text-container');
       const title = document.getElementById('selected-title');
       
