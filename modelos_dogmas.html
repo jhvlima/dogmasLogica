@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos de Exibição de Dogmas — Dogmas da Lógica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f1ea;
+            color: #1a2421;
+        }
+        h1, h2, h3, h4, .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        .monastery-card {
+            background-color: #eae5d9;
+            border: 1px solid #d4ccb8;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 max-w-7xl mx-auto space-y-12">
+
+    <!-- Header -->
+    <header class="text-center space-y-3 pb-8 border-b border-[#d4ccb8]">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#dfd8c7] text-[#2d4a3e] text-xs font-bold uppercase tracking-wider">
+            ✦ Protótipo de Design & Layout
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-bold text-[#1a2421]">Modelos de Exibição de Dogmas Detalhados</h1>
+        <p class="text-[#52635c] max-w-3xl mx-auto text-sm sm:text-base">
+            Comparação interativa dos três formatos sugeridos para exibir a definição rica dos dogmas (com referências do Catecismo, Concílios e Cadeias de Prova Lógica).
+        </p>
+    </header>
+
+    <!-- SECTION 1: MODELO 1 - CARTÕES EXPANSÍVEIS + MODAL DOSSIÊ -->
+    <section class="space-y-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#b8860b]">Modelo 1</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2421]">Cartões em Grade com Modal Dossiê</h2>
+                <p class="text-xs sm:text-sm text-[#52635c] mt-1">
+                    Cartões sintéticos e limpos na grade principal. Ao clicar em <strong>"Ver Dossiê Completo"</strong>, abre uma janela modal sobreposta com todas as citações conciliares e a árvore lógica.
+                </p>
+            </div>
+            <span class="px-3 py-1 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold">Interativo (Clique no botão)</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- Demo Card 1 -->
+            <div class="monastery-card p-5 rounded-2xl space-y-4 flex flex-col justify-between">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs text-[#2d4a3e] font-bold">
+                        <span>✦ Sobre Deus</span>
+                        <span class="px-2 py-0.5 rounded bg-[#dfd8c7]">Concílio de Niceia (325)</span>
+                    </div>
+                    <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">A Santíssima Trindade</h3>
+                    <p class="text-xs text-[#52635c] line-clamp-3 leading-relaxed">
+                        Um só Deus subsiste em três Pessoas distintas e consubstanciais: Pai, Filho e Espírito Santo, sem divisão de substância nem confusão de pessoas.
+                    </p>
+                </div>
+                <div class="pt-3 border-t border-[#d4ccb8] flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-[#2d4a3e]">CIC §§ 253-256</span>
+                    <button onclick="openModal('trindade')" class="px-3 py-1.5 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all">
+                        Ver Dossiê Completo →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Demo Card 2 -->
+            <div class="monastery-card p-5 rounded-2xl space-y-4 flex flex-col justify-between">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs text-[#2d4a3e] font-bold">
+                        <span>✝ Sobre Jesus Cristo</span>
+                        <span class="px-2 py-0.5 rounded bg-[#dfd8c7]">Calcedônia (451)</span>
+                    </div>
+                    <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">Duas Naturezas em Cristo</h3>
+                    <p class="text-xs text-[#52635c] line-clamp-3 leading-relaxed">
+                        Jesus Cristo possui duas naturezas distintas (divina e humana) unidas na única pessoa do Verbo, sem confusão, sem mudança, sem divisão e sem separação.
+                    </p>
+                </div>
+                <div class="pt-3 border-t border-[#d4ccb8] flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-[#2d4a3e]">CIC §§ 464-469</span>
+                    <button onclick="openModal('calcedonia')" class="px-3 py-1.5 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all">
+                        Ver Dossiê Completo →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Demo Card 3 -->
+            <div class="monastery-card p-5 rounded-2xl space-y-4 flex flex-col justify-between">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between text-xs text-[#2d4a3e] font-bold">
+                        <span>§ Dogmas Marianos</span>
+                        <span class="px-2 py-0.5 rounded bg-[#dfd8c7]">Éfeso (431)</span>
+                    </div>
+                    <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">Maternidade Divina (Theotokos)</h3>
+                    <p class="text-xs text-[#52635c] line-clamp-3 leading-relaxed">
+                        Maria é verdadeiramente Mãe de Deus, pois gerou segundo a carne a Pessoa Divina do Filho de Deus feito homem.
+                    </p>
+                </div>
+                <div class="pt-3 border-t border-[#d4ccb8] flex items-center justify-between">
+                    <span class="text-[11px] font-mono text-[#2d4a3e]">CIC §§ 495, 509</span>
+                    <button onclick="openModal('theotokos')" class="px-3 py-1.5 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all">
+                        Ver Dossiê Completo →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: MODELO 2 - MASTER-DETAIL COM PAINEL LATERAL -->
+    <section class="space-y-6 pt-12 border-t border-[#d4ccb8]">
+        <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#b8860b]">Modelo 2</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2421]">Master-Detail (Lista de Seleção + Painel de Leitura)</h2>
+            <p class="text-xs sm:text-sm text-[#52635c] mt-1">
+                Uma coluna à esquerda lista os dogmas da categoria selecionada, enquanto o painel à direita exibe a definição detalhada instantaneamente sem sair da página.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-[460px]">
+            <!-- Sidebar Selection List (4 cols) -->
+            <div class="lg:col-span-4 monastery-card p-4 rounded-2xl space-y-3">
+                <div class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e] pb-2 border-b border-[#d4ccb8]">
+                    Selecione um Dogma (3 de 44)
+                </div>
+                <div class="space-y-2">
+                    <button onclick="selectMasterDetail('trindade')" id="mitem-trindade" class="md-item w-full p-3 rounded-xl text-left bg-[#2d4a3e] text-white transition-all shadow-xs">
+                        <div class="text-xs font-mono opacity-80">01. SOBRE DEUS</div>
+                        <div class="font-bold text-sm font-cinzel">A Santíssima Trindade</div>
+                    </button>
+                    <button onclick="selectMasterDetail('calcedonia')" id="mitem-calcedonia" class="md-item w-full p-3 rounded-xl text-left bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] transition-all">
+                        <div class="text-xs font-mono text-[#52635c]">02. SOBRE CRISTO</div>
+                        <div class="font-bold text-sm font-cinzel">Duas Naturezas em Cristo</div>
+                    </button>
+                    <button onclick="selectMasterDetail('theotokos')" id="mitem-theotokos" class="md-item w-full p-3 rounded-xl text-left bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] transition-all">
+                        <div class="text-xs font-mono text-[#52635c]">03. DOGMAS MARIANOS</div>
+                        <div class="font-bold text-sm font-cinzel">Maternidade Divina</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Content Panel (8 cols) -->
+            <div class="lg:col-span-8 monastery-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-6">
+                <div id="md-detail-content" class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-[#d4ccb8] pb-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e]" id="md-category">Sobre Deus</span>
+                            <h3 class="text-2xl font-bold font-cinzel text-[#1a2421]" id="md-title">A Santíssima Trindade</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-[#dfd8c7] text-[#2d4a3e] text-xs font-bold font-mono" id="md-ref">CIC §§ 253-256</span>
+                    </div>
+
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#b8860b]">Definição Magisterial e Teológica</h4>
+                        <p class="text-sm leading-relaxed text-[#3a4742]" id="md-def">
+                            A Trindade é o mistério central da fé e da vida cristã. Deus é único, mas não solitário. O Pai, o Filho e o Espírito Santo não são três deuses, mas um só Deus em três Pessoas reais e consubstanciais. A distinção das Pessoas reside exclusivamente nas suas relações de origem.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] space-y-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e]">Citação Conciliar / Magisterial</h4>
+                        <blockquote class="text-xs italic text-[#1a2421]" id="md-quote">
+                            "Confessamos um só Deus em três Pessoas coeternas e consubstanciais, de modo que na divindade há unidade de essência e distinção de pessoas sem separação." — Concílio de Niceia (325) & Toledo XI (675).
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-[#d4ccb8] flex items-center justify-between">
+                    <span class="text-xs text-[#52635c]">Status Lógico: <strong class="text-[#2d4a3e]">Resistente (Provado)</strong></span>
+                    <a href="prova.html" target="_blank" class="px-4 py-2 rounded-xl bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all">
+                        Ver Árvore de Prova Lógica →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MODELO 3 - GRADE DE CARTÕES COM FILTRO E BUSCA EM TEMPO REAL -->
+    <section class="space-y-6 pt-12 border-t border-[#d4ccb8]">
+        <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#b8860b]">Modelo 3</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#1a2421]">Grade Interativa com Filtro de Busca & Tags</h2>
+            <p class="text-xs sm:text-sm text-[#52635c] mt-1">
+                Barra de busca por palavra-chave e botões de filtro por Concílios/Categorias para encontrar instantaneamente qualquer dogma e expandir suas notas de pesquisa.
+            </p>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="monastery-card p-4 rounded-2xl flex flex-col sm:flex-row gap-3 items-center justify-between">
+            <div class="relative w-full sm:w-80">
+                <input type="text" id="search-input" onkeyup="filterCards()" placeholder="Buscar por palavra, concílio ou dogma..." class="w-full px-4 py-2 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] text-xs focus:outline-none focus:border-[#2d4a3e]">
+            </div>
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                <button onclick="setFilter('all')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#2d4a3e] text-white">Todos</button>
+                <button onclick="setFilter('Deus')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#dfd8c7] text-[#1a2421]">Deus</button>
+                <button onclick="setFilter('Cristo')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#dfd8c7] text-[#1a2421]">Cristo</button>
+                <button onclick="setFilter('Maria')" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#dfd8c7] text-[#1a2421]">Maria</button>
+            </div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="grid-model3">
+            <div class="dogma-card-m3 monastery-card p-5 rounded-2xl space-y-3" data-cat="Deus" data-text="trindade pai filho espirito santo niceia">
+                <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-[#2d4a3e]">DEUS</span>
+                    <span class="px-2 py-0.5 rounded bg-[#dfd8c7] text-[#52635c] font-mono">DH 125</span>
+                </div>
+                <h3 class="text-base font-bold font-cinzel text-[#1a2421]">A Santíssima Trindade</h3>
+                <p class="text-xs text-[#52635c] leading-relaxed">
+                    Três Pessoas distintas em uma só substância divina e indivisível.
+                </p>
+                <div class="pt-2 border-t border-[#d4ccb8] text-[11px] text-[#2d4a3e] font-semibold">
+                    Concílio de Niceia (325) • CIC 253
+                </div>
+            </div>
+
+            <div class="dogma-card-m3 monastery-card p-5 rounded-2xl space-y-3" data-cat="Cristo" data-text="duas naturezas jesus cristo calcedonia divina humana">
+                <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-[#2d4a3e]">CRISTO</span>
+                    <span class="px-2 py-0.5 rounded bg-[#dfd8c7] text-[#52635c] font-mono">DH 301</span>
+                </div>
+                <h3 class="text-base font-bold font-cinzel text-[#1a2421]">Duas Naturezas em Cristo</h3>
+                <p class="text-xs text-[#52635c] leading-relaxed">
+                    Verdadeiro Deus e verdadeiro homem, sem confusão ou divisão.
+                </p>
+                <div class="pt-2 border-t border-[#d4ccb8] text-[11px] text-[#2d4a3e] font-semibold">
+                    Concílio de Calcedônia (451) • CIC 467
+                </div>
+            </div>
+
+            <div class="dogma-card-m3 monastery-card p-5 rounded-2xl space-y-3" data-cat="Maria" data-text="maternidade divina maria efeso theotokos mae de deus">
+                <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-[#2d4a3e]">MARIA</span>
+                    <span class="px-2 py-0.5 rounded bg-[#dfd8c7] text-[#52635c] font-mono">DH 251</span>
+                </div>
+                <h3 class="text-base font-bold font-cinzel text-[#1a2421]">Maternidade Divina</h3>
+                <p class="text-xs text-[#52635c] leading-relaxed">
+                    Maria é Theotokos (Mãe de Deus) por ter gerado o Verbo encarnado.
+                </p>
+                <div class="pt-2 border-t border-[#d4ccb8] text-[11px] text-[#2d4a3e] font-semibold">
+                    Concílio de Éfeso (431) • CIC 495
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL POPUP FOR MODEL 1 -->
+    <div id="dossier-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="monastery-card w-full max-w-2xl rounded-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#dfd8c7] text-[#1a2421] font-bold text-sm flex items-center justify-center hover:bg-[#d4ccb8]">✕</button>
+            
+            <div class="space-y-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e]" id="modal-category">Dossiê Teológico & Magisterial</span>
+                <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-[#1a2421]" id="modal-title">A Santíssima Trindade</h2>
+            </div>
+
+            <div class="space-y-4 text-xs sm:text-sm text-[#3a4742] leading-relaxed">
+                <div>
+                    <h4 class="font-bold uppercase text-xs text-[#b8860b] tracking-wider mb-1">Definição Dogmática Extensa</h4>
+                    <p id="modal-desc">
+                        A Santíssima Trindade é o mistério inefável de um só Deus em três Pessoas distintas: o Pai, o Filho e o Espírito Santo. Elas não dividem a única divindade entre si, mas cada uma delas é Deus por inteiro. O Pai é o mesmo que o Filho, o Filho o mesmo que o Pai, o Pai e o Filho o mesmo que o Espírito Santo, quanto à natureza.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] space-y-2">
+                    <h4 class="font-bold uppercase text-xs text-[#2d4a3e] tracking-wider">Fontes Oficiais do Magistério</h4>
+                    <ul class="space-y-1 text-xs">
+                        <li>• <strong>Catecismo da Igreja Católica:</strong> Parágrafos 253, 254, 255.</li>
+                        <li>• <strong>Denzinger-Hünermann (DH):</strong> DH 125 (Credo Niceno), DH 525 (Concílio de Toledo XI).</li>
+                        <li>• <strong>Concílio Ecumênico:</strong> Niceia I (325) & Constantinopla I (381).</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold uppercase text-xs text-[#b8860b] tracking-wider mb-1">Formalização em Prolog</h4>
+                    <pre class="prolog-code p-3 rounded-xl bg-[#1c2622] text-[#a7f3d0] font-mono text-xs overflow-x-auto">
+dogma(trindade, 'A Santissima Trindade').
+significado(trindade, 'Um so Deus subsiste em tres Pessoas distintas...').
+consubstancial(pai, filho).
+consubstancial(filho, espirito_santo).</pre>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-[#d4ccb8] flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-[#dfd8c7] text-[#1a2421] text-xs font-semibold hover:bg-[#d4ccb8]">Fechar</button>
+                <a href="docs/proof_browser.html" target="_blank" class="px-4 py-2 rounded-xl bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329]">Ver Grafo de Causalidade Lógica →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        const data = {
+            trindade: {
+                cat: "Sobre Deus",
+                title: "A Santíssima Trindade",
+                ref: "CIC §§ 253-256",
+                def: "A Trindade é o mistério central da fé e da vida cristã. Deus é único, mas não solitário. O Pai, o Filho e o Espírito Santo não são três deuses, mas um só Deus em três Pessoas reais e consubstanciais. A distinção das Pessoas reside exclusivamente nas suas relações de origem.",
+                quote: '"Confessamos um só Deus em três Pessoas coeternas e consubstanciais, de modo que na divindade há unidade de essência e distinção de pessoas sem separação." — Concílio de Niceia (325).'
+            },
+            calcedonia: {
+                cat: "Sobre Jesus Cristo",
+                title: "Duas Naturezas em Cristo",
+                ref: "CIC §§ 464-469",
+                def: "Na única Pessoa divina de Jesus Cristo, unem-se a natureza divina e a natureza humana sem confusão, sem mudança, sem divisão e sem separação (União Hipostática). Cada natureza conserva intactas suas propriedades e operações específicas.",
+                quote: '"Seguindo os Santos Padres, ensinamos unanimemente a confessar um só e mesmo Filho, Nosso Senhor Jesus Cristo, perfeito em divindade e perfeito em humanidade." — Concílio de Calcedônia (451).'
+            },
+            theotokos: {
+                cat: "Dogmas Marianos",
+                title: "Maternidade Divina (Theotokos)",
+                ref: "CIC §§ 495, 509",
+                def: "Maria é verdadeiramente Mãe de Deus porque é a mãe de Jesus, que é o próprio Deus Filho feito homem. Ela não gerou a divindade, mas gerou segundo a carne a Pessoa Divina do Verbo.",
+                quote: '"Se alguém não confessar que o Emmanuel é verdadeiramente Deus e que por isso a Virgem Santíssima é Mãe de Deus (Theotokos)... seja anátema." — Concílio de Éfeso (431).'
+            }
+        };
+
+        // Modal Handler
+        function openModal(id) {
+            const item = data[id];
+            document.getElementById('modal-category').textContent = item.cat;
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-desc').textContent = item.def;
+            document.getElementById('dossier-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('dossier-modal').classList.add('hidden');
+        }
+
+        // Master Detail Handler
+        function selectMasterDetail(id) {
+            const item = data[id];
+            document.getElementById('md-category').textContent = item.cat;
+            document.getElementById('md-title').textContent = item.title;
+            document.getElementById('md-ref').textContent = item.ref;
+            document.getElementById('md-def').textContent = item.def;
+            document.getElementById('md-quote').textContent = item.quote;
+
+            document.querySelectorAll('.md-item').forEach(el => {
+                el.classList.remove('bg-[#2d4a3e]', 'text-white');
+                el.classList.add('bg-[#dfd8c7]', 'text-[#1a2421]');
+            });
+
+            const activeBtn = document.getElementById(`mitem-${id}`);
+            activeBtn.classList.remove('bg-[#dfd8c7]', 'text-[#1a2421]');
+            activeBtn.classList.add('bg-[#2d4a3e]', 'text-white');
+        }
+
+        // Model 3 Search & Filter
+        function filterCards() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            document.querySelectorAll('.dogma-card-m3').forEach(card => {
+                const text = card.getAttribute('data-text').toLowerCase() + card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        function setFilter(cat) {
+            document.querySelectorAll('.dogma-card-m3').forEach(card => {
+                if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

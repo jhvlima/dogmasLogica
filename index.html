@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Fides et Ratio Computatrum: Análise Teológica Lógica</title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cinzel, Inter, JetBrains Mono -->
@@ -46,6 +48,11 @@
         body {
             height: 100%;
             background-color: #f4f1ea;
+            /* Suavizador ajustável: altere o 0.80 para aumentar (ex: 0.90) ou diminuir a suavidade */
+            background-image: linear-gradient(rgba(244, 241, 234, 0.70), rgba(244, 241, 234, 0.70)), url('assets/sacred_pattern_bg.png');
+            background-repeat: repeat;
+            background-size: 400px 400px;
+            background-attachment: fixed;
             color: #1a2421;
             font-family: 'Inter', sans-serif;
         }
@@ -64,7 +71,8 @@
         }
 
         .monastery-card {
-            background: #eae5d9;
+            background: rgba(234, 229, 217, 0.93);
+            backdrop-filter: blur(4px);
             border: 1px solid #d4ccb8;
             box-shadow: 0 4px 20px rgba(28, 51, 41, 0.04);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -159,10 +167,7 @@
         <div class="p-5 sm:p-6 overflow-y-auto">
             <!-- Logo & Brand Header -->
             <div class="hidden md:flex items-center gap-3 mb-8 pb-6 border-b border-[#d4ccb8]">
-                <div
-                    class="w-10 h-10 rounded-full bg-[#2d4a3e]/15 border border-[#2d4a3e]/30 flex items-center justify-center text-[#2d4a3e] font-cinzel font-bold text-lg shadow-xs">
-                    ✝
-                </div>
+                <img src="assets/favicon.png" alt="Fides et Ratio Logo" class="w-10 h-10 rounded-xl shadow-xs border border-[#d4ccb8]">
                 <div>
                     <h1 class="text-xl font-bold font-cinzel text-[#1a2421] tracking-wide">Fides et Ratio</h1>
                     <p class="text-xs text-[#2d4a3e] font-bold tracking-wider uppercase">Computatrum</p>
@@ -228,31 +233,18 @@
                         </svg>
                         <span>Árvores de Provas</span>
                     </a>
+                    <a href="#sources"
+                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        <span>Fontes & Autoridade</span>
+                    </a>
                 </div>
 
-                <div>
-                    <div
-                        class="text-[10px] sm:text-[11px] font-bold text-[#2d4a3e] tracking-widest uppercase px-3 mb-1.5">
-                        Ambiente Interativo</div>
-                    <a href="#lab"
-                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
-                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
-                            </path>
-                        </svg>
-                        <span>Laboratório de Lógica</span>
-                    </a>
-                    <a href="#terminal"
-                        class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
-                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                        <span>Terminal Web Prolog</span>
-                    </a>
-                </div>
+
 
                 <div>
                     <div
@@ -270,7 +262,8 @@
                         class="nav-link flex items-center gap-2.5 px-3 py-2 rounded-r-lg text-sm font-medium">
                         <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
                         </svg>
                         <span>Contato & Colaboração</span>
                     </a>
@@ -480,7 +473,7 @@
                     </p>
                 </div>
 
-                <div id="dogma-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <div id="dogma-container" class="grid grid-cols-1 gap-4">
                     <!-- Dynamic JavaScript insertion -->
                 </div>
             </section>
@@ -515,7 +508,7 @@
                         </p>
                     </div>
                     <div class="pt-2">
-                        <a href="docs/proof_browser.html" target="_blank"
+                        <a href="prova.html" target="_blank"
                             class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-xl font-semibold bg-[#2d4a3e] text-white shadow-md hover:bg-[#1c3329] transition-all text-xs sm:text-sm w-full sm:w-auto">
                             <span>Abrir Navegador de Provas</span>
                             <span>→</span>
@@ -524,131 +517,96 @@
                 </div>
             </section>
 
-            <!-- Logic Lab Section -->
-            <section id="lab"
+
+
+            <!-- Sources & Authority Section -->
+            <section id="sources"
                 class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Simulador de
-                        Inferência</span>
-                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Laboratório de Lógica
-                    </h2>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Fundamentação
+                        Doutrinária</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Fontes Primárias &
+                        Compêndios Oficiais</h2>
                     <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
-                        Selecione um caso de estudo teológico para inspecionar os fatos/regras em Prolog e testar
-                        consultas interativas.
+                        A escolha e catalogação dos 44 dogmas principais e a validação de cada proposição apoiam-se
+                        rigorosamente no Magistério da Igreja Católica, em documentos conciliares e compêndios
+                        teológicos de referência universal.
                     </p>
                 </div>
 
-                <!-- Case Selector Tabs -->
-                <div class="flex flex-col sm:flex-row flex-wrap gap-2.5">
-                    <button
-                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#2d4a3e] text-white text-left sm:text-center"
-                        data-case="trinity">
-                        ✦ A Santíssima Trindade
-                    </button>
-                    <button
-                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] text-left sm:text-center"
-                        data-case="hypostatic">
-                        ✝ União Hipostática
-                    </button>
-                    <button
-                        class="lab-case-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-[#dfd8c7] text-[#1a2421] hover:bg-[#d4ccb8] text-left sm:text-center"
-                        data-case="baptism">
-                        § Causalidade Sacramental
-                    </button>
-                </div>
-
-                <div id="lab-content" class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-                    <!-- Code Column -->
-                    <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-3 flex flex-col min-w-0">
-                        <div class="flex items-center justify-between">
-                            <h3
-                                class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
-                                <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                                </svg>
-                                <span>Base de Conhecimento</span>
-                            </h3>
-                            <span class="text-[11px] font-mono text-[#52635c]">facts.pl</span>
-                        </div>
-                        <pre id="prolog-code-display"
-                            class="prolog-code p-3.5 sm:p-4 rounded-xl text-xs h-64 sm:h-80 overflow-y-auto leading-relaxed flex-1"></pre>
-                    </div>
-
-                    <!-- Query Column -->
-                    <div class="monastery-card p-4 sm:p-6 rounded-2xl space-y-4 flex flex-col justify-between min-w-0">
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between">
-                                <h3
-                                    class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                    </svg>
-                                    <span>Consultas</span>
-                                </h3>
-                                <span class="text-xs font-mono text-[#2d4a3e] font-bold">?- query.</span>
-                            </div>
-                            <div id="queries-container" class="space-y-2"></div>
-                        </div>
-
-                        <div class="mt-4 pt-3 border-t border-[#d4ccb8] space-y-2">
-                            <div class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#2d4a3e]">
-                                Resultado da Inferência</div>
-                            <div id="result-display"
-                                class="p-3.5 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] min-h-[90px] text-xs sm:text-sm">
-                                <p class="text-[#52635c] italic">Clique em uma das consultas acima para disparar o
-                                    raciocínio formal.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Interactive Terminal Section -->
-            <section id="terminal"
-                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
-                <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Execução Web</span>
-                    <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Terminal Interativo
-                        Prolog</h2>
-                    <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
-                        Experimente o interpretador Prolog rodando 100% diretamente no navegador com a base dogmática
-                        completa carregada.
-                    </p>
-                </div>
-
-                <div class="monastery-card p-6 sm:p-8 rounded-2xl space-y-5 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                    <!-- Source Card 1 -->
                     <div
-                        class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] mx-auto">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                            </path>
-                        </svg>
+                        class="monastery-card p-5 sm:p-6 rounded-2xl space-y-3 border border-[#d4ccb8] flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-sm">
+                                DH
+                            </div>
+                            <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">Denzinger-Hünermann (DH)</h3>
+                            <p class="text-xs text-[#52635c] leading-relaxed">
+                                <em>Enchiridion Symbolorum, Definitionum et Declarationum de Rebus Fidei et Morum</em>.
+                                É a compilação oficial de todos os credos, cânones de Concílios Ecumênicos e declarações
+                                papais ex cathedra da história da Igreja.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-[#d4ccb8] text-[11px] font-mono text-[#2d4a3e] font-semibold">
+                            Citações: DH 125, DH 301, DH 3074
+                        </div>
                     </div>
-                    <div class="max-w-2xl mx-auto space-y-2">
-                        <h3 class="text-xl sm:text-2xl font-bold font-cinzel text-[#1a2421]">Console Web com
-                            Autocompletar</h3>
-                        <p class="text-[#3a4742] text-xs sm:text-sm leading-relaxed">
-                            Execute predicados como <code
-                                class="text-[#2d4a3e] bg-[#dfd8c7] px-1.5 py-0.5 rounded font-mono font-bold">analisar(trindade).</code>
-                            com sugestões de sintaxe em tempo real.
-                        </p>
+
+                    <!-- Source Card 2 -->
+                    <div
+                        class="monastery-card p-5 sm:p-6 rounded-2xl space-y-3 border border-[#d4ccb8] flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-sm">
+                                CIC
+                            </div>
+                            <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">Catecismo da Igreja Católica</h3>
+                            <p class="text-xs text-[#52635c] leading-relaxed">
+                                Promulgado pela Constituição Apostólica <em>Fidei Depositum</em> (1992) pelo Papa São
+                                João Paulo II. Constitui o texto de referência autêntico para o ensino da doutrina e
+                                exposição orgânica da Fé Católica.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-[#d4ccb8] text-[11px] font-mono text-[#2d4a3e] font-semibold">
+                            Vaticano: CIC §§ 88-90, 253, 467, 891
+                        </div>
                     </div>
-                    <div class="pt-2">
-                        <a href="terminalWeb.html" target="_blank"
-                            class="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 rounded-xl font-semibold bg-[#2d4a3e] text-white shadow-md hover:bg-[#1c3329] transition-all text-xs sm:text-sm w-full sm:w-auto">
-                            <span>Abrir Terminal Prolog</span>
-                            <span>→</span>
-                        </a>
+
+                    <!-- Source Card 3 -->
+                    <div
+                        class="monastery-card p-5 sm:p-6 rounded-2xl space-y-3 border border-[#d4ccb8] flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-sm">
+                                OTT
+                            </div>
+                            <h3 class="text-lg font-bold font-cinzel text-[#1a2421]">Ludwig Ott (Compêndio)</h3>
+                            <p class="text-xs text-[#52635c] leading-relaxed">
+                                <em>Fundamentals of Catholic Dogma</em> (1952). Obra clássica de Teologia Dogmática que
+                                sistematiza as definições da Igreja em 44 dogmas fundamentais classificados sob nota
+                                teológica <em>De Fide Definita</em>.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-[#d4ccb8] text-[11px] font-mono text-[#2d4a3e] font-semibold">
+                            Sistematização em 8 Categorias
+                        </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Conclusion Section -->
+                <div class="monastery-card p-5 sm:p-6 rounded-2xl border-l-4 border-l-[#2d4a3e] space-y-2">
+                    <h4 class="text-sm font-bold font-cinzel text-[#1a2421]">Ferramenta Auxiliar: Magisterium REST API &
+                        Pesquisa Oficial</h4>
+                    <p class="text-xs sm:text-sm text-[#3a4742] leading-relaxed">
+                        Para garantir a fidelidade das citações e links públicos dos documentos do Vaticano, o projeto
+                        utiliza consultas automatizadas via <strong>Magisterium API</strong> (REST). Todas as fontes
+                        retornadas passam por curadoria e aprovação manual antes de serem promovidas como fatos
+                        aprovados na base de conhecimento em Prolog.
+                    </p>
+                </div>
+            </section>
             <section id="conclusion"
                 class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
                 <div>
@@ -685,12 +643,15 @@
             </section>
 
             <!-- Contact & Contribution Section -->
-            <section id="contact" class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
+            <section id="contact"
+                class="content-section scroll-mt-6 sm:scroll-mt-10 pt-8 sm:pt-12 border-t border-[#d4ccb8] space-y-6 sm:space-y-8">
                 <div>
-                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Diálogo & Colaboração</span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-[#2d4a3e]">Diálogo &
+                        Colaboração</span>
                     <h2 class="text-2xl sm:text-4xl font-bold font-cinzel text-[#1a2421] mt-1">Entre em Contato</h2>
                     <p class="text-[#3a4742] mt-2 text-xs sm:text-base leading-relaxed">
-                        Este é um projeto aberto de estudo e pesquisa. Se você deseja enviar sugestões, recomendações teológicas, correções de conteúdo ou colaborar com o desenvolvimento, será muito bem-vindo!
+                        Este é um projeto aberto de estudo e pesquisa. Se você deseja enviar sugestões, recomendações
+                        teológicas, correções de conteúdo ou colaborar com o desenvolvimento, será muito bem-vindo!
                     </p>
                 </div>
 
@@ -698,13 +659,20 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-3">
                             <h3 class="text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
-                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
                                 Contato via E-mail
                             </h3>
                             <p class="text-xs sm:text-sm text-[#52635c] leading-relaxed">
-                                Envie uma mensagem para trocar ideias sobre a modelagem dos dogmas, sugerir novas fontes do Magistério ou tirar dúvidas.
+                                Envie uma mensagem para trocar ideias sobre a modelagem dos dogmas, sugerir novas fontes
+                                do Magistério ou tirar dúvidas.
                             </p>
-                            <a href="mailto:joao30henrique@gmail.com?subject=Dogmas%20da%20L%C3%B3gica%20-%20Contato%20/%20Sugest%C3%A3o" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#2d4a3e] text-white hover:bg-[#1c3329] transition-all text-xs sm:text-sm shadow-xs">
+                            <a href="mailto:joao30henrique@gmail.com?subject=Dogmas%20da%20L%C3%B3gica%20-%20Contato%20/%20Sugest%C3%A3o"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#2d4a3e] text-white hover:bg-[#1c3329] transition-all text-xs sm:text-sm shadow-xs">
                                 <span>Enviar E-mail (joao30henrique@gmail.com)</span>
                                 <span>→</span>
                             </a>
@@ -712,13 +680,19 @@
 
                         <div class="space-y-3">
                             <h3 class="text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
-                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                <svg class="w-5 h-5 text-[#2d4a3e]" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
                                 Repositório GitHub
                             </h3>
                             <p class="text-xs sm:text-sm text-[#52635c] leading-relaxed">
-                                Acompanhe o código-fonte em Prolog, abra issues ou contribua diretamente via Pull Requests no GitHub.
+                                Acompanhe o código-fonte em Prolog, abra issues ou contribua diretamente via Pull
+                                Requests no GitHub.
                             </p>
-                            <a href="https://github.com/jhvlima/dogmaslogica" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#dfd8c7] text-[#1a2421] border border-[#d4ccb8] hover:bg-[#d4ccb8] transition-all text-xs sm:text-sm">
+                            <a href="https://github.com/jhvlima/dogmaslogica" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold bg-[#dfd8c7] text-[#1a2421] border border-[#d4ccb8] hover:bg-[#d4ccb8] transition-all text-xs sm:text-sm">
                                 <span>Ver Repositório no GitHub</span>
                                 <span>↗</span>
                             </a>
@@ -801,61 +775,111 @@
 
             contentSections.forEach(section => observer.observe(section));
 
-            // Dogmas Data
-            const dogmas = {
+            // Base detalhada com descricoes teologicas e referencias conciliares/Catecismo (Modelo 1)
+            const dogmasDetailed = {
                 "Sobre Deus": [
-                    "A Existência de Deus (conhecível pela razão)", "A Existência de Deus como Objeto de Fé", "A Unidade de Deus", "Deus é Eterno", "A Santíssima Trindade"
+                    { id: "existencia_deus_razao", title: "A Existência de Deus (pela Razão)", ref: "CIC § 31 • Concílio Vaticano I", def: "A existência de Deus pode ser demonstrada pela razão natural através da contemplação do universo criado.", quote: "A Santa Mãe Igreja professa que Deus, princípio e fim de todas as coisas, pode ser conhecido com certeza pela luz natural da razão humana a partir das coisas criadas. — Vaticano I (DH 3004)." },
+                    { id: "existencia_deus_fe", title: "A Existência de Deus (pela Fé)", ref: "CIC § 33 • Heb 11,6", def: "Além da luz natural da razão, Deus revelou-se a Si mesmo como objeto supremo de fé salvífica.", quote: "Sem a fé é impossível agradar a Deus; quem dele se aproxima deve crer que Ele existe. — Hebreus 11, 6." },
+                    { id: "unidade_deus", title: "A Unidade de Deus", ref: "CIC § 228 • DH 800", def: "Há um só e único Deus verdadeiro, substância infinita, imutável, eterno e onipotente.", quote: "Cremos firmemente e professamos que há um só e único Deus verdadeiro, eterno, imenso e incompreensível. — Concílio de Latrão IV (1215)." },
+                    { id: "deus_eterno", title: "Deus é Eterno", ref: "CIC § 205 • Salmo 90,2", def: "Deus existe acima de toda sucessão temporal, sem princípio, meio ou fim.", quote: "Antes que os montes fossem gerados, de eternidade a eternidade Tu és Deus. — Salmo 90, 2." },
+                    { id: "trindade", title: "A Santíssima Trindade", ref: "CIC §§ 253-256 • DH 125", def: "Um só Deus subsiste em três Pessoas distintas e consubstanciais: Pai, Filho e Espírito Santo.", quote: "Confessamos um só Deus em três Pessoas coeternas e consubstanciais, sem divisão de substância nem confusão de Pessoas. — Concílio de Niceia I (325)." }
                 ],
                 "Sobre Jesus Cristo": [
-                    "Jesus Cristo é verdadeiro Deus e Filho de Deus por Essência", "Jesus possui duas naturezas (divina e humana) sem confusão", "Cada natureza em Cristo possui uma vontade e operação próprias", "Jesus Cristo é o Filho Natural de Deus", "O sacrifício de Cristo na Cruz foi um verdadeiro sacrifício", "Cristo redimiu e reconciliou a humanidade com Deus", "Cristo ressuscitou dos mortos ao terceiro dia", "Cristo ascendeu em Corpo e Alma aos Céus"
+                    { id: "jesus_deus_essencia", title: "Jesus é Deus por Essência", ref: "CIC § 464 • Jo 1,1", def: "Jesus Cristo é o Filho Único de Deus por essência eterna, não por adoção ou mera graça.", quote: "No princípio era o Verbo, e o Verbo estava com Deus, e o Verbo era Deus. — São João 1, 1." },
+                    { id: "duas_naturezas", title: "Duas Naturezas (União Hipostática)", ref: "CIC §§ 467-469 • DH 301", def: "Cristo possui duas naturezas perfeitas (divina e humana) unidas em uma só Pessoa divina, sem confusão ou separação.", quote: "Um só e mesmo Cristo, Senhor, Filho Único, que se deve reconhecer em duas naturezas, sem confusão, sem mudança, sem divisão e sem separação. — Concílio de Calcedônia (451)." },
+                    { id: "vontade_propria", title: "Duas Vontades em Cristo", ref: "CIC § 475 • DH 556", def: "Cristo possui duas vontades naturais (divina e humana), atuando em perfeita harmonia salvífica.", quote: "Professamos em Cristo duas vontades naturais e duas operações naturais sem divisão nem mudança. — Concílio de Constantinopla III (681)." },
+                    { id: "filho_natural", title: "Filho Natural de Deus", ref: "CIC § 442 • Mt 16,16", def: "Jesus é o Filho natural do Pai eternamente gerado, distinguindo-se dos filhos por adoção.", quote: "Tu és o Cristo, o Filho do Deus vivo! — São Mateus 16, 16." },
+                    { id: "sacrificio_cruz", title: "Sacrifício da Cruz", ref: "CIC § 613 • DH 1740", def: "A morte de Cristo na Cruz foi um verdadeiro, livre e perfeito sacrifício expiatório por toda a humanidade.", quote: "Cristo nosso Deus ofereceu-se a Si mesmo a Deus Pai no altar da Cruz para operar a redenção eterna. — Concílio de Trento (1562)." },
+                    { id: "redencao", title: "A Redenção da Humanidade", ref: "CIC § 517 • 1 Tim 2,5", def: "Cristo resgatou a humanidade da escravidão do pecado e reconciliou o homem com Deus.", quote: "Há um só Deus e um só Mediador entre Deus e os homens, Jesus Cristo homem. — 1 Timóteo 2, 5." },
+                    { id: "ressurreicao", title: "Ressurreição ao 3º Dia", ref: "CIC §§ 638-644 • 1 Cor 15", def: "Cristo ressuscitou corporalmente dos mortos no terceiro dia com Seu corpo glorioso.", quote: "Se Cristo não ressuscitou, é vã a nossa pregação e vã a vossa fé. — 1 Coríntios 15, 14." },
+                    { id: "ascensao", title: "Ascensão aos Céus", ref: "CIC § 659 • Mc 16,19", def: "Jesus ascendeu em Corpo e Alma aos Céus e senta-Se à direita de Deus Pai Onipotente.", quote: "O Senhor Jesus foi elevado ao Céu e sentou-Se à direita de Deus. — São Marcos 16, 19." }
                 ],
                 "Sobre a Criação": [
-                    "Tudo o que existe foi criado por Deus a partir do Nada (ex nihilo)", "O mundo teve um início no tempo", "Deus conserva todas as coisas criadas na existência"
+                    { id: "criacao_ex_nihilo", title: "Criação ex nihilo", ref: "CIC § 296 • DH 800", def: "Deus criou todo o universo do Nada, sem utilizar matéria preexistente.", quote: "Deus criou o mundo do nada pelo Seu livre arbítrio e poder infinito. — Concílio de Latrão IV." },
+                    { id: "mundo_inicio_tempo", title: "Início no Tempo", ref: "CIC § 290 • Gên 1,1", def: "O universo criado teve um começo no tempo e não é eterno.", quote: "No princípio Deus criou o céu e a terra. — Gênesis 1, 1." },
+                    { id: "conservacao_existencia", title: "Conservação na Existência", ref: "CIC § 301 • Sab 11,25", def: "Deus sustenta continuamente a existência de todas as criaturas no universo.", quote: "Como poderia subsistir qualquer coisa se Tu não a tivesses querido? — Sabedoria 11, 25." }
                 ],
                 "Sobre o Ser Humano": [
-                    "O ser humano é composto de corpo material e alma espiritual", "O pecado de Adão propaga-se por geração (Pecado Original)", "O homem caído não pode redimir-se a si mesmo"
+                    { id: "corpo_e_alma", title: "Composição Corpo e Alma", ref: "CIC §§ 362-366 • DH 902", def: "O homem é uma unidade substancial de corpo material e alma espiritual imortal.", quote: "A alma humana espiritual e imortal é a forma substancial do corpo humano. — Concílio de Vienne (1312)." },
+                    { id: "pecado_original", title: "Pecado Original por Geração", ref: "CIC §§ 402-406 • DH 1512", def: "O pecado de Adão transmite-se a todos os homens por propagação da natureza.", quote: "Por um só homem entrou o pecado no mundo, e pelo pecado a morte. — Romanos 5, 12." },
+                    { id: "homem_nao_se_redime", title: "Incapacidade de Auto-Redenção", ref: "CIC § 1989 • DH 1521", def: "O homem caído não pode justificar-se perante Deus sem a graça preveniente de Cristo.", quote: "Sem Mim, nada podeis fazer. — São João 15, 5." }
                 ],
                 "Dogmas Marianos": [
-                    "A Maternidade Divina de Maria (Theotokos)", "A Virgindade Perpétua de Maria", "A Imaculada Conceição de Maria", "A Assunção de Maria em Corpo e Alma"
+                    { id: "maternidade_divina", title: "Maternidade Divina (Theotokos)", ref: "CIC §§ 495, 509 • DH 251", def: "Maria é verdadeiramente Mãe de Deus por ter gerado a Pessoa Divina do Filho na carne.", quote: "Se alguém não confessar que a Santíssima Virgem é verdadeiramente Mãe de Deus (Theotokos)... seja anátema. — Concílio de Éfeso (431)." },
+                    { id: "virgindade_perpetua", title: "Virgindade Perpétua de Maria", ref: "CIC §§ 499-501 • DH 501", def: "Maria permaneceu virgem antes, durante e perpetuamente após o parto de Jesus.", quote: "Maria concebeu sem sêmen, deu à luz sem corrupção e permaneceu Virgem perpetuamente. — Concílio de Latrão (649)." },
+                    { id: "imaculada_conceicao", title: "Imaculada Conceição", ref: "CIC §§ 490-493 • Bula Ineffabilis Deus", def: "Maria foi preservada imune de toda mancha do pecado original no primeiro instante de sua concepção.", quote: "A Beatíssima Virgem Maria foi preservada imune de toda a mancha do pecado original por singular graça de Deus. — Papa Pio IX (1854)." },
+                    { id: "assuncao_maria", title: "Assunção em Corpo e Alma", ref: "CIC §§ 966, 974 • Bula Munificentissimus Deus", def: "Ao fim de sua vida terrena, Maria foi elevada em corpo e alma à glória celestial.", quote: "A Imaculada Mãe de Deus, a sempre Virgem Maria, terminado o curso da vida terrestre, foi elevada em corpo e alma à glória celestial. — Papa Pio XII (1950)." }
                 ],
                 "Sobre o Papa e a Igreja": [
-                    "A Igreja foi fundada por Jesus Cristo", "Cristo conferiu a Pedro o primado de jurisdição sobre toda a Igreja", "O Papa possui poder de jurisdição pleno e supremo sobre a Igreja", "O Papa é infalível quando fala ex cathedra", "A Igreja é infalível ao definir matéria de fé e costumes"
+                    { id: "fundacao_igreja", title: "Fundação da Igreja por Cristo", ref: "CIC § 763 • Mt 16,18", def: "Jesus Cristo fundou a Sua Igreja única para prosseguir a missão de salvação na terra.", quote: "Tu és Pedro, e sobre esta pedra edificarei a Minha Igreja. — São Mateus 16, 18." },
+                    { id: "primado_pedro", title: "Primado de Jurisdição de Pedro", ref: "CIC § 881 • DH 3055", def: "Cristo conferiu a São Pedro o primado de jurisdição real e supremo sobre toda a Igreja.", quote: "O Apóstolo Pedro recebeu diretamente de Cristo Senhor o primado de jurisdição sobre toda a Igreja de Deus. — Vaticano I (1870)." },
+                    { id: "jurisdicao_papa", title: "Jurisdição Plena do Papa", ref: "CIC § 882 • DH 3064", def: "O Bispo de Roma possui poder supremo, pleno, ordinário e imediato sobre todos os fiéis.", quote: "O Romano Pontífice tem o poder supremo e pleno de jurisdição sobre toda a Igreja. — Concílio Vaticano I." },
+                    { id: "infalibilidade_papa", title: "Infalibilidade Papal ex cathedra", ref: "CIC § 891 • DH 3074", def: "O Papa é infalível quando define ex cathedra matérias de fé ou costumes para a Igreja Universal.", quote: "O Romano Pontífice goza daquela infalibilidade com que o Divino Redentor quis dotar a Sua Igreja. — Concílio Vaticano I." },
+                    { id: "infalibilidade_igreja", title: "Infalibilidade da Igreja", ref: "CIC § 889 • DH 3011", def: "A Igreja é infalível ao propor e conservar inalterado o depósito da Fé revelada.", quote: "A totalidade dos fiéis não pode enganar-se na fé graças ao sentido sobrenatural da fé de todo o povo. — Vaticano II (Lumen Gentium 12)." }
                 ],
                 "Sobre os Sacramentos": [
-                    "O Batismo é um verdadeiro Sacramento instituído por Cristo", "A Confirmação é um verdadeiro Sacramento", "A Igreja tem o poder de perdoar os pecados cometidos após o Batismo", "A Confissão Sacramental é de direito divino e necessária para a salvação", "A Eucaristia é um verdadeiro Sacramento instituído por Cristo", "A Presença Real de Cristo na Eucaristia pela Transubstanciação", "A Unção dos Enfermos é um verdadeiro Sacramento", "A Ordem é um verdadeiro Sacramento", "O Matrimónio é um verdadeiro Sacramento"
+                    { id: "batismo_sacramento", title: "Sacramento do Batismo", ref: "CIC § 1213 • DH 1614", def: "O Batismo é o sacramento da regeneração que perdoa o pecado original e incorpora a alma na Igreja.", quote: "Quem não renascer da água e do Espírito não pode entrar no Reino de Deus. — São João 3, 5." },
+                    { id: "confirmacao_sacramento", title: "Sacramento da Confirmação", ref: "CIC § 1285 • DH 1628", def: "A Confirmação (Crisma) confere a plenitude do Espírito Santo para o testemunho cristão.", quote: "A Confirmação imprime caráter e confere a força do Espírito Santo. — Concílio de Trento." },
+                    { id: "poder_perdoar_pecados", title: "Poder de Perdoar Pecados", ref: "CIC § 1441 • Jo 20,23", def: "A Igreja possui o poder divinamente delegado de perdoar os pecados cometidos após o Batismo.", quote: "Àqueles a quem perdoardes os pecados, lhes são perdoados. — São João 20, 23." },
+                    { id: "confissao_necessaria", title: "Necessidade da Confissão", ref: "CIC § 1456 • DH 1679", def: "A confissão auricular individual dos pecados graves é de direito divino e necessária à salvação.", quote: "Se alguém disser que a confissão sacramental não foi instituída por direito divino... seja anátema. — Concílio de Trento." },
+                    { id: "eucaristia_sacramento", title: "Sacramento da Eucaristia", ref: "CIC § 1322 • DH 1636", def: "A Eucaristia é a fonte e o ápice de toda a vida cristã, contendo o próprio Cristo Nosso Senhor.", quote: "Isto é o Meu Corpo, que é dado por vós. — São Lucas 22, 19." },
+                    { id: "presenca_real", title: "Transubstanciação Eucarística", ref: "CIC § 1376 • DH 1642", def: "Pela consagração converte-se toda a substância do pão no Corpo e a do vinho no Sangue de Cristo.", quote: "Pela consagração opera-se a conversão de toda a substância do pão na substância do Corpo de Cristo. — Concílio de Trento (1551)." },
+                    { id: "uncao_enfermos", title: "Unção dos Enfermos", ref: "CIC § 1511 • Tiago 5,14", def: "Sacramento que confere a graça de alívio e fortalecimento espiritual aos enfermos graves.", quote: "Está alguém enfermo? Chame os presbíteros da Igreja e orem sobre ele, ungindo-o com óleo. — Tiago 5, 14." },
+                    { id: "ordem_sacramento", title: "Sacramento da Ordem", ref: "CIC § 1536 • DH 1764", def: "Sacramento pelo qual a missão confiada por Cristo aos Apóstolos continua a ser exercida na Igreja.", quote: "A Ordem Sagrada é um verdadeiro sacramento instituído por Cristo. — Concílio de Trento." },
+                    { id: "matrimonio_sacramento", title: "Sacramento do Matrimônio", ref: "CIC § 1601 • Ef 5,31", def: "A aliança matrimonial entre homem e mulher batizados é elevada por Cristo à dignidade de sacramento.", quote: "O matrimônio cristão é sinal da união indissolúvel entre Cristo e a Igreja. — Concílio de Trento." }
                 ],
                 "Sobre as Últimas Coisas": [
-                    "A Morte é consequência do pecado", "O Céu (visão beatífica) é o destino dos justos", "O Inferno existe e é eterno", "O Purgatório existe como estado de purificação", "No fim do mundo, Cristo voltará para julgar", "A Ressurreição dos mortos no Último Dia", "Haverá um Juízo Universal"
+                    { id: "morte_pecado", title: "Morte como Consequência", ref: "CIC § 1008 • Rom 6,23", def: "A morte física entrou no mundo como consequência e castigo do pecado de Adão.", quote: "O salário do pecado é a morte, mas o dom de Deus é a vida eterna. — Romanos 6, 23." },
+                    { id: "ceu_justos", title: "O Céu e a Visão Beatífica", ref: "CIC § 1023 • DH 1000", def: "As almas dos justos sem mancha contemplam a Deus face a face na felicidade perfeita e eterna.", quote: "As almas dos justos veem a essência divina com uma visão intuitiva e face a face. — Papa Bento XII (1336)." },
+                    { id: "inferno_eterno", title: "Existência do Inferno", ref: "CIC § 1035 • Mt 25,41", def: "Aqueles que morrem voluntariamente em pecado mortal sem arrependimento sofrem a penas eternas.", quote: "Apartai-vos de Mim, malditos, para o fogo eterno. — São Mateus 25, 41." },
+                    { id: "purgatorio_existencia", title: "Existência do Purgatório", ref: "CIC § 1030 • DH 1580", def: "Estado de purificação final para as almas falecidas na graça de Deus mas imperfeitamente purificadas.", quote: "Existe o Purgatório e as almas nele detidas são ajudadas pelos sufrágios dos fiéis. — Concílio de Trento." },
+                    { id: "volta_cristo", title: "A Parusia e Volta de Cristo", ref: "CIC § 675 • Atos 1,11", def: "No fim dos tempos, Jesus Cristo voltará visivelmente em glória para estabelecer o Seu Reino supremo.", quote: "Este Jesus voltará do mesmo modo que O vistes subir ao Céu. — Atos 1, 11." },
+                    { id: "ressurreicao_mortos", title: "Ressurreição no Último Dia", ref: "CIC § 998 • 1 Cor 15", def: "No Juízo Final, todos os seres humanos ressuscitarão com os seus próprios corpos para a eternidade.", quote: "Todos os homens ressuscitarão com os seus próprios corpos que agora possuem. — Concílio de Latrão IV." },
+                    { id: "juizo_universal", title: "O Juízo Universal", ref: "CIC § 1038 • Mt 25,31", def: "Haverá um Juízo Universal em que os segredos dos corações serão revelados e o destino definitivo pronunciado.", quote: "Quando o Filho do Homem vier na Sua glória, todas as nações serão reunidas diante d'Ele. — São Mateus 25, 31." }
                 ]
             };
 
             const dogmaContainer = document.getElementById('dogma-container');
             if (dogmaContainer) {
-                Object.keys(dogmas).forEach(category => {
+                Object.keys(dogmasDetailed).forEach(category => {
                     const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'monastery-card rounded-xl overflow-hidden';
+                    categoryDiv.className = 'monastery-card rounded-2xl overflow-hidden shadow-xs border border-[#d4ccb8]';
 
                     const header = document.createElement('div');
-                    header.className = 'p-3.5 sm:p-4 flex justify-between items-center cursor-pointer select-none hover:bg-[#dfd8c7]/50 transition-colors';
+                    header.className = 'p-4 sm:p-5 flex justify-between items-center cursor-pointer select-none hover:bg-[#dfd8c7]/50 transition-colors border-b border-[#d4ccb8]/60';
                     header.innerHTML = `
-                        <h3 class="text-sm sm:text-base font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
+                        <h3 class="text-base sm:text-lg font-bold font-cinzel text-[#1a2421] flex items-center gap-2">
                             <span class="text-[#2d4a3e]">✦</span> ${category}
+                            <span class="text-xs font-mono font-normal text-[#52635c] ml-1">(${dogmasDetailed[category].length})</span>
                         </h3>
-                        <span class="w-6 h-6 rounded-full bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-xs transform transition-transform duration-300">+</span>
+                        <span class="w-7 h-7 rounded-full bg-[#dfd8c7] border border-[#d4ccb8] flex items-center justify-center text-[#2d4a3e] font-bold text-xs transform transition-transform duration-300">+</span>
                     `;
 
                     const content = document.createElement('div');
-                    content.className = 'p-3.5 sm:p-4 border-t border-[#d4ccb8] hidden space-y-2 bg-[#f4f1ea]/60';
-                    const list = document.createElement('ul');
-                    list.className = 'space-y-1.5 text-xs text-[#3a4742]';
-                    dogmas[category].forEach(dogma => {
-                        const item = document.createElement('li');
-                        item.className = 'flex items-start gap-2';
-                        item.innerHTML = `<span class="text-[#2d4a3e] font-bold mt-0.5">•</span><span>${dogma}</span>`;
-                        list.appendChild(item);
-                    });
-                    content.appendChild(list);
+                    content.className = 'p-4 sm:p-5 hidden space-y-3 bg-[#f4f1ea]/40 border-t border-[#d4ccb8]/40';
 
+                    const grid = document.createElement('div');
+                    grid.className = 'grid grid-cols-1 gap-3';
+
+                    dogmasDetailed[category].forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'p-3.5 sm:p-4 rounded-xl bg-[#eae5d9] border border-[#d4ccb8] flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-[#2d4a3e] transition-all';
+                        card.innerHTML = `
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold font-cinzel text-sm text-[#1a2421]">${item.title}</h4>
+                                    <span class="text-[10px] font-mono text-[#2d4a3e] bg-[#dfd8c7] px-1.5 py-0.5 rounded font-semibold">${item.ref}</span>
+                                </div>
+                                <p class="text-xs text-[#52635c] line-clamp-1 leading-relaxed">${item.def}</p>
+                            </div>
+                            <button onclick="openDogmaModal('${item.id}', '${category.replace(/'/g, "\\'")}')" class="shrink-0 px-3 py-1.5 rounded-lg bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all shadow-2xs text-center">
+                                Dossiê →
+                            </button>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    content.appendChild(grid);
                     categoryDiv.appendChild(header);
                     categoryDiv.appendChild(content);
 
@@ -941,9 +965,95 @@
                 });
             });
 
-            loadLabCase('trinity');
         });
+
+        // Funcoes globais para o Modal Dossie do Modelo 1
+        function openDogmaModal(id, categoryName) {
+            const items = dogmasDetailed[categoryName];
+            if (!items) return;
+            const item = items.find(d => d.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-dogma-cat').textContent = categoryName;
+            document.getElementById('modal-dogma-title').textContent = item.title;
+            document.getElementById('modal-dogma-ref').textContent = item.ref;
+            document.getElementById('modal-dogma-def').textContent = item.def;
+            document.getElementById('modal-dogma-quote').textContent = item.quote;
+
+            // Atualizar o link do botao para abrir diretamente a rota especifica do dogma no Proof Browser
+            const proofBtn = document.getElementById('modal-proof-link');
+            if (proofBtn) {
+                proofBtn.href = `prova.html#${item.id}`;
+            }
+
+            document.getElementById('dogma-dossier-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDogmaModal() {
+            document.getElementById('dogma-dossier-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
     </script>
+
+    <!-- Modal Dossie Teologico (Modelo 1) -->
+    <div id="dogma-dossier-modal"
+        class="fixed inset-0 bg-stone-900/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4 transition-opacity">
+        <div
+            class="monastery-card w-full max-w-2xl rounded-2xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl relative border border-[#d4ccb8]">
+            <button onclick="closeDogmaModal()"
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#dfd8c7] text-[#1a2421] font-bold text-sm flex items-center justify-center hover:bg-[#d4ccb8] transition-colors"
+                aria-label="Fechar Modal">✕</button>
+
+            <div class="space-y-1 pr-8">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#2d4a3e]" id="modal-dogma-cat">Dossiê
+                        Teológico</span>
+                    <span class="text-[10px] font-mono text-[#2d4a3e] bg-[#dfd8c7] px-2 py-0.5 rounded font-semibold"
+                        id="modal-dogma-ref">CIC</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold font-cinzel text-[#1a2421]" id="modal-dogma-title">Título do
+                    Dogma</h2>
+            </div>
+
+            <div class="space-y-5 text-xs sm:text-sm text-[#3a4742] leading-relaxed">
+                <div class="space-y-1">
+                    <h4 class="font-bold uppercase text-xs text-[#b8860b] tracking-wider">Definição Dogmática Detalhada
+                    </h4>
+                    <p id="modal-dogma-def" class="text-sm leading-relaxed text-[#1a2421]">
+                        Descrição teológica detalhada.
+                    </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#f4f1ea] border border-[#d4ccb8] space-y-2">
+                    <h4 class="font-bold uppercase text-xs text-[#2d4a3e] tracking-wider flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-[#2d4a3e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                        <span>Fonte do Magistério / Citação Conciliar</span>
+                    </h4>
+                    <blockquote id="modal-dogma-quote"
+                        class="text-xs sm:text-sm italic text-[#1a2421] border-l-2 border-[#2d4a3e] pl-3 py-1">
+                        Citação conciliar ou escriturística.
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-[#d4ccb8] flex flex-col sm:flex-row justify-between items-center gap-3">
+                <span class="text-xs text-[#52635c]">Validação Lógica: <strong class="text-[#2d4a3e]">Resistente
+                        (Modelada)</strong></span>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="closeDogmaModal()"
+                        class="px-4 py-2 rounded-xl bg-[#dfd8c7] text-[#1a2421] text-xs font-semibold hover:bg-[#d4ccb8] transition-all flex-1 sm:flex-initial text-center">Fechar</button>
+                    <a id="modal-proof-link" href="prova.html" target="_blank"
+                        class="px-4 py-2 rounded-xl bg-[#2d4a3e] text-white text-xs font-semibold hover:bg-[#1c3329] transition-all flex-1 sm:flex-initial text-center shadow-xs">Navegar
+                        na Prova Lógica →</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
