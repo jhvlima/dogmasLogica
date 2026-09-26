@@ -54,6 +54,7 @@ Para evitar que este README ficasse extenso, a documentação detalhada foi divi
 - **[Sistema Causal e Hierarquia](docs/sistema_causal.md)**: Explicação completa dos 3 níveis: Axiomas, Fundamentos e Dogmas. Mostra como o rastreamento lógico funciona passo a passo.
 - **[Guia de Contribuição e Modelagem](docs/guia_contribuicao.md)**: Tutorial detalhado sobre como inserir novos versículos, dogmas, objeções e resoluções na base de conhecimento.
 - **[Deployment e JSON](docs/deployment.md)**: Detalhes de como o script exporta os dados do Prolog para JSON para serem consumidos pela interface Web interativa no GitHub Pages.
+- **[Trabalhos Correlatos e Estado da Arte](docs/trabalhos_correlatos.md)**: Levantamento sistemático da literatura acadêmica, Teologia Analítica, Metafísica Computacional, Círculo de Cracóvia e aplicação de Ontologias Formais (UFES/NEMO).
 - **[Magisterium API](docs/magisterium_api.md)**: Como usar a API REST do Magisterium como ferramenta auxiliar de pesquisa.
 - **[Rotina do Dogma Diário](docs/rotina_dogma_diario.md)**: Fluxo de estudo, revisão humana e promoção de fontes para a base oficial.
 - **[Notas de Refatoração (v2.1)](docs/notas_refatoracao.md)**: Detalhes técnicos sobre as mais recentes atualizações e implementações no rastreador de causalidade.
